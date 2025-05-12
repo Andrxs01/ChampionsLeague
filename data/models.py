@@ -53,7 +53,7 @@ class JugadorWithId(JugadorBase):
     eliminado_logico: bool
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # Equipo
 
@@ -74,4 +74,4 @@ class EquipoWithId(EquipoBase):
     eliminado_logico: bool
 
     class Config:
-        orm_mode = True
+        from_attributes = True
