@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from sqlalchemy import Column, Integer, String, Boolean
-from db import Base
+from utils.db import Base
 
 # ---------------------- SQLAlchemy Models ----------------------
 
