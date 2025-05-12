@@ -1,0 +1,4 @@
+id,nombre,equipo,posicion,edad,nacionalidad,goles,asistencias,eliminado
+147,string,string,string,0,string,0,0,False
+148,string,string,string,0,string,0,0,False
+150,Santos Triana,U Catolica,Portero,32,Colombia,0,3,True
