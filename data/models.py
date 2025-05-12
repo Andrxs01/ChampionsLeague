@@ -1,4 +1,3 @@
-# models.py
 from pydantic import BaseModel
 from sqlalchemy import Column, Integer, String, Boolean
 from db import Base
@@ -27,6 +26,7 @@ class Equipo(Base):
     pais = Column(String, nullable=False)
     grupo = Column(String, nullable=False)
     eliminado = Column(Boolean, default=False)
+    eliminado_logico = Column(Boolean, default=False)
 
 # ---------------------- Pydantic Schemas ----------------------
 
@@ -71,6 +71,7 @@ class EquipoUpdate(EquipoBase):
 
 class EquipoWithId(EquipoBase):
     id: int
+    eliminado_logico: bool
 
     class Config:
         orm_mode = True

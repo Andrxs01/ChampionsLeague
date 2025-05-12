@@ -1,4 +1,3 @@
-# main.py
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from db import SessionLocal, engine, Base
@@ -88,4 +87,4 @@ def eliminar_equipo(equipo_id: int, db: Session = Depends(get_db)):
     eliminado = equipo_operations.eliminar_equipo(db, equipo_id)
     if not eliminado:
         raise HTTPException(status_code=404, detail="Equipo no encontrado")
-    return {"mensaje": "Equipo eliminado"}
+    return {"mensaje": "Equipo eliminado lógicamente"}
