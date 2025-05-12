@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from models import Jugador, JugadorCreate, JugadorUpdate
+from data.models import Jugador, JugadorCreate, JugadorUpdate
 
 # Crear jugador
 def crear_jugador(db: Session, jugador: JugadorCreate):

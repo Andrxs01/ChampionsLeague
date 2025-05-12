@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from models import Equipo, EquipoCreate, EquipoUpdate
+from data.models import Equipo, EquipoCreate, EquipoUpdate
 
 # Crear equipo
 def crear_equipo(db: Session, equipo: EquipoCreate):

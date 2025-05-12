@@ -1,70 +1,43 @@
-import csv
-from sqlalchemy.orm import Session
+import pandas as pd
+from sqlalchemy.orm import sessionmaker
+from utils.db import engine
 from data.models import Jugador, Equipo
-from utils.db import SessionLocal
 
+# Crear la sesión de base de datos
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+db = SessionLocal()
 
-# Función para importar jugadores desde un CSV
-def importar_jugadores_csv(db: Session, ruta_csv: str):
-    with open(ruta_csv, mode="r") as archivo_csv:
-        lector_csv = csv.DictReader(archivo_csv)
-        jugadores = []
+# Cargar datos de los archivos CSV usando pandas
+jugadores_df = pd.read_csv('data/jugadores.csv', encoding='utf-8')
+equipos_df = pd.read_csv('data/equipos.csv', encoding='utf-8')
 
-        for fila in lector_csv:
-            jugador = Jugador(
-                nombre=fila["nombre"],
-                equipo=fila["equipo"],
-                posicion=fila["posicion"],
-                edad=int(fila["edad"]),
-                nacionalidad=fila["nacionalidad"],
-                goles=int(fila["goles"]),
-                asistencias=int(fila["asistencias"]),
-                eliminado=fila["eliminado"] == "True",
-                eliminado_logico=fila["eliminado_logico"] == "True"
-            )
-            jugadores.append(jugador)
+# Insertar datos de jugadores en la base de datos
+for index, row in jugadores_df.iterrows():
+    jugador = Jugador(
+        nombre=row['nombre'],
+        equipo=row['equipo'],
+        posicion=row['posicion'],
+        edad=row['edad'],
+        nacionalidad=row['nacionalidad'],
+        goles=row['goles'],
+        asistencias=row['asistencias'],
+        eliminado=row['eliminado'],
+        eliminado_logico=row['eliminado_logico']
+    )
+    db.add(jugador)
 
-        # Agregar los jugadores a la base de datos
-        db.add_all(jugadores)
-        db.commit()
+# Insertar datos de equipos en la base de datos
+for index, row in equipos_df.iterrows():
+    equipo = Equipo(
+        nombre=row['nombre'],
+        pais=row['pais'],
+        grupo=row['grupo'],
+        eliminado=row['eliminado']
+    )
+    db.add(equipo)
 
+# Commit y cierre
+db.commit()
+db.close()
 
-# Función para importar equipos desde un CSV
-def importar_equipos_csv(db: Session, ruta_csv: str):
-    with open(ruta_csv, mode="r") as archivo_csv:
-        lector_csv = csv.DictReader(archivo_csv)
-        equipos = []
-
-        for fila in lector_csv:
-            equipo = Equipo(
-                nombre=fila["nombre"],
-                pais=fila["pais"],
-                grupo=fila["grupo"],
-                eliminado=fila["eliminado"] == "True"
-            )
-            equipos.append(equipo)
-
-        # Agregar los equipos a la base de datos
-        db.add_all(equipos)
-        db.commit()
-
-
-# Función principal para migrar datos
-def migrar_datos():
-    db = SessionLocal()
-    try:
-        # Importar jugadores desde CSV
-        importar_jugadores_csv(db, "ruta_a_tu_archivo/jugadores.csv")
-
-        # Importar equipos desde CSV
-        importar_equipos_csv(db, "ruta_a_tu_archivo/equipos.csv")
-
-        print("Migración completada con éxito!")
-    except Exception as e:
-        print(f"Ocurrió un error durante la migración: {e}")
-    finally:
-        db.close()
-
-
-if __name__ == "__main__":
-    migrar_datos()
+print("Migración completa.")
