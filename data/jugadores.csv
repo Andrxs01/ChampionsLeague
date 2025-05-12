@@ -1,148 +1,145 @@
-id,nombre,equipo,posicion,edad,nacionalidad,goles,asistencias,eliminado
-1,Cristiano Ronaldo,Real Madrid,Delantero,33,Portugal,15,3,False
-2,Roberto Firmino,Liverpool,Delantero,26,Brasil,10,8,False
-3,Mohamed Salah,Liverpool,Delantero,25,Egipto,10,4,False
-4,Sadio Mané,Liverpool,Delantero,25,Senegal,10,1,False
-5,Edin Džeko,Roma,Delantero,32,Bosnia y Herzegovina,8,2,True
-6,Wissam Ben Yedder,Sevilla,Delantero,27,Francia,8,0,True
-7,Harry Kane,Tottenham Hotspur,Delantero,24,Inglaterra,7,2,True
-8,Edinson Cavani,Paris Saint-Germain,Delantero,31,Uruguay,7,1,True
-9,Neymar,Paris Saint-Germain,Delantero,26,Brasil,6,4,True
-10,Lionel Messi,Barcelona,Delantero,30,Argentina,6,2,True
-11,Philippe Coutinho,Liverpool,Mediocampista,25,Brasil,5,2,False
-12,Karim Benzema,Real Madrid,Delantero,30,Francia,5,1,False
-13,Gonzalo Higuaín,Juventus,Delantero,30,Argentina,5,1,True
-14,Romelu Lukaku,Manchester United,Delantero,24,Bélgica,5,0,True
-15,Robert Lewandowski,Bayern Munich,Delantero,29,Polonia,5,1,True
-16,James Milner,Liverpool,Mediocampista,32,Inglaterra,0,9,False
-17,Luis Suárez,Barcelona,Delantero,31,Uruguay,0,5,True
-18,Kevin De Bruyne,Manchester City,Mediocampista,26,Bélgica,1,4,True
-19,Marcelo,Real Madrid,Defensa,29,Brasil,3,4,False
-20,Kylian Mbappé,Paris Saint-Germain,Delantero,19,Francia,4,3,True
-21,Joshua Kimmich,Bayern Munich,Defensa,23,Alemania,4,3,True
-22,Dele Alli,Tottenham Hotspur,Mediocampista,22,Inglaterra,2,4,True
-23,Raheem Sterling,Manchester City,Delantero,23,Inglaterra,4,1,True
-24,Cenk Tosun,Beşiktaş,Delantero,26,Turquía,4,2,True
-25,Eden Hazard,Chelsea,Delantero,27,Bélgica,3,3,True
-26,Daniel Carvajal,Real Madrid,Defensa,26,España,0,3,False
-27,Dries Mertens,Napoli,Delantero,30,Bélgica,2,3,True
-28,Ricardo Quaresma,Beşiktaş,Delantero,34,Portugal,0,3,True
-29,Aleksandar Kolarov,Roma,Defensa,32,Serbia,1,3,True
-30,Joaquín Correa,Sevilla,Delantero,23,Argentina,1,3,True
-31,Danilo Pereira,Porto,Mediocampista,26,Portugal,1,3,True
-32,Alberto Moreno,Liverpool,Defensa,25,España,0,3,False
-33,Kieran Trippier,Tottenham Hotspur,Defensa,27,Inglaterra,0,3,True
-34,Nicolás Otamendi,Manchester City,Defensa,30,Argentina,3,0,True
-35,Anderson Talisca,Beşiktaş,Mediocampista,24,Brasil,4,0,True
-36,Dimitri Oberlin,Basel,Delantero,20,Suiza,4,0,True
-37,Pierre-Emerick Aubameyang,Borussia Dortmund,Delantero,28,Gabón,4,0,True
-38,Vincent Aboubakar,Porto,Delantero,26,Camerún,5,2,True
-39,Heung-Min Son,Tottenham Hotspur,Delantero,25,Corea del Sur,4,1,True
-40,Sergio Agüero,Manchester City,Delantero,29,Argentina,4,1,True
-41,Mario Mandžukić,Juventus,Delantero,31,Croacia,4,0,True
-42,Gabriel Jesus,Manchester City,Delantero,20,Brasil,4,0,True
-43,Gareth Bale,Real Madrid,Delantero,28,Gales,3,0,False
-44,Timo Werner,RB Leipzig,Delantero,22,Alemania,3,0,True
-45,André Silva,AC Milan,Delantero,22,Portugal,3,0,True
-46,Paul Pogba,Manchester United,Mediocampista,25,Francia,2,2,True
-47,Isco,Real Madrid,Mediocampista,25,España,2,2,False
-48,Andrés Iniesta,Barcelona,Mediocampista,33,España,0,2,True
-49,David Silva,Manchester City,Mediocampista,32,España,1,2,True
-50,Miralem Pjanić,Juventus,Mediocampista,28,Bosnia y Herzegovina,2,2,True
-51,Thiago Alcántara,Bayern Munich,Mediocampista,27,España,2,2,True
-52,Henrikh Mkhitaryan,Arsenal,Mediocampista,29,Armenia,2,2,True
-53,Juan Mata,Manchester United,Mediocampista,29,España,1,2,True
-54,Andriy Yarmolenko,Borussia Dortmund,Delantero,28,Ucrania,1,2,True
-55,Alex Oxlade-Chamberlain,Liverpool,Mediocampista,24,Inglaterra,2,2,False
-56,Marouane Fellaini,Manchester United,Mediocampista,30,Bélgica,2,1,True
-57,Philippe Coutinho,Liverpool,Mediocampista,25,Brasil,5,0,True
-58,Joshua Kimmich,Bayern Munich,Defensa,22,Alemania,4,1,True
-59,Romelu Lukaku,Manchester United,Delantero,24,Bélgica,5,1,True
-60,Andriy Yarmolenko,Borussia Dortmund,Delantero,28,Ucrania,1,2,True
-61,Raphael Varane,Real Madrid,Defensa,24,Francia,1,1,False
-62,Willian,Chelsea,Mediocampista,29,Brasil,3,1,True
-63,Harry Kane,Tottenham Hotspur,Delantero,24,Inglaterra,7,2,True
-64,Dele Alli,Tottenham Hotspur,Mediocampista,21,Inglaterra,2,2,True
-65,Corentin Tolisso,Bayern Munich,Mediocampista,23,Francia,3,1,True
-66,Radamel Falcao,Monaco,Delantero,31,Colombia,2,1,True
-67,Marcos Alonso,Chelsea,Defensa,27,España,1,1,True
-68,Miralem Pjanic,Juventus,Mediocampista,27,Bosnia y Herzegovina,1,1,True
-69,Juan Mata,Manchester United,Mediocampista,29,España,1,1,True
-70,Ciro Immobile,Lazio,Delantero,28,Italia,1,1,True
-71,Otavio,Porto,Mediocampista,22,Brasil,1,1,True
-72,Danijel Subasic,Monaco,Portero,33,Croacia,0,1,True
-73,Ander Herrera,Manchester United,Mediocampista,28,España,1,1,True
-74,Douglas Costa,Juventus,Delantero,27,Brasil,1,3,True
-75,Thomas Müller,Bayern Munich,Delantero,28,Alemania,4,2,True
-76,Christian Eriksen,Tottenham Hotspur,Mediocampista,25,Dinamarca,2,2,True
-77,Serge Gnabry,Hoffenheim,Delantero,22,Alemania,2,1,True
-79,Lorenzo Insigne,Napoli,Delantero,26,Italia,2,1,True
-80,Marek Hamsik,Napoli,Delantero Centro,30,Eslovaquia,1,1,True
-81,Thorgan Hazard,Borussia Mönchengladbach,Mediocampista,24,Bélgica,1,1,True
-82,Lucas Vázquez,Real Madrid,Delantero,26,España,1,3,False
-83,Andres Guardado,Real Betis,Mediocampista,31,México,1,1,True
-84,Achraf Hakimi,Real Madrid,Defensa,19,Marruecos,1,1,False
-85,Benjamin Pavard,Stuttgart,Defensa,22,Francia,1,1,True
-86,Federico Fazio,Roma,Defensa,30,Argentina,1,1,True
-87,Kevin Gameiro,Atlético de Madrid,Delantero,30,Francia,2,1,True
-88,Naby Keïta,RB Leipzig,Mediocampista,23,Guinea,1,1,True
-89,André Gomes,Barcelona,Mediocampista,24,Portugal,0,1,True
-90,Luka Modrić,Real Madrid,Mediocampista,32,Croacia,1,1,False
-91,Marco Asensio,Real Madrid,Delantero,22,España,2,1,False
-92,Theo Hernández,Real Madrid,Defensa,20,Francia,0,1,False
-93,Keylor Navas,Real Madrid,Portero,31,Costa Rica,0,1,False
-94,Alessandro Florenzi,Roma,Defensa,27,Italia,1,2,True
-95,André Onana,Ajax,Portero,22,Camerún,0,1,True
-96,Yannick Carrasco,Atlético de Madrid,Delantero,24,Bélgica,1,1,True
-97,Clément Lenglet,Sevilla,Defensa,22,Francia,1,1,True
-98,Julian Draxler,Paris Saint-Germain,Mediocampista,24,Alemania,1,2,True
-99,Lucas Moura,Paris Saint-Germain,Delantero,25,Brasil,2,1,True
-100,Dani Alves,Paris Saint-Germain,Defensa,34,Brasil,1,2,True
-101,Trent Alexander-Arnold,Liverpool,Defensa,19,Inglaterra,1,1,False
-102,Georginio Wijnaldum,Liverpool,Mediocampista,27,Países Bajos,1,1,False
-103,Jordan Henderson,Liverpool,Mediocampista,27,Inglaterra,0,1,False
-104,Toni Kroos,Real Madrid,Mediocampista,28,Alemania,1,2,False
-105,Lucas Hernández,Atlético de Madrid,Defensa,22,Francia,1,0,True
-106,Medhi Benatia,Juventus,Defensa,30,Marruecos,1,0,True
-107,Andrea Barzagli,Juventus,Defensa,36,Italia,0,1,True
-108,Blaise Matuidi,Juventus,Mediocampista,30,Francia,1,1,True
-109,Thomas Partey,Atlético de Madrid,Mediocampista,24,Ghana,1,1,True
-110,Sami Khedira,Juventus,Mediocampista,30,Alemania,2,1,True
-111,Mats Hummels,Bayern Munich,Defensa,29,Alemania,1,0,True
-112,Arturo Vidal,Bayern Munich,Mediocampista,30,Chile,1,1,True
-113,Jordi Alba,Barcelona,Defensa,28,España,0,2,True
-114,Gerard Piqué,Barcelona,Defensa,30,España,1,0,True
-115,André Gomes,Barcelona,Mediocampista,24,Portugal,1,1,True
-116,Ilkay Gündogan,Manchester City,Mediocampista,27,Alemania,2,2,True
-117,Aymeric Laporte,Manchester City,Defensa,23,Francia,0,1,True
-118,Fernandinho,Manchester City,Mediocampista,32,Brasil,1,1,True
-119,Alisson Becker,Roma,Portero,25,Brasil,0,1,True
-120,Diego Perotti,Roma,Delantero,29,Argentina,3,1,True
-121,Stephan El Shaarawy,Roma,Delantero,25,Italia,2,1,True
-122,Bruno Peres,Roma,Defensa,27,Brasil,1,1,True
-123,Nacho Fernández,Real Madrid,Defensa,28,España,1,0,False
-124,Jesús Navas,Sevilla,Defensa,32,España,0,1,True
-125,Steven Nzonzi,Sevilla,Mediocampista,29,Francia,1,0,True
-126,Fernando,Liverpool,Mediocampista,30,Brasil,1,0,False
-127,Jérôme Boateng,Bayern Munich,Defensa,29,Alemania,1,1,True
-128,David Alaba,Bayern Munich,Defensa,25,Austria,0,2,True
-129,Javi Martínez,Bayern Munich,Mediocampista,29,España,1,0,True
-130,Corentin Tolisso,Bayern Munich,Mediocampista,23,Francia,2,2,True
-131,Ousmane Dembélé,Barcelona,Delantero,20,Francia,1,1,True
-132,Paco Alcácer,Barcelona,Delantero,24,España,1,0,True
-133,Samuel Umtiti,Barcelona,Defensa,24,Francia,0,1,True
-134,Riyad Mahrez,Leicester City,Delantero,26,Argelia,1,1,True
-135,Leroy Sané,Manchester City,Delantero,22,Alemania,2,2,True
-136,Bernardo Silva,Manchester City,Mediocampista,23,Portugal,1,2,True
-137,Fabinho,Monaco,Mediocampista,24,Brasil,1,1,True
-138,Keita Baldé,Monaco,Delantero,22,Senegal,1,0,True
-139,Serge Aurier,Tottenham Hotspur,Defensa,25,Costa de Marfil,0,1,True
-140,Ben Davies,Tottenham Hotspur,Defensa,24,Gales,1,0,True
-141,Antonio Rüdiger,Chelsea,Defensa,24,Alemania,1,0,True
-142,Victor Moses,Chelsea,Defensa,27,Nigeria,0,1,True
-143,Álvaro Morata,Chelsea,Delantero,25,España,2,1,True
-144,Cesc Fàbregas,Chelsea,Mediocampista,30,España,1,2,True
-145,Pedro Rodríguez,Chelsea,Delantero,30,España,1,1,True
-146,Ross Barkley,Chelsea,Mediocampista,24,Inglaterra,1,0,True
-149,string,string,string,0,string,0,0,False
-151,Sergio,U Catolica,Portero,32,Colombia,0,3,True
+id,nombre,equipo,posicion,edad,nacionalidad,goles,asistencias,eliminado,eliminado_logico
+1,Cristiano Ronaldo,Real Madrid,Delantero,33,Portugal,15,3,False,False
+2,Roberto Firmino,Liverpool,Delantero,26,Brasil,10,8,False,False
+3,Mohamed Salah,Liverpool,Delantero,25,Egipto,10,4,False,False
+4,Sadio Mané,Liverpool,Delantero,25,Senegal,10,1,False,False
+5,Edin Džeko,Roma,Delantero,32,Bosnia y Herzegovina,8,2,True,False
+6,Wissam Ben Yedder,Sevilla,Delantero,27,Francia,8,0,True,False
+7,Harry Kane,Tottenham Hotspur,Delantero,24,Inglaterra,7,2,True,False
+8,Edinson Cavani,Paris Saint-Germain,Delantero,31,Uruguay,7,1,True,False
+9,Neymar,Paris Saint-Germain,Delantero,26,Brasil,6,4,True,False
+10,Lionel Messi,Barcelona,Delantero,30,Argentina,6,2,True,False
+11,Philippe Coutinho,Liverpool,Mediocampista,25,Brasil,5,2,False,False
+12,Karim Benzema,Real Madrid,Delantero,30,Francia,5,1,False,False
+13,Gonzalo Higuaín,Juventus,Delantero,30,Argentina,5,1,True,False
+14,Romelu Lukaku,Manchester United,Delantero,24,Bélgica,5,0,True,False
+15,Robert Lewandowski,Bayern Munich,Delantero,29,Polonia,5,1,True,False
+16,James Milner,Liverpool,Mediocampista,32,Inglaterra,0,9,False,False
+17,Luis Suárez,Barcelona,Delantero,31,Uruguay,0,5,True,False
+18,Kevin De Bruyne,Manchester City,Mediocampista,26,Bélgica,1,4,True,False
+19,Marcelo,Real Madrid,Defensa,29,Brasil,3,4,False,False
+20,Kylian Mbappé,Paris Saint-Germain,Delantero,19,Francia,4,3,True,False
+21,Joshua Kimmich,Bayern Munich,Defensa,23,Alemania,4,3,True,False
+22,Dele Alli,Tottenham Hotspur,Mediocampista,22,Inglaterra,2,4,True,False
+23,Raheem Sterling,Manchester City,Delantero,23,Inglaterra,4,1,True,False
+24,Cenk Tosun,Beşiktaş,Delantero,26,Turquía,4,2,True,False
+25,Eden Hazard,Chelsea,Delantero,27,Bélgica,3,3,True,False
+26,Daniel Carvajal,Real Madrid,Defensa,26,España,0,3,False,False
+27,Dries Mertens,Napoli,Delantero,30,Bélgica,2,3,True,False
+28,Ricardo Quaresma,Beşiktaş,Delantero,34,Portugal,0,3,True,False
+29,Aleksandar Kolarov,Roma,Defensa,32,Serbia,1,3,True,False
+30,Joaquín Correa,Sevilla,Delantero,23,Argentina,1,3,True,False
+31,Danilo Pereira,Porto,Mediocampista,26,Portugal,1,3,True,False
+32,Alberto Moreno,Liverpool,Defensa,25,España,0,3,False,False
+33,Kieran Trippier,Tottenham Hotspur,Defensa,27,Inglaterra,0,3,True,False
+34,Nicolás Otamendi,Manchester City,Defensa,30,Argentina,3,0,True,False
+35,Anderson Talisca,Beşiktaş,Mediocampista,24,Brasil,4,0,True,False
+36,Dimitri Oberlin,Basel,Delantero,20,Suiza,4,0,True,False
+37,Pierre-Emerick Aubameyang,Borussia Dortmund,Delantero,28,Gabón,4,0,True,False
+38,Vincent Aboubakar,Porto,Delantero,26,Camerún,5,2,True,False
+39,Heung-Min Son,Tottenham Hotspur,Delantero,25,Corea del Sur,4,1,True,False
+40,Sergio Agüero,Manchester City,Delantero,29,Argentina,4,1,True,False
+41,Mario Mandžukić,Juventus,Delantero,31,Croacia,4,0,True,False
+42,Gabriel Jesus,Manchester City,Delantero,20,Brasil,4,0,True,False
+43,Gareth Bale,Real Madrid,Delantero,28,Gales,3,0,False,False
+44,Timo Werner,RB Leipzig,Delantero,22,Alemania,3,0,True,False
+45,André Silva,AC Milan,Delantero,22,Portugal,3,0,True,False
+46,Paul Pogba,Manchester United,Mediocampista,25,Francia,2,2,True,False
+47,Isco,Real Madrid,Mediocampista,25,España,2,2,False,False
+48,Andrés Iniesta,Barcelona,Mediocampista,33,España,0,2,True,False
+49,David Silva,Manchester City,Mediocampista,32,España,1,2,True,False
+50,Miralem Pjanić,Juventus,Mediocampista,28,Bosnia y Herzegovina,2,2,True,False
+51,Thiago Alcântara,Bayern Munich,Mediocampista,27,España,2,2,True,False
+52,Henrikh Mkhitaryan,Arsenal,Mediocampista,29,Armenia,2,2,True,False
+53,Juan Mata,Manchester United,Mediocampista,29,España,1,2,True,False
+54,Andriy Yarmolenko,Borussia Dortmund,Delantero,28,Ucrania,1,2,True,False
+55,Alex Oxlade-Chamberlain,Liverpool,Mediocampista,24,Inglaterra,2,2,False,False
+56,Marouane Fellaini,Manchester United,Mediocampista,30,Bélgica,2,1,True,False
+57,Philippe Coutinho,Liverpool,Mediocampista,25,Brasil,5,0,True,False
+58,Joshua Kimmich,Bayern Munich,Defensa,22,Alemania,4,1,True,False
+59,Romelu Lukaku,Manchester United,Delantero,24,Bélgica,5,1,True,False
+60,Andriy Yarmolenko,Borussia Dortmund,Delantero,28,Ucrania,1,2,True,False
+61,Raphael Varane,Real Madrid,Defensa,24,Francia,1,1,False,False
+62,Willian,Chelsea,Mediocampista,29,Brasil,3,1,True,False
+63,Harry Kane,Tottenham Hotspur,Delantero,24,Inglaterra,7,2,True,False
+64,Dele Alli,Tottenham Hotspur,Mediocampista,21,Inglaterra,2,2,True,False
+65,Corentin Tolisso,Bayern Munich,Mediocampista,23,Francia,3,1,True,False
+66,Radamel Falcao,Monaco,Delantero,31,Colombia,2,1,True,False
+67,Marcos Alonso,Chelsea,Defensa,27,España,1,1,True,False
+68,Miralem Pjanic,Juventus,Mediocampista,27,Bosnia y Herzegovina,1,1,True,False
+69,Juan Mata,Manchester United,Mediocampista,29,España,1,1,True,False
+70,Ciro Immobile,Lazio,Delantero,28,Italia,1,1,True,False
+71,Otavio,Porto,Mediocampista,22,Brasil,1,1,True,False
+72,Danijel Subasic,Monaco,Portero,33,Croacia,0,1,True,False
+73,Ander Herrera,Manchester United,Mediocampista,28,España,1,1,True,False
+74,Douglas Costa,Juventus,Delantero,27,Brasil,1,3,True,False
+75,Thomas Müller,Bayern Munich,Delantero,28,Alemania,4,2,True,False
+76,Christian Eriksen,Tottenham Hotspur,Mediocampista,25,Dinamarca,2,2,True,False
+77,Serge Gnabry,Hoffenheim,Delantero,22,Alemania,2,1,True,False
+79,Lorenzo Insigne,Napoli,Delantero,26,Italia,2,1,True,False
+80,Marek Hamsik,Napoli,Delantero Centro,30,Eslovaquia,1,1,True,False
+81,Thorgan Hazard,Borussia Mönchengladbach,Mediocampista,24,Bélgica,1,1,True,False
+82,Lucas Vázquez,Real Madrid,Delantero,26,España,1,3,False,False
+83,Andres Guardado,Real Betis,Mediocampista,31,México,1,1,True,False
+84,Achraf Hakimi,Real Madrid,Defensa,19,Marruecos,1,1,False,False
+85,Benjamin Pavard,Stuttgart,Defensa,22,Francia,1,1,True,False
+86,Federico Fazio,Roma,Defensa,30,Argentina,1,1,True,False
+87,Kevin Gameiro,Atlético de Madrid,Delantero,30,Francia,2,1,True,False
+88,Naby Keïta,RB Leipzig,Mediocampista,23,Guinea,1,1,True,False
+89,André Gomes,Barcelona,Mediocampista,24,Portugal,0,1,True,False
+90,Luka Modrić,Real Madrid,Mediocampista,32,Croacia,1,1,False,False
+91,Marco Asensio,Real Madrid,Delantero,22,España,2,1,False,False
+92,Theo Hernández,Real Madrid,Defensa,20,Francia,0,1,False,False
+93,Keylor Navas,Real Madrid,Portero,31,Costa Rica,0,1,False,False
+94,Alessandro Florenzi,Roma,Defensa,27,Italia,1,2,True,False
+95,André Onana,Ajax,Portero,22,Camerún,0,1,True,False
+96,Yannick Carrasco,Atlético de Madrid,Delantero,24,Bélgica,1,1,True,False
+97,Clément Lenglet,Sevilla,Defensa,22,Francia,1,1,True,False
+98,Julian Draxler,Paris Saint-Germain,Mediocampista,24,Alemania,1,2,True,False
+99,Lucas Moura,Paris Saint-Germain,Delantero,25,Brasil,2,1,True,False
+100,Dani Alves,Paris Saint-Germain,Defensa,34,Brasil,1,2,True,False
+101,Trent Alexander-Arnold,Liverpool,Defensa,19,Inglaterra,1,1,False,False
+102,Georginio Wijnaldum,Liverpool,Mediocampista,27,Países Bajos,1,1,False,False
+103,Jordan Henderson,Liverpool,Mediocampista,27,Inglaterra,0,1,False,False
+104,Toni Kroos,Real Madrid,Mediocampista,28,Alemania,1,2,False,False
+105,Lucas Hernández,Atlético de Madrid,Defensa,22,Francia,1,0,True,False
+106,Medhi Benatia,Juventus,Defensa,30,Marruecos,1,0,True,False
+107,Andrea Barzagli,Juventus,Defensa,36,Italia,0,1,True,False
+108,Blaise Matuidi,Juventus,Mediocampista,30,Francia,1,1,True,False
+109,Thomas Partey,Atlético de Madrid,Mediocampista,24,Ghana,1,1,True,False
+110,Sami Khedira,Juventus,Mediocampista,30,Alemania,2,1,True,False
+111,Mats Hummels,Bayern Munich,Defensa,29,Alemania,1,0,True,False
+112,Arturo Vidal,Bayern Munich,Mediocampista,30,Chile,1,1,True,False
+113,Jordi Alba,Barcelona,Defensa,28,España,0,2,True,False
+114,Gerard Piqué,Barcelona,Defensa,30,España,1,0,True,False
+115,André Gomes,Barcelona,Mediocampista,24,Portugal,1,1,True,False
+116,Ilkay Gündogan,Manchester City,Mediocampista,27,Alemania,2,2,True,False
+117,Aymeric Laporte,Manchester City,Defensa,23,Francia,0,1,True,False
+118,Fernandinho,Manchester City,Mediocampista,32,Brasil,1,1,True,False
+119,Alisson Becker,Roma,Portero,25,Brasil,0,1,True,False
+120,Diego Perotti,Roma,Delantero,29,Argentina,3,1,True,False
+121,Stephan El Shaarawy,Roma,Delantero,25,Italia,2,1,True,False
+122,Bruno Peres,Roma,Defensa,27,Brasil,1,1,True,False
+123,Nacho Fernández,Real Madrid,Defensa,28,España,1,0,False,False
+124,Jesús Navas,Sevilla,Defensa,32,España,0,1,True,False
+125,Steven Nzonzi,Sevilla,Mediocampista,29,Francia,1,0,True,False
+126,Fernando,Liverpool,Mediocampista,30,Brasil,1,0,False,False
+127,Jérôme Boateng,Bayern Munich,Defensa,29,Alemania,1,1,True,False
+128,David Alaba,Bayern Munich,Defensa,25,Austria,0,2,True,False
+129,Javi Martínez,Bayern Munich,Mediocampista,29,España,1,0,True,False
+130,Corentin Tolisso,Bayern Munich,Mediocampista,23,Francia,2,2,True,False
+131,Ousmane Dembélé,Barcelona,Delantero,20,Francia,1,1,True,False
+132,Paco Alcácer,Barcelona,Delantero,24,España,1,0,True,False
+133,Samuel Umtiti,Barcelona,Defensa,24,Francia,0,1,True,False
+134,Riyad Mahrez,Leicester City,Delantero,26,Argelia,1,1,True,False
+135,Leroy Sané,Manchester City,Delantero,22,Alemania,2,2,True,False
+136,Bernardo Silva,Manchester City,Mediocampista,23,Portugal,1,2,True,False
+137,Fabinho,Monaco,Mediocampista,24,Brasil,1,1,True,False
+138,Keita Baldé,Monaco,Delantero,22,Senegal,1,0,True,False
+139,Serge Aurier,Tottenham Hotspur,Defensa,25,Costa de Marfil,0,1,True,False
+140,Ben Davies,Tottenham Hotspur,Defensa,24,Gales,1,0,True,False
+141,Antonio Rüdiger,Chelsea,Defensa,24,Alemania,1,0,True,False
+142,Victor Moses,Chelsea,Defensa,27,Nigeria,0,1,True,False
+143,Álvaro Morata,Chelsea,Delantero,25,España,2,1,True,False
+145,Pedro Rodríguez,Chelsea,Delantero,30,España,1,1,True,False
+146,Ross Barkley,Chelsea,Mediocampista,24,Inglaterra,1,0,True,False

@@ -1,34 +1,33 @@
-id,nombre,pais,grupo,eliminado
-1,Manchester United,Inglaterra,A,False
-2,Basel,Suiza,A,False
-3,CSKA Moscú,Rusia,A,False
-4,Benfica,Portugal,A,True
-5,Paris Saint-Germain,Francia,B,False
-6,Bayern Múnich,Alemania,B,False
-7,Celtic,Escocia,B,True
-8,Anderlecht,Bélgica,B,True
-9,Roma,Italia,C,False
-10,Chelsea,Inglaterra,C,False
-11,Atlético de Madrid,España,C,True
-12,Qarabağ,Azerbaiyán,C,True
-13,Barcelona,España,D,False
-14,Juventus,Italia,D,False
-15,Sporting CP,Portugal,D,True
-16,Olympiacos,Grecia,D,True
-17,Liverpool,Inglaterra,E,False
-18,Sevilla,España,E,False
-19,Spartak Moscú,Rusia,E,True
-20,Maribor,Eslovenia,E,True
-21,Manchester City,Inglaterra,F,False
-22,Shakhtar Donetsk,Ucrania,F,False
-23,Nápoles,Italia,F,True
-24,Feyenoord,Países Bajos,F,True
-25,Beşiktaş,Turquía,G,False
-26,Oporto,Portugal,G,False
-27,RB Leipzig,Alemania,G,True
-28,AS Mónaco,Francia,G,True
-29,Tottenham Hotspur,Inglaterra,H,False
-30,Real Madrid,España,H,False
-31,Borussia Dortmund,Alemania,H,True
-32,Apoel,Nicosia,H,False
-35,string,string,string,False
+id,nombre,pais,grupo,eliminado,eliminado_logico
+1,Manchester United,Inglaterra,A,False,False
+2,Basel,Suiza,A,False,False
+3,CSKA Moscú,Rusia,A,False,False
+4,Benfica,Portugal,A,True,False
+5,Paris Saint-Germain,Francia,B,False,False
+6,Bayern Múnich,Alemania,B,False,False
+7,Celtic,Escocia,B,True,False
+8,Anderlecht,Bélgica,B,True,False
+9,Roma,Italia,C,False,False
+10,Chelsea,Inglaterra,C,False,False
+11,Atlético de Madrid,España,C,True,False
+12,Qarabağ,Azerbaiyán,C,True,False
+13,Barcelona,España,D,False,False
+14,Juventus,Italia,D,False,False
+15,Sporting CP,Portugal,D,True,False
+16,Olympiacos,Grecia,D,True,False
+17,Liverpool,Inglaterra,E,False,False
+18,Sevilla,España,E,False,False
+19,Spartak Moscú,Rusia,E,True,False
+20,Maribor,Eslovenia,E,True,False
+21,Manchester City,Inglaterra,F,False,False
+22,Shakhtar Donetsk,Ucrania,F,False,False
+23,Nápoles,Italia,F,True,False
+24,Feyenoord,Países Bajos,F,True,False
+25,Beşiktaş,Turquía,G,False,False
+26,Oporto,Portugal,G,False,False
+27,RB Leipzig,Alemania,G,True,False
+28,AS Mónaco,Francia,G,True,False
+29,Tottenham Hotspur,Inglaterra,H,False,False
+30,Real Madrid,España,H,False,False
+31,Borussia Dortmund,Alemania,H,True,False
+32,Apoel,Nicosia,H,False,False

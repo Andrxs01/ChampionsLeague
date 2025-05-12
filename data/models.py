@@ -15,7 +15,7 @@ class Jugador(Base):
     nacionalidad = Column(String, nullable=False)
     goles = Column(Integer, default=0)
     asistencias = Column(Integer, default=0)
-    eliminado_champions = Column(Boolean, default=False)
+    eliminado = Column(Boolean, default=False)
     eliminado_logico = Column(Boolean, default=False)
 
 class Equipo(Base):
@@ -40,7 +40,7 @@ class JugadorBase(BaseModel):
     nacionalidad: str
     goles: int
     asistencias: int
-    eliminado_champions: bool = False
+    eliminado: bool = False
 
 class JugadorCreate(JugadorBase):
     pass
