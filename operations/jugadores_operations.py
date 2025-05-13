@@ -10,8 +10,21 @@ def crear_jugador(db: Session, jugador: JugadorCreate):
     return db_jugador
 
 # Obtener todos los jugadores no eliminados lógicamente
-def obtener_jugadores(db: Session):
-    return db.query(Jugador).filter(Jugador.eliminado_logico == False).all()
+def obtener_jugadores(db: Session, nombre=None, equipo=None, nacionalidad=None, posicion=None, eliminado=None):
+    query = db.query(Jugador).filter(Jugador.eliminado_logico == False)
+
+    if nombre:
+        query = query.filter(Jugador.nombre.ilike(f"%{nombre}%"))
+    if equipo:
+        query = query.filter(Jugador.equipo.ilike(f"%{equipo}%"))
+    if nacionalidad:
+        query = query.filter(Jugador.nacionalidad.ilike(f"%{nacionalidad}%"))
+    if posicion:
+        query = query.filter(Jugador.posicion.ilike(f"%{posicion}%"))
+    if eliminado is not None:
+        query = query.filter(Jugador.eliminado == eliminado)
+
+    return query.all()
 
 # Obtener jugador por ID
 def obtener_jugador_por_id(db: Session, jugador_id: int):
@@ -36,3 +49,19 @@ def eliminar_jugador(db: Session, jugador_id: int):
     db_jugador.eliminado_logico = True
     db.commit()
     return db_jugador
+
+# Búsqueda avanzada de jugadores
+def buscar_jugadores(db: Session, nombre: str = None, equipo: str = None, posicion: str = None, nacionalidad: str = None, eliminado: bool = None):
+    query = db.query(Jugador).filter(Jugador.eliminado_logico == False)
+    if nombre:
+        query = query.filter(Jugador.nombre.ilike(f"%{nombre}%"))
+    if equipo:
+        query = query.filter(Jugador.equipo.ilike(f"%{equipo}%"))
+    if posicion:
+        query = query.filter(Jugador.posicion.ilike(f"%{posicion}%"))
+    if nacionalidad:
+        query = query.filter(Jugador.nacionalidad.ilike(f"%{nacionalidad}%"))
+    if eliminado is not None:
+        query = query.filter(Jugador.eliminado == eliminado)
+
+    return query.all()
