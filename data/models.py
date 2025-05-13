@@ -1,4 +1,3 @@
-# models.py
 from pydantic import BaseModel, Field
 from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy.orm import declarative_base
