@@ -12,3 +12,12 @@ def get_planeacion():
         return {"contenido": contenido}
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail="Archivo de planeación no encontrado.")
+@router.get("/diseno", tags=["Documentación"])
+def get_diseno():
+    ruta = os.path.join("docs", "diseno.md")
+    try:
+        with open(ruta, "r", encoding="utf-8") as f:
+            contenido = f.read()
+        return {"contenido": contenido}
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Archivo de diseño no encontrado.")
