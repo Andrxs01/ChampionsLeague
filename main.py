@@ -7,6 +7,7 @@ from data.models import (
     Jugador, Equipo
 )
 from operations import jugadores_operations, equipos_operations
+from routes import documentacion
 
 Base.metadata.create_all(bind=engine)
 
@@ -16,6 +17,7 @@ app = FastAPI(
     description="Bienvenido a la API de consulta y gestión de jugadores y equipos de la Champions League 2017/18.",
     version="1.0"
 )
+app.include_router(documentacion.router)
 @app.get("/", tags=["Inicio"])
 def root():
     return {
