@@ -2,7 +2,7 @@
 from sqlalchemy.orm import Session, joinedload
 from data import models
 from data.models import JugadorCreate, JugadorUpdate
-
+from typing import Optional
 # Función para crear un nuevo jugador en la base de datos
 def create_jugador(db: Session, jugador: JugadorCreate):
     db_jugador = models.Jugador(
@@ -20,10 +20,16 @@ def create_jugador(db: Session, jugador: JugadorCreate):
     return db_jugador
 
 # Función para obtener todos los jugadores (filtrando los eliminados lógicamente)
-def get_all_jugadores(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Jugador).options(joinedload(models.Jugador.equipo_obj)).filter(
+def get_all_jugadores(db: Session, skip: int = 0, limit: Optional[int] = None): # Importa Optional desde typing
+    query = db.query(models.Jugador).options(joinedload(models.Jugador.equipo_obj)).filter(
         models.Jugador.eliminado_logico == False
-    ).offset(skip).limit(limit).all()
+    ).offset(skip)
+
+    if limit is not None: # Solo aplica el límite si no es None
+        query = query.limit(limit)
+
+    return query.all()
+
 
 # Función para obtener un jugador por su ID
 def get_jugador_by_id(db: Session, jugador_id: int):
