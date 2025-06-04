@@ -49,17 +49,15 @@ async def project_objective(request: Request):
 @router.get("/jugadores_lista", response_class=HTMLResponse)
 async def listar_jugadores(
         request: Request,
-        db: Session = Depends(get_db),
-        skip: int = Query(0, ge=0),  # Parámetro de paginación para el offset
-        limit: int = Query(100, ge=1, le=200)  # Parámetro de paginación para el límite (puedes ajustar el máximo)
+        db: Session = Depends(get_db)
 ):
-    jugadores = jugadores_operations.get_all_jugadores(db, skip=skip, limit=limit)
-    # También necesitarías la cuenta total para la paginación
-    total_jugadores = db.query(models.Jugador).filter(models.Jugador.eliminado_logico == False).count()
+
+    jugadores = jugadores_operations.get_all_jugadores(db)
 
     return templates.TemplateResponse(
         "jugadores/list.html",
-        {"request": request, "jugadores": jugadores, "skip": skip, "limit": limit, "total_jugadores": total_jugadores}
+
+        {"request": request, "jugadores": jugadores}
     )
 
 @router.get("/jugadores/{jugador_id}", response_class=HTMLResponse)

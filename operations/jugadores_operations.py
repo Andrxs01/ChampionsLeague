@@ -19,13 +19,13 @@ def create_jugador(db: Session, jugador: JugadorCreate):
     db.refresh(db_jugador)
     return db_jugador
 
-# Función para obtener todos los jugadores (filtrando los eliminados lógicamente)
-def get_all_jugadores(db: Session, skip: int = 0, limit: Optional[int] = None): # Importa Optional desde typing
+def get_all_jugadores(db: Session, skip: int = 0, limit: Optional[int] = None):
+
     query = db.query(models.Jugador).options(joinedload(models.Jugador.equipo_obj)).filter(
         models.Jugador.eliminado_logico == False
     ).offset(skip)
 
-    if limit is not None: # Solo aplica el límite si no es None
+    if limit is not None:
         query = query.limit(limit)
 
     return query.all()
