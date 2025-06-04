@@ -1,10 +1,10 @@
 <!-- templates/jugadores/edit.html -->
 {% extends "base.html" %}
 
-{% block title %}Editar Jugador - {{ jugador.nombre }}{% endblock %}
+{% block title %}Editar Jugador{% endblock %}
 
 {% block content %}
-<h1 class="main-title">✍️ Editar Jugador: {{ jugador.nombre }} ✍️</h1>
+<h1 class="main-title">✏️ Editar Jugador: {{ jugador.nombre }}</h1>
 
 {% if error_message %}
     <div class="message error">{{ error_message }}</div>
@@ -18,7 +18,7 @@
     <div class="form-group">
         <label for="equipo_id">Equipo:</label>
         <select id="equipo_id" name="equipo_id" required>
-            <option value="">-- Selecciona un Equipo --</option>
+            <option value="">Selecciona un equipo</option>
             {% for equipo in equipos %}
                 <option value="{{ equipo.id }}" {% if equipo.id == jugador.equipo_id %}selected{% endif %}>
                     {{ equipo.nombre }} ({{ equipo.pais }})
@@ -39,26 +39,21 @@
         <input type="text" id="nacionalidad" name="nacionalidad" value="{{ jugador.nacionalidad }}" required>
     </div>
     <div class="form-group">
-        <label for="goles">Goles (Champions 17/18):</label>
+        <label for="goles">Goles:</label>
         <input type="number" id="goles" name="goles" value="{{ jugador.goles }}" min="0">
     </div>
     <div class="form-group">
-        <label for="asistencias">Asistencias (Champions 17/18):</label>
+        <label for="asistencias">Asistencias:</label>
         <input type="number" id="asistencias" name="asistencias" value="{{ jugador.asistencias }}" min="0">
     </div>
+    {# Eliminamos el campo de imagen_url para jugadores #}
     <div class="form-group">
-        <label for="imagen_url">URL de Imagen del Jugador:</label>
-        <input type="url" id="imagen_url" name="imagen_url" value="{{ jugador.imagen_url if jugador.imagen_url else '' }}" placeholder="Ej: https://ejemplo.com/mbappe.jpg">
-        <small>Puedes usar una URL externa o una ruta a tu carpeta /static/images/jugadores/.</small>
+        <input type="checkbox" id="eliminado_logico" name="eliminado_logico" value="True" {% if jugador.eliminado_logico %}checked{% endif %}>
+        <label for="eliminado_logico" style="display: inline;">Eliminar Lógicamente (ocultar de las listas)</label>
     </div>
-    <div class="form-group">
-        <label for="eliminado_logico">Eliminado Lógicamente:</label>
-        <input type="checkbox" id="eliminado_logico" name="eliminado_logico" {% if jugador.eliminado_logico %}checked{% endif %}>
-        <small>Marcar esta casilla para ocultar el jugador de las listas principales.</small>
-    </div>
-    <div class="flex-row" style="justify-content: center;">
-        <button type="submit" class="button success">💾 Guardar Cambios</button>
-        <a href="/jugadores/{{ jugador.id }}" class="button primary">↩️ Cancelar</a>
+    <div class="flex-row">
+        <button type="submit" class="button success"><i class="fas fa-save"></i> Guardar Cambios</button>
+        <a href="/jugadores/{{ jugador.id }}" class="button secondary"><i class="fas fa-times-circle"></i> Cancelar</a>
     </div>
 </form>
 {% endblock %}

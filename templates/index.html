@@ -1,60 +1,97 @@
 <!-- templates/index.html -->
 {% extends "base.html" %}
 
-{% block title %}Inicio - Champions League{% endblock %}
+{% block title %}Inicio - Champions League Project{% endblock %}
 
 {% block content %}
-<h1 class="main-title">🌟 ¡Bienvenido al Corazón de la Champions League 2017/18! 🌟</h1>
-<p class="intro-text" style="text-align: center; font-size: 1.15em; color: var(--text-color); margin-bottom: 50px;">
-    Sumérgete en la emoción de una de las temporadas más memorables de la Liga de Campeones de la UEFA. Aquí podrás explorar, gestionar y visualizar los datos de los equipos legendarios y los jugadores que hicieron historia.
+<h1 class="main-title">Bienvenido al Centro de Datos de la Champions League 2017/18</h1>
+
+<p style="text-align: center; font-size: 1.1em; color: var(--text-color); margin-bottom: 40px;">
+    Explora equipos, jugadores y partidos de una de las temporadas más emocionantes de la historia del fútbol europeo.
 </p>
 
 <section class="highlight-section">
-    <h2>⚽ Jugadores Destacados ⚽</h2>
-    {% if jugadores %}
+    <h2>🌟 Equipos Destacados 🌟</h2>
     <div class="card-grid">
-        {% for jugador in jugadores %}
-        <div class="card player-card">
-            <img src="{{ jugador.imagen_url }}" alt="" onerror="this.onerror=null;this.src='https://placehold.co/250x180/cccccc/333333?text=Sin+Imagen';" class="card-img">
+        {% for equipo in equipos %}
+        <div class="card">
+            <img src="{{ equipo.imagen_url }}" alt="[Image of {{ equipo.nombre }}]" class="card-img" onerror="this.onerror=null;this.src='https://placehold.co/400x200/cccccc/333333?text=Equipo+N/A';">
             <div class="card-content">
-                <h3 class="card-title">{{ jugador.nombre }}</h3>
-                <p class="card-text">Equipo: <strong>{{ jugador.equipo_obj.nombre if jugador.equipo_obj else 'N/A' }}</strong></p>
-                <p class="card-text">Posición: {{ jugador.posicion }}</p>
-                <a href="/jugadores/{{ jugador.id }}" class="button primary card-button">Ver Perfil</a>
+                <h3>{{ equipo.nombre }}</h3>
+                <p>País: {{ equipo.pais }}</p>
+                <p>Grupo: {{ equipo.grupo }}</p>
+                <a href="/equipos/{{ equipo.id }}" class="button primary small-button">Ver Detalles</a>
             </div>
         </div>
         {% endfor %}
     </div>
-    <div style="text-align: center; margin-top: 30px;">
-        <a href="/jugadores_lista" class="button secondary">Ver Todos los Jugadores <i class="fas fa-arrow-right"></i></a>
+    <div class="flex-row">
+        <a href="/equipos_lista" class="button secondary">Ver Todos los Equipos <i class="fas fa-arrow-right"></i></a>
     </div>
-    {% else %}
-    <p class="no-data-message">No hay jugadores destacados para mostrar. ¡Crea algunos!</p>
-    {% endif %}
 </section>
 
 <section class="highlight-section">
-    <h2>🏆 Equipos Legendarios 🏆</h2>
-    {% if equipos %}
+    <h2>🏃 Jugadores Recientes 🏃</h2>
     <div class="card-grid">
-        {% for equipo in equipos %}
-        <div class="card team-card">
-            <img src="{{ equipo.imagen_url }}" alt="" onerror="this.onerror=null;this.src='https://placehold.co/250x180/cccccc/333333?text=Sin+Imagen';" class="card-img">
+        {% for jugador in jugadores %}
+        <div class="card">
+            {# Eliminamos la imagen del jugador de la tarjeta #}
             <div class="card-content">
-                <h3 class="card-title">{{ equipo.nombre }}</h3>
-                <p class="card-text">País: <strong>{{ equipo.pais }}</strong></p>
-                <p class="card-text">Grupo: {{ equipo.grupo }}</p>
-                <a href="/equipos/{{ equipo.id }}" class="button primary card-button">Ver Detalles <i class="fas fa-arrow-right"></i></a>
+                <h3>{{ jugador.nombre }}</h3>
+                <p>Equipo: {{ jugador.equipo_obj.nombre if jugador.equipo_obj else 'N/A' }}</p>
+                <p>Posición: {{ jugador.posicion }}</p>
+                <p>Nacionalidad: {{ jugador.nacionalidad }}</p>
+                <p>Edad: {{ jugador.edad }}</p>
+                <a href="/jugadores/{{ jugador.id }}" class="button primary small-button">Ver Detalles</a>
             </div>
         </div>
         {% endfor %}
     </div>
-    <div style="text-align: center; margin-top: 30px;">
-        <a href="/equipos_lista" class="button secondary">Ver Todos los Equipos <i class="fas fa-arrow-right"></i></a>
+    <div class="flex-row">
+        <a href="/jugadores_lista" class="button secondary">Ver Todos los Jugadores <i class="fas fa-arrow-right"></i></a>
     </div>
-    {% else %}
-    <p class="no-data-message">No hay equipos destacados para mostrar. ¡Crea algunos!</p>
-    {% endif %}
 </section>
 
+<style>
+    .highlight-section {
+        margin-bottom: 60px;
+        padding: 30px;
+        background-color: var(--card-background);
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+    .highlight-section h2 {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        margin-bottom: 30px;
+        border-bottom: 3px solid var(--accent-color);
+        padding-bottom: 15px;
+        display: inline-block; /* Para que la línea se ajuste al texto */
+    }
+    .card-content {
+        padding: 15px;
+        text-align: center;
+        flex-grow: 1; /* Permite que el contenido ocupe el espacio restante */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+    }
+    .card-content h3 {
+        font-size: 1.4em;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        color: var(--secondary-color);
+    }
+    .card-content p {
+        font-size: 0.95em;
+        color: var(--text-color);
+        margin-bottom: 5px;
+    }
+    .card .button {
+        margin-top: 15px;
+        align-self: center; /* Centra el botón dentro de la tarjeta */
+    }
+</style>
 {% endblock %}

@@ -28,11 +28,7 @@
                     <td>{{ loop.index }}</td>
                     <td>
                         <a href="/jugadores/{{ jugador.id }}" class="text-link">
-                            {% if jugador.imagen_url %}
-                                <img src="{{ jugador.imagen_url }}" alt="[Image of {{ jugador.nombre }}]" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%; margin-right: 10px;">
-                            {% else %}
-                                <img src="https://placehold.co/40x40/cccccc/333333?text=N/A" alt="[Image of {{ jugador.nombre }}]" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%; margin-right: 10px;">
-                            {% endif %}
+                            {# Eliminamos la imagen del jugador #}
                             {{ jugador.nombre }}
                         </a>
                     </td>
@@ -67,11 +63,7 @@
                     <td>{{ loop.index }}</td>
                     <td>
                         <a href="/jugadores/{{ jugador.id }}" class="text-link">
-                            {% if jugador.imagen_url %}
-                                <img src="{{ jugador.imagen_url }}" alt="[Image of {{ jugador.nombre }}]" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%; margin-right: 10px;">
-                            {% else %}
-                                <img src="https://placehold.co/40x40/cccccc/333333?text=N/A" alt="[Image of {{ jugador.nombre }}]" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%; margin-right: 10px;">
-                            {% endif %}
+                            {# Eliminamos la imagen del jugador #}
                             {{ jugador.nombre }}
                         </a>
                     </td>
@@ -109,7 +101,7 @@
                             {% if equipo.imagen_url %}
                                 <img src="{{ equipo.imagen_url }}" alt="[Image of {{ equipo.nombre }}]" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%; margin-right: 10px;">
                             {% else %}
-                                <img src="https://placehold.co/40x40/cccccc/333333?text=N/A" alt="[Image of {{ equipo.nombre }}]" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%; margin-right: 10px;">
+                                <img src="https://placehold.co/40x40/cccccc/333333?text=N/A" alt="[Image of Equipo N/A]" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%; margin-right: 10px;">
                             {% endif %}
                             {{ equipo.nombre }}
                         </a>

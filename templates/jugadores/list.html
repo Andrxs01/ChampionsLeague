@@ -4,18 +4,21 @@
 {% block title %}Lista de Jugadores{% endblock %}
 
 {% block content %}
-<h1 class="main-title">⚽ Lista de Jugadores ⚽</h1>
+<h1 class="main-title">⚽ Jugadores de la Champions League 2017/18 ⚽</h1>
 
 {% if error_message %}
     <div class="message error">{{ error_message }}</div>
 {% endif %}
+{% if success_message %}
+    <div class="message success">{{ success_message }}</div>
+{% endif %}
 
-<div style="text-align: center; margin-bottom: 25px;">
-    <a href="/jugadores_crear" class="button success">➕ Añadir Nuevo Jugador</a>
+<div class="flex-row" style="justify-content: flex-end; margin-bottom: 20px;">
+    <a href="/jugadores_crear" class="button primary"><i class="fas fa-user-plus"></i> Añadir Nuevo Jugador</a>
 </div>
 
+{% if jugadores %}
 <div class="table-container">
-    {% if jugadores %}
     <table>
         <thead>
             <tr>
@@ -24,44 +27,36 @@
                 <th>Equipo</th>
                 <th>Posición</th>
                 <th>Nacionalidad</th>
+                <th>Edad</th>
                 <th>Goles</th>
                 <th>Asistencias</th>
-                <th>Imagen</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             {% for jugador in jugadores %}
-            {% if not jugador.eliminado_logico %} {# Solo mostrar si NO está eliminado lógicamente #}
             <tr>
                 <td>{{ jugador.id }}</td>
                 <td>{{ jugador.nombre }}</td>
                 <td>{{ jugador.equipo_obj.nombre if jugador.equipo_obj else 'N/A' }}</td>
                 <td>{{ jugador.posicion }}</td>
                 <td>{{ jugador.nacionalidad }}</td>
+                <td>{{ jugador.edad }}</td>
                 <td>{{ jugador.goles }}</td>
                 <td>{{ jugador.asistencias }}</td>
-                <td>
-                    {% if jugador.imagen_url %}
-                        <img src="{{ jugador.imagen_url }}" alt="" onerror="this.onerror=null;this.src='https://placehold.co/70x70/cccccc/333333?text=N/A';">
-                    {% else %}
-                        <p>Sin imagen</p>
-                    {% endif %}
-                </td>
                 <td class="flex-row">
                     <a href="/jugadores/{{ jugador.id }}" class="button primary small-button">Ver</a>
                     <a href="/jugadores_editar/{{ jugador.id }}" class="button warning small-button">Editar</a>
-                    <form action="/jugadores_eliminar/{{ jugador.id }}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar lógicamente a este jugador?');" style="display: inline;">
+                    <form action="/jugadores_eliminar/{{ jugador.id }}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar lógicamente a este jugador?');">
                         <button type="submit" class="button danger small-button">Eliminar</button>
                     </form>
                 </td>
             </tr>
-            {% endif %}
             {% endfor %}
         </tbody>
     </table>
-    {% else %}
-    <p class="no-data-message">No hay jugadores registrados. ¡Sé el primero en añadir uno!</p>
-    {% endif %}
 </div>
+{% else %}
+    <p class="no-data-message">No hay jugadores registrados o activos. ¡Añade uno!</p>
+{% endif %}
 {% endblock %}

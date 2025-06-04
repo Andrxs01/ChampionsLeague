@@ -4,7 +4,7 @@
 {% block title %}Crear Nuevo Jugador{% endblock %}
 
 {% block content %}
-<h1 class="main-title">✨ Registrar Nuevo Jugador ✨</h1>
+<h1 class="main-title">✨ Crear Nuevo Jugador ✨</h1>
 
 {% if error_message %}
     <div class="message error">{{ error_message }}</div>
@@ -13,12 +13,12 @@
 <form action="/jugadores_crear" method="post">
     <div class="form-group">
         <label for="nombre">Nombre del Jugador:</label>
-        <input type="text" id="nombre" name="nombre" required placeholder="Ej: Kylian Mbappé">
+        <input type="text" id="nombre" name="nombre" required>
     </div>
     <div class="form-group">
         <label for="equipo_id">Equipo:</label>
         <select id="equipo_id" name="equipo_id" required>
-            <option value="">-- Selecciona un Equipo --</option>
+            <option value="">Selecciona un equipo</option>
             {% for equipo in equipos %}
                 <option value="{{ equipo.id }}">{{ equipo.nombre }} ({{ equipo.pais }})</option>
             {% endfor %}
@@ -26,32 +26,28 @@
     </div>
     <div class="form-group">
         <label for="posicion">Posición:</label>
-        <input type="text" id="posicion" name="posicion" required placeholder="Ej: Delantero, Centrocampista">
+        <input type="text" id="posicion" name="posicion" required>
     </div>
     <div class="form-group">
         <label for="edad">Edad:</label>
-        <input type="number" id="edad" name="edad" required min="15" max="50" placeholder="Ej: 25">
+        <input type="number" id="edad" name="edad" required min="15" max="50">
     </div>
     <div class="form-group">
         <label for="nacionalidad">Nacionalidad:</label>
-        <input type="text" id="nacionalidad" name="nacionalidad" required placeholder="Ej: Francia">
+        <input type="text" id="nacionalidad" name="nacionalidad" required>
     </div>
     <div class="form-group">
-        <label for="goles">Goles (Champions 17/18):</label>
+        <label for="goles">Goles (opcional):</label>
         <input type="number" id="goles" name="goles" value="0" min="0">
     </div>
     <div class="form-group">
-        <label for="asistencias">Asistencias (Champions 17/18):</label>
+        <label for="asistencias">Asistencias (opcional):</label>
         <input type="number" id="asistencias" name="asistencias" value="0" min="0">
     </div>
-    <div class="form-group">
-        <label for="imagen_url">URL de Imagen del Jugador:</label>
-        <input type="url" id="imagen_url" name="imagen_url" placeholder="Ej: https://ejemplo.com/mbappe.jpg">
-        <small>Puedes usar una URL externa o una ruta a tu carpeta /static/images/jugadores/.</small>
-    </div>
-    <div class="flex-row" style="justify-content: center;">
-        <button type="submit" class="button success">✔️ Crear Jugador</button>
-        <a href="/jugadores_lista" class="button primary">↩️ Cancelar</a>
+    {# Eliminamos el campo de imagen_url para jugadores #}
+    <div class="flex-row">
+        <button type="submit" class="button success"><i class="fas fa-save"></i> Crear Jugador</button>
+        <a href="/jugadores_lista" class="button secondary"><i class="fas fa-times-circle"></i> Cancelar</a>
     </div>
 </form>
 {% endblock %}

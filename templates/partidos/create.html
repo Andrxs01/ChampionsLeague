@@ -1,0 +1,60 @@
+<!-- templates/partidos/create.html -->
+{% extends "base.html" %}
+
+{% block title %}Crear Nuevo Partido{% endblock %}
+
+{% block content %}
+<h1 class="main-title">✨ Crear Nuevo Partido ✨</h1>
+
+{% if error_message %}
+    <div class="message error">{{ error_message }}</div>
+{% endif %}
+
+<form action="/partidos_crear" method="post">
+    <div class="form-group">
+        <label for="equipo_local_id">Equipo Local:</label>
+        <select id="equipo_local_id" name="equipo_local_id" required>
+            <option value="">Selecciona un equipo local</option>
+            {% for equipo in equipos %}
+                <option value="{{ equipo.id }}">{{ equipo.nombre }} ({{ equipo.pais }})</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="equipo_visitante_id">Equipo Visitante:</label>
+        <select id="equipo_visitante_id" name="equipo_visitante_id" required>
+            <option value="">Selecciona un equipo visitante</option>
+            {% for equipo in equipos %}
+                <option value="{{ equipo.id }}">{{ equipo.nombre }} ({{ equipo.pais }})</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="goles_local">Goles Local:</label>
+        <input type="number" id="goles_local" name="goles_local" value="0" min="0" required>
+    </div>
+    <div class="form-group">
+        <label for="goles_visitante">Goles Visitante:</label>
+        <input type="number" id="goles_visitante" name="goles_visitante" value="0" min="0" required>
+    </div>
+    <div class="form-group">
+        <label for="fecha">Fecha del Partido:</label>
+        <input type="date" id="fecha" name="fecha" required>
+    </div>
+    <div class="form-group">
+        <label for="fase">Fase del Torneo:</label>
+        <select id="fase" name="fase" required>
+            <option value="">Selecciona una fase</option>
+            <option value="Fase de Grupos">Fase de Grupos</option>
+            <option value="Octavos de Final">Octavos de Final</option>
+            <option value="Cuartos de Final">Cuartos de Final</option>
+            <option value="Semifinal">Semifinal</option>
+            <option value="Final">Final</option>
+        </select>
+    </div>
+    <div class="flex-row">
+        <button type="submit" class="button success"><i class="fas fa-save"></i> Crear Partido</button>
+        <a href="/partidos_lista" class="button secondary"><i class="fas fa-times-circle"></i> Cancelar</a>
+    </div>
+</form>
+{% endblock %}
