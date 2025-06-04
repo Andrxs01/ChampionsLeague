@@ -1,21 +1,89 @@
-<!-- templates/search.html -->
 {% extends "base.html" %}
 
-{% block title %}Búsqueda{% endblock %}
+{% block title %}Búsqueda Avanzada{% endblock %}
 
 {% block content %}
-<h1 class="main-title">🔍 Buscar en la Champions League 🔍</h1>
+<h1 class="main-title">🔍 Búsqueda Avanzada en la Champions League 🔍</h1>
 
 <form action="/busqueda" method="get" class="search-form info-section">
     <div class="form-group search-input-group">
-        <label for="query" style="display: none;">Término de búsqueda:</label>
-        <input type="text" id="query" name="query" value="{{ query if query else '' }}" placeholder="Buscar jugador, equipo o partido por nombre..." class="search-input">
+        <label for="query" style="display: none;">Término de búsqueda general:</label>
+        <input type="text" id="query" name="query" value="{{ query if query else '' }}" placeholder="Buscar por nombre (general)..." class="search-input">
         <button type="submit" class="button primary search-button">Buscar</button>
+    </div>
+
+    <div class="search-filters">
+        <h3 style="margin-top: 20px; margin-bottom: 15px; color: var(--secondary-color);">Filtros Específicos:</h3>
+
+        <div class="filter-group">
+            <h4>Jugadores</h4>
+            <div class="form-group">
+                <label for="jugador_id">ID del Jugador:</label>
+                <input type="number" id="jugador_id" name="jugador_id" value="{{ jugador_id if jugador_id else '' }}" placeholder="ID">
+            </div>
+            <div class="form-group">
+                <label for="jugador_posicion">Posición:</label>
+                <input type="text" id="jugador_posicion" name="jugador_posicion" value="{{ jugador_posicion if jugador_posicion else '' }}" placeholder="Ej: Delantero">
+            </div>
+            <div class="form-group">
+                <label for="jugador_nacionalidad">Nacionalidad:</label>
+                <input type="text" id="jugador_nacionalidad" name="jugador_nacionalidad" value="{{ jugador_nacionalidad if jugador_nacionalidad else '' }}" placeholder="Ej: Español">
+            </div>
+            <div class="form-group">
+                <label for="jugador_equipo_id">ID del Equipo (Jugador):</label>
+                <input type="number" id="jugador_equipo_id" name="jugador_equipo_id" value="{{ jugador_equipo_id if jugador_equipo_id else '' }}" placeholder="ID de equipo">
+            </div>
+        </div>
+
+        <div class="filter-group">
+            <h4>Equipos</h4>
+            <div class="form-group">
+                <label for="equipo_id">ID del Equipo:</label>
+                <input type="number" id="equipo_id" name="equipo_id" value="{{ equipo_id if equipo_id else '' }}" placeholder="ID">
+            </div>
+            <div class="form-group">
+                <label for="equipo_pais">País:</label>
+                <input type="text" id="equipo_pais" name="equipo_pais" value="{{ equipo_pais if equipo_pais else '' }}" placeholder="Ej: España">
+            </div>
+            <div class="form-group">
+                <label for="equipo_grupo">Grupo (Champions):</label>
+                <input type="text" id="equipo_grupo" name="equipo_grupo" value="{{ equipo_grupo if equipo_grupo else '' }}" placeholder="Ej: A, B, C...">
+            </div>
+        </div>
+
+        <div class="filter-group">
+            <h4>Partidos</h4>
+            <div class="form-group">
+                <label for="partido_id">ID del Partido:</label>
+                <input type="number" id="partido_id" name="partido_id" value="{{ partido_id if partido_id else '' }}" placeholder="ID">
+            </div>
+            <div class="form-group">
+                <label for="partido_fase">Fase:</label>
+                <input type="text" id="partido_fase" name="partido_fase" value="{{ partido_fase if partido_fase else '' }}" placeholder="Ej: Octavos de Final">
+            </div>
+            <div class="form-group">
+                <label for="partido_fecha_inicio">Fecha Inicio:</label>
+                <input type="date" id="partido_fecha_inicio" name="partido_fecha_inicio" value="{{ partido_fecha_inicio if partido_fecha_inicio else '' }}">
+            </div>
+            <div class="form-group">
+                <label for="partido_fecha_fin">Fecha Fin:</label>
+                <input type="date" id="partido_fecha_fin" name="partido_fecha_fin" value="{{ partido_fecha_fin if partido_fecha_fin else '' }}">
+            </div>
+            <div class="form-group">
+                <label for="partido_equipo_nombre">Nombre Equipo (Partido):</label>
+                <input type="text" id="partido_equipo_nombre" name="partido_equipo_nombre" value="{{ partido_equipo_nombre if partido_equipo_nombre else '' }}" placeholder="Buscar por equipo local o visitante">
+            </div>
+        </div>
+
+        <button type="submit" class="button success" style="width: 100%; margin-top: 20px;">Aplicar Filtros</button>
     </div>
 </form>
 
-{% if query %}
-    <h2 class="search-results-title">Resultados para "{{ query }}"</h2>
+{% if query or jugador_id or jugador_posicion or jugador_nacionalidad or jugador_equipo_id or \
+    equipo_id or equipo_pais or equipo_grupo or \
+    partido_id or partido_fase or partido_fecha_inicio or partido_fecha_fin or partido_equipo_nombre %}
+
+    <h2 class="search-results-title">Resultados de la Búsqueda Avanzada</h2>
 
     <section class="search-results-section info-section">
         <h3>Jugadores Encontrados:</h3>
@@ -162,7 +230,7 @@
     </section>
 
 {% else %}
-    <p class="no-data-message info-section">Ingresa un término en la barra de búsqueda para encontrar jugadores, equipos o partidos.</p>
+    <p class="no-data-message info-section">Ingresa un término o aplica filtros para encontrar jugadores, equipos o partidos.</p>
 {% endif %}
 {% endblock %}
 
@@ -194,6 +262,53 @@
     .search-button {
         padding: 12px 20px;
         font-size: 1.1em;
+    }
+
+    .search-filters {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px dashed var(--border-color);
+    }
+
+    .filter-group {
+        background-color: var(--background-color-dark);
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: var(--neumorphism-shadow);
+    }
+
+    .filter-group h4 {
+        color: var(--primary-color);
+        margin-bottom: 15px;
+        font-size: 1.3em;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group label {
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: var(--text-color);
+        font-size: 0.95em;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="number"],
+    .form-group input[type="date"] {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid var(--border-color);
+        background-color: var(--input-background);
+        color: var(--text-color);
+        font-size: 1em;
+        box-shadow: var(--neumorphism-inset-shadow);
     }
 
     .search-results-title {
@@ -236,5 +351,19 @@
         color: var(--primary-color);
         text-align: center;
     }
+    .no-data-message {
+        text-align: center;
+        font-style: italic;
+        color: var(--text-color-light);
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
 </style>
 {% endblock %}
+
+
+
+
+
+
+

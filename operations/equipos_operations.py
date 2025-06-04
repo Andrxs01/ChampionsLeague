@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import func # Importa func para funciones de agregación
 from data import models
 from data.models import EquipoCreate, EquipoUpdate
+from typing import Optional # <--- ¡Añade esta importación!
 
 # Función para crear un nuevo equipo en la base de datos
 def create_equipo(db: Session, equipo: EquipoCreate):
@@ -53,8 +54,15 @@ def soft_delete_equipo(db: Session, equipo_id: int):
         db.refresh(db_equipo)
     return db_equipo
 
-# Función para buscar equipos por varios criterios
-def search_equipos(db: Session, nombre: str = None, grupo: str = None, pais: str = None, eliminado: bool = False):
+# Función para buscar equipos por varios criterios (ACTUALIZADA)
+def search_equipos(
+    db: Session,
+    nombre: Optional[str] = None,
+    grupo: Optional[str] = None,
+    pais: Optional[str] = None,
+    id: Optional[int] = None, # <--- ¡Nuevo parámetro añadido!
+    eliminado: bool = False
+):
     query = db.query(models.Equipo).filter(models.Equipo.eliminado_logico == eliminado)
     if nombre:
         query = query.filter(models.Equipo.nombre.ilike(f"%{nombre}%"))
@@ -62,6 +70,8 @@ def search_equipos(db: Session, nombre: str = None, grupo: str = None, pais: str
         query = query.filter(models.Equipo.grupo.ilike(f"%{grupo}%"))
     if pais:
         query = query.filter(models.Equipo.pais.ilike(f"%{pais}%"))
+    if id: # <--- ¡Nuevo filtro añadido!
+        query = query.filter(models.Equipo.id == id)
 
     return query.all()
 

@@ -1,20 +1,24 @@
 # routes/html_pages.py
-from fastapi import APIRouter, Request, Depends, Form, HTTPException, Query
+from fastapi import APIRouter, Request, Depends, Form, HTTPException, \
+    Query  # <--- Asegúrate de que Query esté importado
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 from utils.db import get_db
 from operations import jugadores_operations, equipos_operations, partidos_operations
 from data import models
-from data.models import JugadorCreate, JugadorUpdate, EquipoCreate, EquipoUpdate, PartidoCreate, PartidoUpdate, Jugador, Equipo, Partido
-from datetime import date
-from collections import defaultdict # Para agrupar partidos
+from data.models import JugadorCreate, JugadorUpdate, EquipoCreate, EquipoUpdate, PartidoCreate, PartidoUpdate, Jugador, \
+    Equipo, Partido
+from datetime import date  # <--- Asegúrate de que date esté importado
+from collections import defaultdict  # Para agrupar partidos
+from typing import Optional  # <--- ¡Asegúrate de que Optional esté importado para los parámetros de Query!
 
 router = APIRouter(
     tags=["Páginas HTML"],
 )
 
 templates = Jinja2Templates(directory="templates")
+
 
 # --- Rutas de información del proyecto ---
 
@@ -25,24 +29,30 @@ async def home(request: Request, db: Session = Depends(get_db)):
     partidos_recientes = partidos_operations.get_all_partidos(db, limit=5)
     return templates.TemplateResponse(
         "index.html",
-        {"request": request, "jugadores": jugadores_recientes, "equipos": equipos_recientes, "partidos": partidos_recientes}
+        {"request": request, "jugadores": jugadores_recientes, "equipos": equipos_recientes,
+         "partidos": partidos_recientes}
     )
+
 
 @router.get("/desarrollador", response_class=HTMLResponse)
 async def about_developer(request: Request):
     return templates.TemplateResponse("about_developer.html", {"request": request})
 
+
 @router.get("/planeacion", response_class=HTMLResponse)
 async def planning_phase(request: Request):
     return templates.TemplateResponse("planning_phase.html", {"request": request})
+
 
 @router.get("/diseno", response_class=HTMLResponse)
 async def design_phase(request: Request):
     return templates.TemplateResponse("design_phase.html", {"request": request})
 
+
 @router.get("/objetivo", response_class=HTMLResponse)
 async def project_objective(request: Request):
     return templates.TemplateResponse("project_objective.html", {"request": request})
+
 
 # --- Rutas para Jugadores (Listar, Ver, Crear, Editar, Eliminar) ---
 
@@ -51,7 +61,6 @@ async def listar_jugadores(
         request: Request,
         db: Session = Depends(get_db)
 ):
-
     jugadores = jugadores_operations.get_all_jugadores(db)
 
     return templates.TemplateResponse(
@@ -59,6 +68,7 @@ async def listar_jugadores(
 
         {"request": request, "jugadores": jugadores}
     )
+
 
 @router.get("/jugadores/{jugador_id}", response_class=HTMLResponse)
 async def ver_jugador(request: Request, jugador_id: int, db: Session = Depends(get_db)):
@@ -70,22 +80,24 @@ async def ver_jugador(request: Request, jugador_id: int, db: Session = Depends(g
         {"request": request, "jugador": jugador}
     )
 
+
 @router.get("/jugadores_crear", response_class=HTMLResponse)
 async def show_create_jugador_form(request: Request, db: Session = Depends(get_db)):
     equipos = equipos_operations.get_all_equipos(db)
     return templates.TemplateResponse("jugadores/create.html", {"request": request, "equipos": equipos})
 
+
 @router.post("/jugadores_crear", response_class=HTMLResponse)
 async def create_jugador(
-    request: Request,
-    db: Session = Depends(get_db),
-    nombre: str = Form(...),
-    equipo_id: int = Form(...),
-    posicion: str = Form(...),
-    edad: int = Form(...),
-    nacionalidad: str = Form(...),
-    goles: int = Form(0),
-    asistencias: int = Form(0)
+        request: Request,
+        db: Session = Depends(get_db),
+        nombre: str = Form(...),
+        equipo_id: int = Form(...),
+        posicion: str = Form(...),
+        edad: int = Form(...),
+        nacionalidad: str = Form(...),
+        goles: int = Form(0),
+        asistencias: int = Form(0)
 ):
     jugador_data = JugadorCreate(
         nombre=nombre,
@@ -102,7 +114,8 @@ async def create_jugador(
             equipos = equipos_operations.get_all_equipos(db)
             return templates.TemplateResponse(
                 "jugadores/create.html",
-                {"request": request, "equipos": equipos, "error_message": "El ID del equipo no es válido o el equipo no está activo."}
+                {"request": request, "equipos": equipos,
+                 "error_message": "El ID del equipo no es válido o el equipo no está activo."}
             )
 
         jugador_creado = jugadores_operations.create_jugador(db, jugador_data)
@@ -113,6 +126,7 @@ async def create_jugador(
             "jugadores/create.html",
             {"request": request, "equipos": equipos, "error_message": f"Error al crear jugador: {e}"}
         )
+
 
 @router.get("/jugadores_editar/{jugador_id}", response_class=HTMLResponse)
 async def show_edit_jugador_form(request: Request, jugador_id: int, db: Session = Depends(get_db)):
@@ -125,19 +139,20 @@ async def show_edit_jugador_form(request: Request, jugador_id: int, db: Session 
         {"request": request, "jugador": jugador, "equipos": equipos}
     )
 
+
 @router.post("/jugadores_editar/{jugador_id}", response_class=HTMLResponse)
 async def edit_jugador(
-    request: Request,
-    jugador_id: int,
-    db: Session = Depends(get_db),
-    nombre: str = Form(...),
-    equipo_id: int = Form(...),
-    posicion: str = Form(...),
-    edad: int = Form(...),
-    nacionalidad: str = Form(...),
-    goles: int = Form(0),
-    asistencias: int = Form(0),
-    eliminado_logico: bool = Form(False)
+        request: Request,
+        jugador_id: int,
+        db: Session = Depends(get_db),
+        nombre: str = Form(...),
+        equipo_id: int = Form(...),
+        posicion: str = Form(...),
+        edad: int = Form(...),
+        nacionalidad: str = Form(...),
+        goles: int = Form(0),
+        asistencias: int = Form(0),
+        eliminado_logico: bool = Form(False)
 ):
     jugador_update_data = JugadorUpdate(
         nombre=nombre,
@@ -156,7 +171,8 @@ async def edit_jugador(
             equipos = equipos_operations.get_all_equipos(db)
             return templates.TemplateResponse(
                 "jugadores/edit.html",
-                {"request": request, "jugador": jugador, "equipos": equipos, "error_message": "El ID del equipo no es válido o el equipo no está activo."}
+                {"request": request, "jugador": jugador, "equipos": equipos,
+                 "error_message": "El ID del equipo no es válido o el equipo no está activo."}
             )
 
         jugador_actualizado = jugadores_operations.update_jugador(db, jugador_id, jugador_update_data)
@@ -168,8 +184,10 @@ async def edit_jugador(
         equipos = equipos_operations.get_all_equipos(db)
         return templates.TemplateResponse(
             "jugadores/edit.html",
-            {"request": request, "jugador": jugador, "equipos": equipos, "error_message": f"Error al actualizar jugador: {e}"}
+            {"request": request, "jugador": jugador, "equipos": equipos,
+             "error_message": f"Error al actualizar jugador: {e}"}
         )
+
 
 @router.post("/jugadores_eliminar/{jugador_id}", response_class=HTMLResponse)
 async def eliminar_jugador_logico(request: Request, jugador_id: int, db: Session = Depends(get_db)):
@@ -180,7 +198,8 @@ async def eliminar_jugador_logico(request: Request, jugador_id: int, db: Session
         return RedirectResponse(url="/jugadores_lista", status_code=303)
     except Exception as e:
         jugadores = jugadores_operations.get_all_jugadores(db)
-        return templates.TemplateResponse("jugadores/list.html", {"request": request, "jugadores": jugadores, "error_message": f"Error al eliminar jugador: {e}"})
+        return templates.TemplateResponse("jugadores/list.html", {"request": request, "jugadores": jugadores,
+                                                                  "error_message": f"Error al eliminar jugador: {e}"})
 
 
 # --- Rutas para Equipos (Listar, Ver, Crear, Editar, Eliminar) ---
@@ -193,6 +212,7 @@ async def listar_equipos(request: Request, db: Session = Depends(get_db)):
         {"request": request, "equipos": equipos}
     )
 
+
 @router.get("/equipos/{equipo_id}", response_class=HTMLResponse)
 async def ver_equipo(request: Request, equipo_id: int, db: Session = Depends(get_db)):
     equipo = equipos_operations.get_equipo_by_id(db, equipo_id)
@@ -203,18 +223,20 @@ async def ver_equipo(request: Request, equipo_id: int, db: Session = Depends(get
         {"request": request, "equipo": equipo}
     )
 
+
 @router.get("/equipos_crear", response_class=HTMLResponse)
 async def show_create_equipo_form(request: Request):
     return templates.TemplateResponse("equipos/create.html", {"request": request})
 
+
 @router.post("/equipos_crear", response_class=HTMLResponse)
 async def create_equipo(
-    request: Request,
-    db: Session = Depends(get_db),
-    nombre: str = Form(...),
-    pais: str = Form(...),
-    grupo: str = Form(...),
-    imagen_url: str = Form(None)
+        request: Request,
+        db: Session = Depends(get_db),
+        nombre: str = Form(...),
+        pais: str = Form(...),
+        grupo: str = Form(...),
+        imagen_url: str = Form(None)
 ):
     equipo_data = EquipoCreate(
         nombre=nombre,
@@ -231,6 +253,7 @@ async def create_equipo(
             {"request": request, "error_message": f"Error al crear equipo: {e}"}
         )
 
+
 @router.get("/equipos_editar/{equipo_id}", response_class=HTMLResponse)
 async def show_edit_equipo_form(request: Request, equipo_id: int, db: Session = Depends(get_db)):
     equipo = equipos_operations.get_equipo_by_id(db, equipo_id)
@@ -241,16 +264,17 @@ async def show_edit_equipo_form(request: Request, equipo_id: int, db: Session = 
         {"request": request, "equipo": equipo}
     )
 
+
 @router.post("/equipos_editar/{equipo_id}", response_class=HTMLResponse)
 async def edit_equipo(
-    request: Request,
-    equipo_id: int,
-    db: Session = Depends(get_db),
-    nombre: str = Form(...),
-    pais: str = Form(...),
-    grupo: str = Form(...),
-    imagen_url: str = Form(None),
-    eliminado_logico: bool = Form(False)
+        request: Request,
+        equipo_id: int,
+        db: Session = Depends(get_db),
+        nombre: str = Form(...),
+        pais: str = Form(...),
+        grupo: str = Form(...),
+        imagen_url: str = Form(None),
+        eliminado_logico: bool = Form(False)
 ):
     equipo_update_data = EquipoUpdate(
         nombre=nombre,
@@ -271,6 +295,7 @@ async def edit_equipo(
             {"request": request, "equipo": equipo, "error_message": f"Error al actualizar equipo: {e}"}
         )
 
+
 @router.post("/equipos_eliminar/{equipo_id}", response_class=HTMLResponse)
 async def eliminar_equipo_logico(request: Request, equipo_id: int, db: Session = Depends(get_db)):
     try:
@@ -280,27 +305,98 @@ async def eliminar_equipo_logico(request: Request, equipo_id: int, db: Session =
         return RedirectResponse(url="/equipos_lista", status_code=303)
     except Exception as e:
         equipos = equipos_operations.get_all_equipos(db)
-        return templates.TemplateResponse("equipos/list.html", {"request": request, "equipos": equipos, "error_message": f"Error al eliminar equipo: {e}"})
+        return templates.TemplateResponse("equipos/list.html", {"request": request, "equipos": equipos,
+                                                                "error_message": f"Error al eliminar equipo: {e}"})
 
 
-# --- Ruta para Búsqueda ---
+# --- Ruta para Búsqueda (ACTUALIZADA) ---
 
 @router.get("/busqueda", response_class=HTMLResponse)
-async def show_search_page(request: Request, db: Session = Depends(get_db), query: str = None):
+async def show_search_page(
+        request: Request,
+        db: Session = Depends(get_db),
+        # Parámetro de búsqueda general por nombre (para el campo principal)
+        query: Optional[str] = Query(None),
+
+        # Parámetros para búsqueda de Jugadores
+        jugador_id: Optional[int] = Query(None, ge=1),
+        jugador_posicion: Optional[str] = Query(None),
+        jugador_nacionalidad: Optional[str] = Query(None),
+        jugador_equipo_id: Optional[int] = Query(None, ge=1),
+
+        # Parámetros para búsqueda de Equipos
+        equipo_id: Optional[int] = Query(None, ge=1),
+        equipo_pais: Optional[str] = Query(None),
+        equipo_grupo: Optional[str] = Query(None),
+
+        # Parámetros para búsqueda de Partidos
+        partido_id: Optional[int] = Query(None, ge=1),
+        partido_fase: Optional[str] = Query(None),
+        partido_fecha_inicio: Optional[date] = Query(None),
+        partido_fecha_fin: Optional[date] = Query(None),
+        partido_equipo_nombre: Optional[str] = Query(None)
+):
     jugadores_encontrados = []
     equipos_encontrados = []
     partidos_encontrados = []
 
-    if query:
-        jugadores_encontrados = jugadores_operations.search_jugadores(db, nombre=query)
-        equipos_encontrados = equipos_operations.search_equipos(db, nombre=query)
-        partidos_encontrados = partidos_operations.search_partidos(db, equipo_nombre=query)
-
+    # Se realiza la búsqueda solo si hay al menos un criterio especificado
+    if query or jugador_id or jugador_posicion or jugador_nacionalidad or jugador_equipo_id or \
+            equipo_id or equipo_pais or equipo_grupo or \
+            partido_id or partido_fase or partido_fecha_inicio or partido_fecha_fin or partido_equipo_nombre:
+        # Llamar a las funciones de búsqueda actualizadas en operations
+        jugadores_encontrados = jugadores_operations.search_jugadores(
+            db,
+            nombre=query,  # El query general se pasa también a nombre para jugadores
+            id=jugador_id,
+            posicion=jugador_posicion,
+            nacionalidad=jugador_nacionalidad,
+            equipo_id=jugador_equipo_id
+        )
+        equipos_encontrados = equipos_operations.search_equipos(
+            db,
+            nombre=query,  # El query general se pasa también a nombre para equipos
+            id=equipo_id,
+            pais=equipo_pais,
+            grupo=equipo_grupo
+        )
+        partidos_encontrados = partidos_operations.search_partidos(
+            db,
+            id=partido_id,
+            fase=partido_fase,
+            fecha_inicio=partido_fecha_inicio,
+            fecha_fin=partido_fecha_fin,
+            equipo_nombre=partido_equipo_nombre  # El query general no se pasa a esta, ya tiene su propio campo
+        )
 
     return templates.TemplateResponse(
         "search.html",
-        {"request": request, "query": query, "jugadores": jugadores_encontrados, "equipos": equipos_encontrados, "partidos": partidos_encontrados}
+        {
+            "request": request,
+            "query": query,  # Se pasa el query general para mostrarlo en el input
+
+            # Pasar los parámetros de búsqueda de vuelta a la plantilla para que los inputs mantengan el valor
+            "jugador_id": jugador_id,
+            "jugador_posicion": jugador_posicion,
+            "jugador_nacionalidad": jugador_nacionalidad,
+            "jugador_equipo_id": jugador_equipo_id,
+
+            "equipo_id": equipo_id,
+            "equipo_pais": equipo_pais,
+            "equipo_grupo": equipo_grupo,
+
+            "partido_id": partido_id,
+            "partido_fase": partido_fase,
+            "partido_fecha_inicio": partido_fecha_inicio,
+            "partido_fecha_fin": partido_fecha_fin,
+            "partido_equipo_nombre": partido_equipo_nombre,
+
+            "jugadores": jugadores_encontrados,
+            "equipos": equipos_encontrados,
+            "partidos": partidos_encontrados
+        }
     )
+
 
 # --- Rutas para Estadísticas ---
 @router.get("/estadisticas", response_class=HTMLResponse)
@@ -318,6 +414,7 @@ async def show_statistics_page(request: Request, db: Session = Depends(get_db)):
             "teams_by_goals": teams_by_goals
         }
     )
+
 
 # --- Rutas para Partidos ---
 
@@ -345,21 +442,23 @@ async def listar_partidos(request: Request, db: Session = Depends(get_db)):
         {"request": request, "partidos_agrupados": partidos_agrupados}
     )
 
+
 @router.get("/partidos_crear", response_class=HTMLResponse)
 async def show_create_partido_form(request: Request, db: Session = Depends(get_db)):
     equipos = equipos_operations.get_all_equipos(db)
     return templates.TemplateResponse("partidos/create.html", {"request": request, "equipos": equipos})
 
+
 @router.post("/partidos_crear", response_class=HTMLResponse)
 async def create_partido(
-    request: Request,
-    db: Session = Depends(get_db),
-    equipo_local_id: int = Form(...),
-    equipo_visitante_id: int = Form(...),
-    goles_local: int = Form(...),
-    goles_visitante: int = Form(...),
-    fecha: date = Form(...),
-    fase: str = Form(...)
+        request: Request,
+        db: Session = Depends(get_db),
+        equipo_local_id: int = Form(...),
+        equipo_visitante_id: int = Form(...),
+        goles_local: int = Form(...),
+        goles_visitante: int = Form(...),
+        fecha: date = Form(...),
+        fase: str = Form(...)
 ):
     partido_data = PartidoCreate(
         equipo_local_id=equipo_local_id,
@@ -371,10 +470,11 @@ async def create_partido(
     )
     try:
         if equipo_local_id == equipo_visitante_id:
-             equipos = equipos_operations.get_all_equipos(db)
-             return templates.TemplateResponse(
+            equipos = equipos_operations.get_all_equipos(db)
+            return templates.TemplateResponse(
                 "partidos/create.html",
-                {"request": request, "equipos": equipos, "error_message": "El equipo local y el visitante no pueden ser el mismo."}
+                {"request": request, "equipos": equipos,
+                 "error_message": "El equipo local y el visitante no pueden ser el mismo."}
             )
 
         equipo_local_existente = equipos_operations.get_equipo_by_id(db, equipo_local_id)
@@ -384,23 +484,26 @@ async def create_partido(
             equipos = equipos_operations.get_all_equipos(db)
             return templates.TemplateResponse(
                 "partidos/create.html",
-                {"request": request, "equipos": equipos, "error_message": "El ID del equipo local no es válido o está inactivo."}
+                {"request": request, "equipos": equipos,
+                 "error_message": "El ID del equipo local no es válido o está inactivo."}
             )
         if not equipo_visitante_existente or equipo_visitante_existente.eliminado_logico:
             equipos = equipos_operations.get_all_equipos(db)
             return templates.TemplateResponse(
                 "partidos/create.html",
-                {"request": request, "equipos": equipos, "error_message": "El ID del equipo visitante no es válido o está inactivo."}
+                {"request": request, "equipos": equipos,
+                 "error_message": "El ID del equipo visitante no es válido o está inactivo."}
             )
 
         partido_creado = partidos_operations.create_partido(db, partido_data)
-        return RedirectResponse(url=f"/partidos_lista", status_code=303) # Redirige a la lista de partidos
+        return RedirectResponse(url=f"/partidos_lista", status_code=303)  # Redirige a la lista de partidos
     except Exception as e:
         equipos = equipos_operations.get_all_equipos(db)
         return templates.TemplateResponse(
             "partidos/create.html",
             {"request": request, "equipos": equipos, "error_message": f"Error al crear partido: {e}"}
         )
+
 
 @router.get("/partidos_editar/{partido_id}", response_class=HTMLResponse)
 async def show_edit_partido_form(request: Request, partido_id: int, db: Session = Depends(get_db)):
@@ -413,18 +516,19 @@ async def show_edit_partido_form(request: Request, partido_id: int, db: Session 
         {"request": request, "partido": partido, "equipos": equipos}
     )
 
+
 @router.post("/partidos_editar/{partido_id}", response_class=HTMLResponse)
 async def edit_partido(
-    request: Request,
-    partido_id: int,
-    db: Session = Depends(get_db),
-    equipo_local_id: int = Form(...),
-    equipo_visitante_id: int = Form(...),
-    goles_local: int = Form(...),
-    goles_visitante: int = Form(...),
-    fecha: date = Form(...),
-    fase: str = Form(...),
-    eliminado_logico: bool = Form(False)
+        request: Request,
+        partido_id: int,
+        db: Session = Depends(get_db),
+        equipo_local_id: int = Form(...),
+        equipo_visitante_id: int = Form(...),
+        goles_local: int = Form(...),
+        goles_visitante: int = Form(...),
+        fecha: date = Form(...),
+        fase: str = Form(...),
+        eliminado_logico: bool = Form(False)
 ):
     partido_update_data = PartidoUpdate(
         equipo_local_id=equipo_local_id,
@@ -437,11 +541,12 @@ async def edit_partido(
     )
     try:
         if equipo_local_id == equipo_visitante_id:
-             partido = partidos_operations.get_partido_by_id(db, partido_id)
-             equipos = equipos_operations.get_all_equipos(db)
-             return templates.TemplateResponse(
+            partido = partidos_operations.get_partido_by_id(db, partido_id)
+            equipos = equipos_operations.get_all_equipos(db)
+            return templates.TemplateResponse(
                 "partidos/edit.html",
-                {"request": request, "partido": partido, "equipos": equipos, "error_message": "El equipo local y el visitante no pueden ser el mismo."}
+                {"request": request, "partido": partido, "equipos": equipos,
+                 "error_message": "El equipo local y el visitante no pueden ser el mismo."}
             )
 
         equipo_local_existente = equipos_operations.get_equipo_by_id(db, equipo_local_id)
@@ -452,27 +557,31 @@ async def edit_partido(
             equipos = equipos_operations.get_all_equipos(db)
             return templates.TemplateResponse(
                 "partidos/edit.html",
-                {"request": request, "partido": partido, "equipos": equipos, "error_message": "El ID del equipo local no es válido o está inactivo."}
+                {"request": request, "partido": partido, "equipos": equipos,
+                 "error_message": "El ID del equipo local no es válido o está inactivo."}
             )
         if not equipo_visitante_existente or equipo_visitante_existente.eliminado_logico:
             partido = partidos_operations.get_partido_by_id(db, partido_id)
             equipos = equipos_operations.get_all_equipos(db)
             return templates.TemplateResponse(
                 "partidos/edit.html",
-                {"request": request, "partido": partido, "equipos": equipos, "error_message": "El ID del equipo visitante no es válido o está inactivo."}
+                {"request": request, "partido": partido, "equipos": equipos,
+                 "error_message": "El ID del equipo visitante no es válido o está inactivo."}
             )
 
         partido_actualizado = partidos_operations.update_partido(db, partido_id, partido_update_data)
         if not partido_actualizado:
             raise HTTPException(status_code=404, detail="Partido no encontrado para actualizar")
-        return RedirectResponse(url=f"/partidos_lista", status_code=303) # Redirige a la lista de partidos
+        return RedirectResponse(url=f"/partidos_lista", status_code=303)  # Redirige a la lista de partidos
     except Exception as e:
         partido = partidos_operations.get_partido_by_id(db, partido_id)
         equipos = equipos_operations.get_all_equipos(db)
         return templates.TemplateResponse(
             "partidos/edit.html",
-            {"request": request, "partido": partido, "equipos": equipos, "error_message": f"Error al actualizar partido: {e}"}
+            {"request": request, "partido": partido, "equipos": equipos,
+             "error_message": f"Error al actualizar partido: {e}"}
         )
+
 
 @router.post("/partidos_eliminar/{partido_id}", response_class=HTMLResponse)
 async def eliminar_partido_logico(request: Request, partido_id: int, db: Session = Depends(get_db)):
@@ -483,7 +592,10 @@ async def eliminar_partido_logico(request: Request, partido_id: int, db: Session
         return RedirectResponse(url="/partidos_lista", status_code=303)
     except Exception as e:
         partidos = partidos_operations.get_all_partidos(db)
-        return templates.TemplateResponse("partidos/list.html", {"request": request, "partidos": partidos, "error_message": f"Error al eliminar partido: {e}"})
+        return templates.TemplateResponse("partidos/list.html", {"request": request, "partidos": partidos,
+                                                                 "error_message": f"Error al eliminar partido: {e}"})
+
+
 # --- NUEVA RUTA: Historial de Eliminados ---
 @router.get("/historial_eliminados", response_class=HTMLResponse)
 async def show_deleted_history(request: Request, db: Session = Depends(get_db)):
@@ -500,4 +612,3 @@ async def show_deleted_history(request: Request, db: Session = Depends(get_db)):
             "deleted_partidos": deleted_partidos
         }
     )
-

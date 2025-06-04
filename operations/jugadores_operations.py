@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session, joinedload
 from data import models
 from data.models import JugadorCreate, JugadorUpdate
 from typing import Optional
+
 # Función para crear un nuevo jugador en la base de datos
 def create_jugador(db: Session, jugador: JugadorCreate):
     db_jugador = models.Jugador(
@@ -20,7 +21,6 @@ def create_jugador(db: Session, jugador: JugadorCreate):
     return db_jugador
 
 def get_all_jugadores(db: Session, skip: int = 0, limit: Optional[int] = None):
-
     query = db.query(models.Jugador).options(joinedload(models.Jugador.equipo_obj)).filter(
         models.Jugador.eliminado_logico == False
     ).offset(skip)
@@ -57,8 +57,16 @@ def soft_delete_jugador(db: Session, jugador_id: int):
         db.refresh(db_jugador)
     return db_jugador
 
-# Función para buscar jugadores por varios criterios
-def search_jugadores(db: Session, nombre: str = None, equipo_id: int = None, posicion: str = None, nacionalidad: str = None, eliminado: bool = False):
+# Función para buscar jugadores por varios criterios (ACTUALIZADA)
+def search_jugadores(
+    db: Session,
+    nombre: Optional[str] = None,
+    equipo_id: Optional[int] = None,
+    posicion: Optional[str] = None,
+    nacionalidad: Optional[str] = None,
+    id: Optional[int] = None, # <--- ¡Nuevo parámetro añadido!
+    eliminado: bool = False
+):
     query = db.query(models.Jugador).options(joinedload(models.Jugador.equipo_obj)).filter(models.Jugador.eliminado_logico == eliminado)
     if nombre:
         query = query.filter(models.Jugador.nombre.ilike(f"%{nombre}%"))
@@ -68,6 +76,8 @@ def search_jugadores(db: Session, nombre: str = None, equipo_id: int = None, pos
         query = query.filter(models.Jugador.posicion.ilike(f"%{posicion}%"))
     if nacionalidad:
         query = query.filter(models.Jugador.nacionalidad.ilike(f"%{nacionalidad}%"))
+    if id: # <--- ¡Nuevo filtro añadido!
+        query = query.filter(models.Jugador.id == id)
 
     return query.all()
 
