@@ -67,11 +67,11 @@ header h1 {
     margin: 0;
     font-size: 3rem;
     letter-spacing: 2px;
-    text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+    text-shadow: 4px 4px 10px rgba(0,0,0,0.8); /* Sombra más fuerte para el título */
 }
 
 header h1 a {
-    color: inherit;
+    color: var(--light-text-color); /* Asegura que el color sea claro */
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -375,35 +375,9 @@ form {
 
 .card-img {
     width: 100%;
-    height: 200px; /* Altura fija para imágenes de tarjeta */
+    height: 180px; /* Reducir ligeramente la altura para menos zoom */
     object-fit: cover;
     border-bottom: 2px solid var(--accent-color); /* Línea dorada bajo la imagen */
-}
-
-.card-content {
-    padding: 20px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.card-title {
-    color: var(--primary-color);
-    margin: 0 0 10px 0;
-    font-size: 1.6rem;
-}
-
-.card-text {
-    font-size: 1em;
-    color: var(--text-color);
-    margin-bottom: 8px;
-}
-
-.card-button {
-    margin-top: auto; /* Empuja el botón hacia abajo */
-    width: calc(100% - 20px); /* Ajusta el ancho del botón dentro de la tarjeta */
 }
 
 /* Mensajes de error/éxito */
@@ -635,6 +609,10 @@ footer {
     }
     .detail-info p {
         font-size: 1em;
+    }
+
+    .card-img {
+        height: 150px; /* Ajustar altura para móviles también */
     }
 }
 
