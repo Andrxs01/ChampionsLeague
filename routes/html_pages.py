@@ -7,6 +7,7 @@ from utils.db import get_db
 from operations import jugadores_operations, equipos_operations, partidos_operations
 from data.models import JugadorCreate, JugadorUpdate, EquipoCreate, EquipoUpdate, PartidoCreate, PartidoUpdate, Jugador, Equipo, Partido
 from datetime import date
+from collections import defaultdict # Para agrupar partidos
 
 router = APIRouter(
     tags=["Páginas HTML"],
@@ -281,12 +282,11 @@ async def eliminar_equipo_logico(request: Request, equipo_id: int, db: Session =
 async def show_search_page(request: Request, db: Session = Depends(get_db), query: str = None):
     jugadores_encontrados = []
     equipos_encontrados = []
-    partidos_encontrados = [] # Nueva lista para partidos
+    partidos_encontrados = []
 
     if query:
         jugadores_encontrados = jugadores_operations.search_jugadores(db, nombre=query)
         equipos_encontrados = equipos_operations.search_equipos(db, nombre=query)
-        # Buscar partidos por nombre de equipo en la consulta
         partidos_encontrados = partidos_operations.search_partidos(db, equipo_nombre=query)
 
 
@@ -298,9 +298,9 @@ async def show_search_page(request: Request, db: Session = Depends(get_db), quer
 # --- Rutas para Estadísticas ---
 @router.get("/estadisticas", response_class=HTMLResponse)
 async def show_statistics_page(request: Request, db: Session = Depends(get_db)):
-    top_scorers = jugadores_operations.get_top_scorers(db, limit=10) # Obtener los 10 mejores goleadores
-    top_assisters = jugadores_operations.get_top_assisters(db, limit=10) # Obtener los 10 mejores asistentes
-    teams_by_goals = equipos_operations.get_teams_by_total_goals(db, limit=10) # Obtener los 10 equipos con más goles
+    top_scorers = jugadores_operations.get_top_scorers(db, limit=10)
+    top_assisters = jugadores_operations.get_top_assisters(db, limit=10)
+    teams_by_goals = equipos_operations.get_teams_by_total_goals(db, limit=10)
 
     return templates.TemplateResponse(
         "statistics.html",
@@ -316,10 +316,26 @@ async def show_statistics_page(request: Request, db: Session = Depends(get_db)):
 
 @router.get("/partidos_lista", response_class=HTMLResponse)
 async def listar_partidos(request: Request, db: Session = Depends(get_db)):
-    partidos = partidos_operations.get_all_partidos(db)
+    all_partidos = partidos_operations.get_all_partidos(db)
+    # Agrupar partidos por fase
+    partidos_por_fase = defaultdict(list)
+    # Definir un orden para las fases
+    orden_fases = ["Fase de Grupos", "Octavos de Final", "Cuartos de Final", "Semifinal", "Final"]
+
+    for partido in all_partidos:
+        partidos_por_fase[partido.fase].append(partido)
+
+    # Convertir a una lista de tuplas (fase, partidos_en_fase) ordenada
+    partidos_agrupados = []
+    for fase in orden_fases:
+        if fase in partidos_por_fase:
+            # Opcional: ordenar partidos dentro de cada fase por fecha
+            sorted_partidos_en_fase = sorted(partidos_por_fase[fase], key=lambda p: p.fecha)
+            partidos_agrupados.append((fase, sorted_partidos_en_fase))
+
     return templates.TemplateResponse(
         "partidos/list.html",
-        {"request": request, "partidos": partidos}
+        {"request": request, "partidos_agrupados": partidos_agrupados}
     )
 
 @router.get("/partidos_crear", response_class=HTMLResponse)

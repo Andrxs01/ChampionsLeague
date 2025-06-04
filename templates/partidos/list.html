@@ -17,61 +17,63 @@
     <a href="/partidos_crear" class="button primary"><i class="fas fa-plus-circle"></i> Añadir Nuevo Partido</a>
 </div>
 
-{% if partidos %}
-<div class="table-container">
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Fecha</th>
-                <th>Fase</th>
-                <th>Equipo Local</th>
-                <th>Resultado</th>
-                <th>Equipo Visitante</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for partido in partidos %}
-            <tr>
-                <td>{{ partido.id }}</td>
-                <td>{{ partido.fecha.strftime('%d/%m/%Y') }}</td>
-                <td>{{ partido.fase }}</td>
-                <td>
-                    {% if partido.equipo_local_obj %}
-                        <a href="/equipos/{{ partido.equipo_local_obj.id }}" class="text-link team-display">
-                            <img src="{{ partido.equipo_local_obj.imagen_url }}" alt="[Image of {{ partido.equipo_local_obj.nombre }}]" class="team-logo" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/333333?text=N/A';">
-                            {{ partido.equipo_local_obj.nombre }}
-                        </a>
-                    {% else %}
-                        N/A
-                    {% endif %}
-                </td>
-                <td class="result-score">
-                    <strong>{{ partido.goles_local }} - {{ partido.goles_visitante }}</strong>
-                </td>
-                <td>
-                    {% if partido.equipo_visitante_obj %}
-                        <a href="/equipos/{{ partido.equipo_visitante_obj.id }}" class="text-link team-display">
-                            <img src="{{ partido.equipo_visitante_obj.imagen_url }}" alt="[Image of {{ partido.equipo_visitante_obj.nombre }}]" class="team-logo" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/333333?text=N/A';">
-                            {{ partido.equipo_visitante_obj.nombre }}
-                        </a>
-                    {% else %}
-                        N/A
-                    {% endif %}
-                </td>
-                <td class="flex-row">
-                    {# Puedes añadir una página de detalle para partidos si es necesario, o un modal #}
-                    <a href="/partidos_editar/{{ partido.id }}" class="button warning small-button">Editar</a>
-                    <form action="/partidos_eliminar/{{ partido.id }}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar lógicamente este partido?');">
-                        <button type="submit" class="button danger small-button">Eliminar</button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+{% if partidos_agrupados %}
+    {% for fase, partidos_en_fase in partidos_agrupados %}
+        <section class="info-section" style="margin-top: 40px;">
+            <h2 style="font-size: 1.8em; text-align: left; border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; margin-bottom: 25px;">{{ fase }}</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Fecha</th>
+                            <th>Equipo Local</th>
+                            <th>Resultado</th>
+                            <th>Equipo Visitante</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for partido in partidos_en_fase %}
+                        <tr>
+                            <td>{{ partido.id }}</td>
+                            <td>{{ partido.fecha.strftime('%d/%m/%Y') }}</td>
+                            <td>
+                                {% if partido.equipo_local_obj %}
+                                    <a href="/equipos/{{ partido.equipo_local_obj.id }}" class="text-link team-display">
+                                        <img src="{{ partido.equipo_local_obj.imagen_url }}" alt="[Image of {{ partido.equipo_local_obj.nombre }}]" class="team-logo" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/333333?text=N/A';">
+                                        {{ partido.equipo_local_obj.nombre }}
+                                    </a>
+                                {% else %}
+                                    N/A
+                                {% endif %}
+                            </td>
+                            <td class="result-score">
+                                <strong>{{ partido.goles_local }} - {{ partido.goles_visitante }}</strong>
+                            </td>
+                            <td>
+                                {% if partido.equipo_visitante_obj %}
+                                    <a href="/equipos/{{ partido.equipo_visitante_obj.id }}" class="text-link team-display">
+                                        <img src="{{ partido.equipo_visitante_obj.imagen_url }}" alt="[Image of {{ partido.equipo_visitante_obj.nombre }}]" class="team-logo" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/333333?text=N/A';">
+                                        {{ partido.equipo_visitante_obj.nombre }}
+                                    </a>
+                                {% else %}
+                                    N/A
+                                {% endif %}
+                            </td>
+                            <td class="flex-row">
+                                <a href="/partidos_editar/{{ partido.id }}" class="button warning small-button">Editar</a>
+                                <form action="/partidos_eliminar/{{ partido.id }}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar lógicamente este partido?');">
+                                    <button type="submit" class="button danger small-button">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    {% endfor %}
 {% else %}
     <p class="no-data-message">No hay partidos registrados o activos. ¡Añade uno!</p>
 {% endif %}

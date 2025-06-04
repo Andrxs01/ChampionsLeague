@@ -6,7 +6,7 @@
 {% block content %}
 <h1 class="main-title">🔍 Buscar en la Champions League 🔍</h1>
 
-<form action="/busqueda" method="get" class="search-form info-section"> {# Añadido info-section #}
+<form action="/busqueda" method="get" class="search-form info-section">
     <div class="form-group search-input-group">
         <label for="query" style="display: none;">Término de búsqueda:</label>
         <input type="text" id="query" name="query" value="{{ query if query else '' }}" placeholder="Buscar jugador, equipo o partido por nombre..." class="search-input">
@@ -17,7 +17,7 @@
 {% if query %}
     <h2 class="search-results-title">Resultados para "{{ query }}"</h2>
 
-    <section class="search-results-section info-section"> {# Añadido info-section #}
+    <section class="search-results-section info-section">
         <h3>Jugadores Encontrados:</h3>
         {% if jugadores %}
         <div class="table-container">
@@ -60,7 +60,7 @@
         {% endif %}
     </section>
 
-    <section class="search-results-section info-section"> {# Añadido info-section #}
+    <section class="search-results-section info-section">
         <h3 style="margin-top: 30px;">Equipos Encontrados:</h3>
         {% if equipos %}
         <div class="table-container">
@@ -103,7 +103,7 @@
         {% endif %}
     </section>
 
-    <section class="search-results-section info-section"> {# Añadido info-section #}
+    <section class="search-results-section info-section">
         <h3 style="margin-top: 30px;">Partidos Encontrados:</h3>
         {% if partidos %}
         <div class="table-container">
@@ -164,13 +164,13 @@
 {% else %}
     <p class="no-data-message info-section">Ingresa un término en la barra de búsqueda para encontrar jugadores, equipos o partidos.</p>
 {% endif %}
+{% endblock %}
 
-{# Estilos específicos para la página de búsqueda - FUERA del bloque content #}
 {% block scripts_extra %}
 <style>
     .search-form {
         margin-bottom: 30px;
-        padding: 25px; /* Ajustar padding para que se vea bien con info-section */
+        padding: 25px;
     }
 
     .search-input-group {
@@ -178,22 +178,22 @@
         gap: 10px;
         align-items: center;
         width: 100%;
-        max-width: 600px; /* Ancho máximo para el input de búsqueda */
-        margin: 0 auto; /* Centrar el input */
+        max-width: 600px;
+        margin: 0 auto;
     }
 
     .search-input {
         flex-grow: 1;
-        padding: 12px; /* Ajustar padding */
-        font-size: 1.1em; /* Aumentar tamaño de fuente */
+        padding: 12px;
+        font-size: 1.1em;
         border-radius: 8px;
         border: 1px solid var(--border-color);
         box-shadow: var(--neumorphism-inset-shadow);
     }
 
     .search-button {
-        padding: 12px 20px; /* Ajustar padding del botón */
-        font-size: 1.1em; /* Aumentar tamaño de fuente */
+        padding: 12px 20px;
+        font-size: 1.1em;
     }
 
     .search-results-title {
@@ -208,7 +208,7 @@
         margin-bottom: 15px;
         border-bottom: 1px solid var(--border-color);
         padding-bottom: 10px;
-        text-align: left; /* Alinea el título de la sección a la izquierda */
+        text-align: left;
         font-size: 1.5em;
     }
 
