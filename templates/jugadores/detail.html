@@ -1,22 +1,30 @@
-<!-- templates/equipos/detail.html -->
+<!-- templates/jugadores/detail.html -->
 {% extends "base.html" %}
 
-{% block title %}Detalle del Equipo{% endblock %}
+{% block title %}Detalle del Jugador{% endblock %}
 
 {% block content %}
-<h1 class="main-title">🛡️ Detalle del Equipo: {{ equipo.nombre }}</h1>
+<h1 class="main-title">👤 Detalle del Jugador: {{ jugador.nombre }}</h1>
 
 <div class="detail-card">
-    <div class="detail-image-container">
-        <img src="{{ equipo.imagen_url }}" alt="[Image of {{ equipo.nombre }}]" class="detail-img" onerror="this.onerror=null;this.src='https://placehold.co/350x350/cccccc/333333?text=Equipo+N/A';">
-    </div>
+    {# Eliminamos la sección de imagen del jugador #}
     <div class="detail-info">
-        <p><strong>ID:</strong> {{ equipo.id }}</p>
-        <p><strong>Nombre:</strong> {{ equipo.nombre }}</p>
-        <p><strong>País:</strong> {{ equipo.pais }}</p>
-        <p><strong>Grupo:</strong> {{ equipo.grupo }}</p>
+        <p><strong>ID:</strong> {{ jugador.id }}</p>
+        <p><strong>Nombre:</strong> {{ jugador.nombre }}</p>
+        <p><strong>Equipo:</strong>
+            {% if jugador.equipo_obj %}
+                <a href="/equipos/{{ jugador.equipo_obj.id }}" class="text-link">{{ jugador.equipo_obj.nombre }}</a>
+            {% else %}
+                N/A
+            {% endif %}
+        </p>
+        <p><strong>Posición:</strong> {{ jugador.posicion }}</p>
+        <p><strong>Edad:</strong> {{ jugador.edad }} años</p>
+        <p><strong>Nacionalidad:</strong> {{ jugador.nacionalidad }}</p>
+        <p><strong>Goles:</strong> {{ jugador.goles }}</p>
+        <p><strong>Asistencias:</strong> {{ jugador.asistencias }}</p>
         <p><strong>Estado:</strong>
-            {% if equipo.eliminado_logico %}
+            {% if jugador.eliminado_logico %}
                 <span class="status-danger">Eliminado Lógicamente</span>
             {% else %}
                 <span class="status-success">Activo</span>
@@ -25,30 +33,11 @@
     </div>
 
     <div class="flex-row detail-actions">
-        <a href="/equipos_lista" class="button secondary"><i class="fas fa-arrow-left"></i> Volver a la Lista</a>
-        <a href="/equipos_editar/{{ equipo.id }}" class="button warning"><i class="fas fa-edit"></i> Editar Equipo</a>
-        <form action="/equipos_eliminar/{{ equipo.id }}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar lógicamente a este equipo?');">
-            <button type="submit" class="button danger"><i class="fas fa-trash-alt"></i> Eliminar Equipo</button>
+        <a href="/jugadores_lista" class="button secondary"><i class="fas fa-arrow-left"></i> Volver a la Lista</a>
+        <a href="/jugadores_editar/{{ jugador.id }}" class="button warning"><i class="fas fa-edit"></i> Editar Jugador</a>
+        <form action="/jugadores_eliminar/{{ jugador.id }}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar lógicamente a este jugador?');">
+            <button type="submit" class="button danger"><i class="fas fa-trash-alt"></i> Eliminar Jugador</button>
         </form>
     </div>
 </div>
-
-<section class="info-section" style="margin-top: 40px;">
-    <h2>⚽ Jugadores del Equipo: {{ equipo.nombre }} ⚽</h2>
-    {% if equipo.jugadores %}
-        <ul class="player-list">
-            {% for jugador in equipo.jugadores %}
-                {% if not jugador.eliminado_logico %}
-                    <li>
-                        <a href="/jugadores/{{ jugador.id }}" class="text-link">
-                            {{ jugador.nombre }} ({{ jugador.posicion }})
-                        </a>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p class="no-data-message">Este equipo no tiene jugadores activos registrados.</p>
-    {% endif %}
-</section>
 {% endblock %}
