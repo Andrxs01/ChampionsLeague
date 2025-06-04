@@ -3,9 +3,9 @@ from fastapi import APIRouter, Request, Depends, Form, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
-from utils.db import get_db # Importa get_db desde utils.db
-from operations import jugadores_operations, equipos_operations # Tus operaciones
-from data.models import JugadorCreate, JugadorUpdate, EquipoCreate, EquipoUpdate, Jugador, Equipo # Importa los modelos directamente
+from utils.db import get_db
+from operations import jugadores_operations, equipos_operations
+from data.models import JugadorCreate, JugadorUpdate, EquipoCreate, EquipoUpdate, Jugador, Equipo
 
 router = APIRouter(
     tags=["Páginas HTML"],
@@ -17,8 +17,6 @@ templates = Jinja2Templates(directory="templates")
 
 @router.get("/home", response_class=HTMLResponse)
 async def home(request: Request, db: Session = Depends(get_db)):
-    # Cargamos algunos jugadores y equipos para mostrar en la página principal
-    # Solo los que no están eliminados lógicamente
     jugadores_recientes = jugadores_operations.get_all_jugadores(db, limit=5)
     equipos_recientes = equipos_operations.get_all_equipos(db, limit=5)
     return templates.TemplateResponse(
@@ -46,8 +44,7 @@ async def project_objective(request: Request):
 
 @router.get("/jugadores_lista", response_class=HTMLResponse)
 async def listar_jugadores(request: Request, db: Session = Depends(get_db)):
-    # Obtener todos los jugadores NO eliminados lógicamente
-    jugadores = jugadores_operations.get_all_jugadores(db) # Usa la operación que ya filtra
+    jugadores = jugadores_operations.get_all_jugadores(db)
     return templates.TemplateResponse(
         "jugadores/list.html",
         {"request": request, "jugadores": jugadores}
@@ -55,9 +52,8 @@ async def listar_jugadores(request: Request, db: Session = Depends(get_db)):
 
 @router.get("/jugadores/{jugador_id}", response_class=HTMLResponse)
 async def ver_jugador(request: Request, jugador_id: int, db: Session = Depends(get_db)):
-    # Obtener jugador por ID, incluyendo su equipo relacionado
     jugador = jugadores_operations.get_jugador_by_id(db, jugador_id)
-    if not jugador or jugador.eliminado_logico: # No mostrar si está eliminado lógicamente
+    if not jugador or jugador.eliminado_logico:
         raise HTTPException(status_code=404, detail="Jugador no encontrado o eliminado")
     return templates.TemplateResponse(
         "jugadores/detail.html",
@@ -66,7 +62,7 @@ async def ver_jugador(request: Request, jugador_id: int, db: Session = Depends(g
 
 @router.get("/jugadores_crear", response_class=HTMLResponse)
 async def show_create_jugador_form(request: Request, db: Session = Depends(get_db)):
-    equipos = equipos_operations.get_all_equipos(db) # Necesitamos los equipos para el select
+    equipos = equipos_operations.get_all_equipos(db)
     return templates.TemplateResponse("jugadores/create.html", {"request": request, "equipos": equipos})
 
 @router.post("/jugadores_crear", response_class=HTMLResponse)
@@ -80,7 +76,7 @@ async def create_jugador(
     nacionalidad: str = Form(...),
     goles: int = Form(0),
     asistencias: int = Form(0),
-    imagen_url: str = Form(None) # Opcional
+    imagen_url: str = Form(None)
 ):
     jugador_data = JugadorCreate(
         nombre=nombre,
@@ -93,7 +89,6 @@ async def create_jugador(
         imagen_url=imagen_url if imagen_url else None
     )
     try:
-        # Verificar si el equipo_id existe y no está eliminado lógicamente
         equipo_existente = equipos_operations.get_equipo_by_id(db, equipo_id)
         if not equipo_existente or equipo_existente.eliminado_logico:
             equipos = equipos_operations.get_all_equipos(db)
@@ -114,7 +109,7 @@ async def create_jugador(
 @router.get("/jugadores_editar/{jugador_id}", response_class=HTMLResponse)
 async def show_edit_jugador_form(request: Request, jugador_id: int, db: Session = Depends(get_db)):
     jugador = jugadores_operations.get_jugador_by_id(db, jugador_id)
-    if not jugador: # Permitimos editar incluso si está lógicamente eliminado, para poder "restaurarlo"
+    if not jugador:
         raise HTTPException(status_code=404, detail="Jugador no encontrado para editar")
     equipos = equipos_operations.get_all_equipos(db)
     return templates.TemplateResponse(
@@ -134,8 +129,8 @@ async def edit_jugador(
     nacionalidad: str = Form(...),
     goles: int = Form(0),
     asistencias: int = Form(0),
-    imagen_url: str = Form(None), # Opcional
-    eliminado_logico: bool = Form(False) # Captura el checkbox
+    imagen_url: str = Form(None),
+    eliminado_logico: bool = Form(False)
 ):
     jugador_update_data = JugadorUpdate(
         nombre=nombre,
@@ -146,10 +141,9 @@ async def edit_jugador(
         goles=goles,
         asistencias=asistencias,
         imagen_url=imagen_url if imagen_url else None,
-        eliminado_logico=eliminado_logico # Pasa el valor del checkbox
+        eliminado_logico=eliminado_logico
     )
     try:
-        # Verificar si el equipo_id existe y no está eliminado lógicamente
         equipo_existente = equipos_operations.get_equipo_by_id(db, equipo_id)
         if not equipo_existente or equipo_existente.eliminado_logico:
             jugador = jugadores_operations.get_jugador_by_id(db, jugador_id)
@@ -179,7 +173,7 @@ async def eliminar_jugador_logico(request: Request, jugador_id: int, db: Session
             raise HTTPException(status_code=404, detail="Jugador no encontrado para eliminación lógica")
         return RedirectResponse(url="/jugadores_lista", status_code=303)
     except Exception as e:
-        jugadores = jugadores_operations.get_all_jugadores(db) # Obtener solo los no eliminados
+        jugadores = jugadores_operations.get_all_jugadores(db)
         return templates.TemplateResponse("jugadores/list.html", {"request": request, "jugadores": jugadores, "error_message": f"Error al eliminar jugador: {e}"})
 
 
@@ -187,8 +181,7 @@ async def eliminar_jugador_logico(request: Request, jugador_id: int, db: Session
 
 @router.get("/equipos_lista", response_class=HTMLResponse)
 async def listar_equipos(request: Request, db: Session = Depends(get_db)):
-    # Obtener todos los equipos NO eliminados lógicamente
-    equipos = equipos_operations.get_all_equipos(db) # Usa la operación que ya filtra
+    equipos = equipos_operations.get_all_equipos(db)
     return templates.TemplateResponse(
         "equipos/list.html",
         {"request": request, "equipos": equipos}
@@ -196,9 +189,8 @@ async def listar_equipos(request: Request, db: Session = Depends(get_db)):
 
 @router.get("/equipos/{equipo_id}", response_class=HTMLResponse)
 async def ver_equipo(request: Request, equipo_id: int, db: Session = Depends(get_db)):
-    # Obtener equipo por ID, incluyendo sus jugadores relacionados
     equipo = equipos_operations.get_equipo_by_id(db, equipo_id)
-    if not equipo or equipo.eliminado_logico: # No mostrar si está eliminado lógicamente
+    if not equipo or equipo.eliminado_logico:
         raise HTTPException(status_code=404, detail="Equipo no encontrado o eliminado")
     return templates.TemplateResponse(
         "equipos/detail.html",
@@ -236,7 +228,7 @@ async def create_equipo(
 @router.get("/equipos_editar/{equipo_id}", response_class=HTMLResponse)
 async def show_edit_equipo_form(request: Request, equipo_id: int, db: Session = Depends(get_db)):
     equipo = equipos_operations.get_equipo_by_id(db, equipo_id)
-    if not equipo: # Permitimos editar incluso si está lógicamente eliminado
+    if not equipo:
         raise HTTPException(status_code=404, detail="Equipo no encontrado para editar")
     return templates.TemplateResponse(
         "equipos/edit.html",
@@ -252,14 +244,14 @@ async def edit_equipo(
     pais: str = Form(...),
     grupo: str = Form(...),
     imagen_url: str = Form(None),
-    eliminado_logico: bool = Form(False) # Captura el checkbox
+    eliminado_logico: bool = Form(False)
 ):
     equipo_update_data = EquipoUpdate(
         nombre=nombre,
         pais=pais,
         grupo=grupo,
         imagen_url=imagen_url if imagen_url else None,
-        eliminado_logico=eliminado_logico # Pasa el valor del checkbox
+        eliminado_logico=eliminado_logico
     )
     try:
         equipo_actualizado = equipos_operations.update_equipo(db, equipo_id, equipo_update_data)
@@ -281,7 +273,7 @@ async def eliminar_equipo_logico(request: Request, equipo_id: int, db: Session =
             raise HTTPException(status_code=404, detail="Equipo no encontrado para eliminación lógica")
         return RedirectResponse(url="/equipos_lista", status_code=303)
     except Exception as e:
-        equipos = equipos_operations.get_all_equipos(db) # Obtener solo los no eliminados
+        equipos = equipos_operations.get_all_equipos(db)
         return templates.TemplateResponse("equipos/list.html", {"request": request, "equipos": equipos, "error_message": f"Error al eliminar equipo: {e}"})
 
 
@@ -293,12 +285,10 @@ async def show_search_page(request: Request, db: Session = Depends(get_db), quer
     equipos_encontrados = []
 
     if query:
-        # Búsqueda de jugadores por nombre (insensible a mayúsculas/minúsculas)
         jugadores_encontrados = db.query(Jugador).filter(
             Jugador.nombre.ilike(f"%{query}%"),
             Jugador.eliminado_logico == False
         ).all()
-        # Búsqueda de equipos por nombre
         equipos_encontrados = db.query(Equipo).filter(
             Equipo.nombre.ilike(f"%{query}%"),
             Equipo.eliminado_logico == False
@@ -309,3 +299,19 @@ async def show_search_page(request: Request, db: Session = Depends(get_db), quer
         {"request": request, "query": query, "jugadores": jugadores_encontrados, "equipos": equipos_encontrados}
     )
 
+# --- NUEVA RUTA PARA ESTADÍSTICAS ---
+@router.get("/estadisticas", response_class=HTMLResponse)
+async def show_statistics_page(request: Request, db: Session = Depends(get_db)):
+    top_scorers = jugadores_operations.get_top_scorers(db, limit=5) # Obtener los 5 mejores goleadores
+    top_assisters = jugadores_operations.get_top_assisters(db, limit=5) # Obtener los 5 mejores asistentes
+    teams_by_goals = equipos_operations.get_teams_by_total_goals(db, limit=5) # Obtener los 5 equipos con más goles
+
+    return templates.TemplateResponse(
+        "statistics.html",
+        {
+            "request": request,
+            "top_scorers": top_scorers,
+            "top_assisters": top_assisters,
+            "teams_by_goals": teams_by_goals
+        }
+    )

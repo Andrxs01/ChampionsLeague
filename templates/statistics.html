@@ -1,0 +1,159 @@
+<!-- templates/statistics.html -->
+{% extends "base.html" %}
+
+{% block title %}Estadísticas de la Champions League{% endblock %}
+
+{% block content %}
+<h1 class="main-title">📊 Estadísticas de la Champions League 2017/18 📈</h1>
+<p style="text-align: center; font-size: 1.1em; color: var(--text-color); margin-bottom: 40px;">
+    Explora los datos más relevantes de la temporada, incluyendo los máximos goleadores, asistentes y el rendimiento de los equipos.
+</p>
+
+<section class="statistics-section">
+    <h2>⚽ Máximos Goleadores ⚽</h2>
+    {% if top_scorers %}
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Posición</th>
+                    <th>Jugador</th>
+                    <th>Equipo</th>
+                    <th>Goles</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for jugador in top_scorers %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>
+                        <a href="/jugadores/{{ jugador.id }}" class="text-link">
+                            {% if jugador.imagen_url %}
+                                <img src="{{ jugador.imagen_url }}" alt="[Image of {{ jugador.nombre }}]" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%; margin-right: 10px;">
+                            {% else %}
+                                <img src="https://placehold.co/40x40/cccccc/333333?text=N/A" alt="[Image of {{ jugador.nombre }}]" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%; margin-right: 10px;">
+                            {% endif %}
+                            {{ jugador.nombre }}
+                        </a>
+                    </td>
+                    <td>{{ jugador.equipo_obj.nombre if jugador.equipo_obj else 'N/A' }}</td>
+                    <td><strong>{{ jugador.goles }}</strong></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="no-data-message">No hay datos de goleadores disponibles.</p>
+    {% endif %}
+</section>
+
+<section class="statistics-section">
+    <h2>🎯 Máximos Asistentes 🎯</h2>
+    {% if top_assisters %}
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Posición</th>
+                    <th>Jugador</th>
+                    <th>Equipo</th>
+                    <th>Asistencias</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for jugador in top_assisters %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>
+                        <a href="/jugadores/{{ jugador.id }}" class="text-link">
+                            {% if jugador.imagen_url %}
+                                <img src="{{ jugador.imagen_url }}" alt="[Image of {{ jugador.nombre }}]" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%; margin-right: 10px;">
+                            {% else %}
+                                <img src="https://placehold.co/40x40/cccccc/333333?text=N/A" alt="[Image of {{ jugador.nombre }}]" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%; margin-right: 10px;">
+                            {% endif %}
+                            {{ jugador.nombre }}
+                        </a>
+                    </td>
+                    <td>{{ jugador.equipo_obj.nombre if jugador.equipo_obj else 'N/A' }}</td>
+                    <td><strong>{{ jugador.asistencias }}</strong></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="no-data-message">No hay datos de asistentes disponibles.</p>
+    {% endif %}
+</section>
+
+<section class="statistics-section">
+    <h2>🏆 Equipos con Más Goles (Total de Goles de Jugadores) 🏆</h2>
+    {% if teams_by_goals %}
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Posición</th>
+                    <th>Equipo</th>
+                    <th>País</th>
+                    <th>Total Goles</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for equipo, total_goles in teams_by_goals %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>
+                        <a href="/equipos/{{ equipo.id }}" class="text-link">
+                            {% if equipo.imagen_url %}
+                                <img src="{{ equipo.imagen_url }}" alt="[Image of {{ equipo.nombre }}]" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%; margin-right: 10px;">
+                            {% else %}
+                                <img src="https://placehold.co/40x40/cccccc/333333?text=N/A" alt="[Image of {{ equipo.nombre }}]" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%; margin-right: 10px;">
+                            {% endif %}
+                            {{ equipo.nombre }}
+                        </a>
+                    </td>
+                    <td>{{ equipo.pais }}</td>
+                    <td><strong>{{ total_goles }}</strong></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="no-data-message">No hay datos de equipos por goles disponibles.</p>
+    {% endif %}
+</section>
+
+<style>
+    .statistics-section {
+        margin-bottom: 50px;
+        padding: 20px;
+        background-color: var(--card-background);
+        border-radius: 15px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+    .statistics-section h2 {
+        font-size: 2.2rem;
+        color: var(--primary-color);
+        margin-bottom: 25px;
+        border-bottom: 2px solid var(--accent-color);
+        padding-bottom: 15px;
+        text-align: center;
+    }
+    .statistics-section .table-container {
+        box-shadow: none; /* Eliminar sombra extra ya que la sección ya la tiene */
+    }
+    .statistics-section table th {
+        background-color: var(--primary-color);
+        color: var(--light-text-color);
+    }
+    .statistics-section table tr:nth-child(even) {
+        background-color: #f0f4f7;
+    }
+    .statistics-section table tr:hover {
+        background-color: #e6f0ff;
+    }
+</style>
+{% endblock %}
