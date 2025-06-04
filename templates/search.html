@@ -1,0 +1,143 @@
+<!-- templates/search.html -->
+{% extends "base.html" %}
+
+{% block title %}Búsqueda{% endblock %}
+
+{% block content %}
+<h1 class="main-title">🔍 Buscar en la Champions League 🔍</h1>
+
+<form action="/busqueda" method="get" class="search-form">
+    <div class="form-group search-input-group">
+        <input type="text" id="query" name="query" value="{{ query if query else '' }}" placeholder="Buscar jugador o equipo por nombre..." class="search-input">
+        <button type="submit" class="button primary search-button">Buscar</button>
+    </div>
+</form>
+
+{% if query %}
+    <h2 class="search-results-title">Resultados para "{{ query }}"</h2>
+
+    <section class="search-results-section">
+        <h3>Jugadores Encontrados:</h3>
+        {% if jugadores %}
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Equipo</th>
+                        <th>Posición</th>
+                        <th>Nacionalidad</th>
+                        <th>Imagen</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for jugador in jugadores %}
+                    <tr>
+                        <td>{{ jugador.id }}</td>
+                        <td>{{ jugador.nombre }}</td>
+                        <td>{{ jugador.equipo_obj.nombre if jugador.equipo_obj else 'N/A' }}</td>
+                        <td>{{ jugador.posicion }}</td>
+                        <td>{{ jugador.nacionalidad }}</td>
+                        <td>
+                            {% if jugador.imagen_url %}
+                                <img src="{{ jugador.imagen_url }}" alt="" onerror="this.onerror=null;this.src='https://placehold.co/70x70/cccccc/333333?text=N/A';">
+                            {% else %}
+                                <p>Sin imagen</p>
+                            {% endif %}
+                        </td>
+                        <td class="flex-row">
+                            <a href="/jugadores/{{ jugador.id }}" class="button primary small-button">Ver</a>
+                            <a href="/jugadores_editar/{{ jugador.id }}" class="button warning small-button">Editar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+            <p class="no-data-message">No se encontraron jugadores que coincidan con la búsqueda.</p>
+        {% endif %}
+    </section>
+
+    <section class="search-results-section">
+        <h3 style="margin-top: 30px;">Equipos Encontrados:</h3>
+        {% if equipos %}
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>País</th>
+                        <th>Grupo</th>
+                        <th>Imagen</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for equipo in equipos %}
+                    <tr>
+                        <td>{{ equipo.id }}</td>
+                        <td>{{ equipo.nombre }}</td>
+                        <td>{{ equipo.pais }}</td>
+                        <td>{{ equipo.grupo }}</td>
+                        <td>
+                            {% if equipo.imagen_url %}
+                                <img src="{{ equipo.imagen_url }}" alt="" onerror="this.onerror=null;this.src='https://placehold.co/70x70/cccccc/333333?text=N/A';">
+                            {% else %}
+                                <p>Sin imagen</p>
+                            {% endif %}
+                        </td>
+                        <td class="flex-row">
+                            <a href="/equipos/{{ equipo.id }}" class="button primary small-button">Ver</a>
+                            <a href="/equipos_editar/{{ equipo.id }}" class="button warning small-button">Editar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+            <p class="no-data-message">No se encontraron equipos que coincidan con la búsqueda.</p>
+        {% endif %}
+    </section>
+
+<style>
+    /* Estilos específicos para la página de búsqueda */
+    .search-form {
+        margin-bottom: 30px;
+    }
+
+    .search-input-group {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .search-input {
+        flex-grow: 1;
+    }
+
+    .search-results-title {
+        margin-top: 40px;
+        margin-bottom: 20px;
+        color: var(--primary-color);
+        font-size: 1.8em;
+    }
+
+    .search-results-section h3 {
+        color: var(--secondary-color);
+        margin-bottom: 15px;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 10px;
+        text-align: left; /* Alinea el título de la sección a la izquierda */
+    }
+
+    .small-button {
+        padding: 8px 12px;
+        font-size: 0.85em;
+    }
+</style>
+{% endblock %}

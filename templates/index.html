@@ -1,0 +1,60 @@
+<!-- templates/index.html -->
+{% extends "base.html" %}
+
+{% block title %}Inicio - Champions League{% endblock %}
+
+{% block content %}
+<h1 class="main-title">🌟 ¡Bienvenido al Corazón de la Champions League 2017/18! 🌟</h1>
+<p class="intro-text" style="text-align: center; font-size: 1.15em; color: var(--text-color); margin-bottom: 50px;">
+    Sumérgete en la emoción de una de las temporadas más memorables de la Liga de Campeones de la UEFA. Aquí podrás explorar, gestionar y visualizar los datos de los equipos legendarios y los jugadores que hicieron historia.
+</p>
+
+<section class="highlight-section">
+    <h2>⚽ Jugadores Destacados ⚽</h2>
+    {% if jugadores %}
+    <div class="card-grid">
+        {% for jugador in jugadores %}
+        <div class="card player-card">
+            <img src="{{ jugador.imagen_url }}" alt="" onerror="this.onerror=null;this.src='https://placehold.co/250x180/cccccc/333333?text=Sin+Imagen';" class="card-img">
+            <div class="card-content">
+                <h3 class="card-title">{{ jugador.nombre }}</h3>
+                <p class="card-text">Equipo: <strong>{{ jugador.equipo_obj.nombre if jugador.equipo_obj else 'N/A' }}</strong></p>
+                <p class="card-text">Posición: {{ jugador.posicion }}</p>
+                <a href="/jugadores/{{ jugador.id }}" class="button primary card-button">Ver Perfil</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="/jugadores_lista" class="button secondary">Ver Todos los Jugadores <i class="fas fa-arrow-right"></i></a>
+    </div>
+    {% else %}
+    <p class="no-data-message">No hay jugadores destacados para mostrar. ¡Crea algunos!</p>
+    {% endif %}
+</section>
+
+<section class="highlight-section">
+    <h2>🏆 Equipos Legendarios 🏆</h2>
+    {% if equipos %}
+    <div class="card-grid">
+        {% for equipo in equipos %}
+        <div class="card team-card">
+            <img src="{{ equipo.imagen_url }}" alt="" onerror="this.onerror=null;this.src='https://placehold.co/250x180/cccccc/333333?text=Sin+Imagen';" class="card-img">
+            <div class="card-content">
+                <h3 class="card-title">{{ equipo.nombre }}</h3>
+                <p class="card-text">País: <strong>{{ equipo.pais }}</strong></p>
+                <p class="card-text">Grupo: {{ equipo.grupo }}</p>
+                <a href="/equipos/{{ equipo.id }}" class="button primary card-button">Ver Detalles <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="/equipos_lista" class="button secondary">Ver Todos los Equipos <i class="fas fa-arrow-right"></i></a>
+    </div>
+    {% else %}
+    <p class="no-data-message">No hay equipos destacados para mostrar. ¡Crea algunos!</p>
+    {% endif %}
+</section>
+
+{% endblock %}

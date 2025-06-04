@@ -7,3 +7,5 @@ fastapi[standard]
 psycopg2
 psycopg2-binary
 sqlalchemy
+jinja2
+python-multipart

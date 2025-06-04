@@ -18,7 +18,7 @@ def cargar_jugadores_desde_csv(ruta_csv: str):
                     goles=int(fila['goles']),
                     asistencias=int(fila['asistencias']),
                     eliminado=fila['eliminado'].lower() == 'true',
-                    eliminado_logico=fila.get('eliminado_logico', 'false').lower() == 'true',  # por si no está en todos los registros
+                    eliminado_logico=fila.get('eliminado_logico', 'false').lower() == 'true'  # por si no está en todos los registros
                 )
                 db.add(jugador)
             db.commit()

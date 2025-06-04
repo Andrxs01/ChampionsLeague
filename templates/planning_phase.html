@@ -1,0 +1,70 @@
+<!-- templates/planning_phase.html -->
+{% extends "base.html" %}
+
+{% block title %}Fase de Planeación{% endblock %}
+
+{% block content %}
+<h1 class="main-title">🗺️ Fase de Planeación del Proyecto 🗺️</h1>
+
+<section class="info-section">
+    <h2>📝 Casos de Uso:</h2>
+    <ul class="styled-list">
+        <li>Como usuario, quiero ver una lista interactiva de todos los equipos registrados, con información clave y una imagen distintiva.</li>
+        <li>Como usuario, quiero ver una lista interactiva de todos los jugadores registrados, con su equipo, posición, nacionalidad y una imagen.</li>
+        <li>Como usuario, quiero poder acceder a una página de detalles completa para cualquier equipo o jugador, mostrando toda su información relevante.</li>
+        <li>Como administrador, quiero tener formularios intuitivos para añadir nuevos equipos y jugadores a la base de datos, incluyendo la URL de su imagen.</li>
+        <li>Como administrador, quiero poder modificar fácilmente la información existente de equipos y jugadores a través de formularios de edición.</li>
+        <li>Como administrador, quiero la capacidad de "eliminar lógicamente" equipos o jugadores, manteniéndolos en la base de datos para historial pero ocultándolos de las vistas principales.</li>
+        <li>Como usuario, quiero una funcionalidad de búsqueda para encontrar rápidamente equipos y jugadores por nombre o características clave.</li>
+        <li>Como usuario, quiero acceder a secciones de documentación que detallen la planeación, el diseño, los objetivos y la información del desarrollador del proyecto.</li>
+    </ul>
+</section>
+
+<section class="info-section">
+    <h2>📊 Modelo de Datos:</h2>
+    <p>El corazón de la aplicación se basa en un modelo de datos relacional simple pero efectivo, diseñado para capturar la esencia de la Champions League 2017/18. Las dos entidades centrales son `Equipo` y `Jugador`, interconectadas para reflejar la estructura del fútbol.</p>
+    <ul class="styled-list">
+        <li><strong>Equipo:</strong>
+            <ul>
+                <li><code>id</code> (clave primaria, entero)</li>
+                <li><code>nombre</code> (cadena, no nulo)</li>
+                <li><code>pais</code> (cadena, no nulo)</li>
+                <li><code>grupo</code> (cadena, no nulo - ej. 'A', 'B')</li>
+                <li><code>eliminado</code> (booleano, por defecto falso - para eliminación física, no usada directamente aquí)</li>
+                <li><code>eliminado_logico</code> (booleano, por defecto falso - para eliminación suave)</li>
+                <li><code>imagen_url</code> (cadena, URL de la imagen del logo del equipo, puede ser nulo)</li>
+            </ul>
+        </li>
+        <li><strong>Jugador:</strong>
+            <ul>
+                <li><code>id</code> (clave primaria, entero)</li>
+                <li><code>nombre</code> (cadena, no nulo)</li>
+                <li><code>equipo_id</code> (clave foránea, entero, no nulo - referencia a <code>Equipo.id</code>)</li>
+                <li><code>posicion</code> (cadena, no nulo - ej. 'Delantero', 'Defensa')</li>
+                <li><code>edad</code> (entero, no nulo)</li>
+                <li><code>nacionalidad</code> (cadena, no nulo)</li>
+                <li><code>goles</code> (entero, por defecto 0)</li>
+                <li><code>asistencias</code> (entero, por defecto 0)</li>
+                <li><code>eliminado</code> (booleano, por defecto falso - para eliminación física)</li>
+                <li><code>eliminado_logico</code> (booleano, por defecto falso - para eliminación suave)</li>
+                <li><code>imagen_url</code> (cadena, URL de la imagen del jugador, puede ser nulo)</li>
+            </ul>
+        </li>
+    </ul>
+</section>
+
+<section class="info-section">
+    <h2>🎯 Objetivos Propuestos y Fuente de Datos:</h2>
+    <ul class="styled-list">
+        <li><strong>Objetivo Principal:</strong> Desarrollar una aplicación web robusta y visualmente atractiva que sirva como un centro de información y gestión para los datos de la Champions League 2017/18.</li>
+        <li><strong>Tecnologías Clave:</strong>
+            <ul>
+                <li>Backend: FastAPI (Python) para la creación de APIs RESTful.</li>
+                <li>Base de Datos: PostgreSQL con SQLAlchemy como ORM para la persistencia de datos.</li>
+                <li>Frontend: HTML5 y CSS3 para la interfaz de usuario, con Jinja2 para la renderización de plantillas dinámicas.</li>
+            </ul>
+        </li>
+        <li><strong>Fuente de Datos:</strong> Para la fase inicial de prueba y desarrollo, los datos de equipos y jugadores se han poblado manualmente en el script `populate_db.py` utilizando información real de la temporada 2017/18 de la Champions League y URLs de imágenes de Wikimedia Commons. Se prevé la posibilidad de integrar fuentes de datos externas (CSV, JSON) en futuras iteraciones para una populación masiva.</li>
+    </ul>
+</section>
+{% endblock %}

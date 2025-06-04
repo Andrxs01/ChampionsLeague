@@ -1,0 +1,15 @@
+<!-- templates/about_developer.html -->
+{% extends "base.html" %}
+
+{% block title %}Acerca del Desarrollador{% endblock %}
+
+{% block content %}
+<h1 class="main-title">🧑‍💻 Información del Desarrollador 🧑‍💻</h1>
+<div class="info-card" style="max-width: 600px; margin: 30px auto; padding: 30px; background-color: var(--card-background); border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+    <p><strong>Nombre:</strong> [Tu Nombre Aquí]</p>
+    <p><strong>Contacto:</strong> <a href="mailto:[tu.correo@example.com]" class="text-link">[tu.correo@example.com]</a></p>
+    <p><strong>LinkedIn:</strong> <a href="[Tu URL de LinkedIn]" target="_blank" class="text-link">Tu Perfil de LinkedIn</a></p>
+    <p><strong>GitHub:</strong> <a href="[Tu URL de GitHub]" target="_blank" class="text-link">Repositorio del Proyecto</a></p>
+    <p style="margin-top: 20px;">Este proyecto fue desarrollado como parte de un ejercicio de aprendizaje y demostración de habilidades en el desarrollo web con FastAPI, SQLAlchemy y Jinja2. Mi objetivo es crear soluciones robustas y atractivas, aplicando las mejores prácticas en el desarrollo de software.</p>
+</div>
+{% endblock %}

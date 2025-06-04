@@ -1,0 +1,105 @@
+<!-- templates/design_phase.html -->
+{% extends "base.html" %}
+
+{% block title %}Fase de Diseño{% endblock %}
+
+{% block content %}
+<h1 class="main-title">🎨 Fase de Diseño del Proyecto 🎨</h1>
+
+<section class="info-section">
+    <h2>📐 Diagrama de Clases (Conceptual):</h2>
+    <p>El diseño de la base de datos se centra en la relación fundamental entre equipos y jugadores. Un equipo puede tener muchos jugadores, pero un jugador pertenece a un solo equipo (en un momento dado, para esta temporada).</p>
+    <pre class="code-block">
++-------------------+       +-----------------+
+|      Equipo       |       |      Jugador      |
++-------------------+       +-----------------+
+| - id: int         |       | - id: int         |
+| - nombre: str     |       | - nombre: str     |
+| - pais: str       |<------| - equipo_id: int  | (FK)
+| - grupo: str      | 1   * | - posicion: str   |
+| - imagen_url: str |       | - edad: int       |
+| - eliminado_logico: bool |       | - nacionalidad: str |
++-------------------+       | - goles: int      |
+                            | - asistencias: int|
+                            | - imagen_url: str |
+                            | - eliminado_logico: bool |
+                            +-----------------+
+    </pre>
+    <p>Esta estructura permite consultas eficientes y una clara representación de los datos.</p>
+</section>
+
+<section class="info-section">
+    <h2>🗺️ Mapa de Endpoints (Rutas HTML):</h2>
+    <p>La aplicación expone una serie de rutas HTML para la interacción del usuario, organizadas lógicamente para una navegación intuitiva:</p>
+    <ul class="styled-list">
+        <li><code>GET /home</code>: Página de inicio con un resumen visual.</li>
+        <li><code>GET /desarrollador</code>: Información detallada sobre el desarrollador.</li>
+        <li><code>GET /planeacion</code>: Documentación de la fase de planeación.</li>
+        <li><code>GET /diseno</code>: Documentación de la fase de diseño (esta página).</li>
+        <li><code>GET /objetivo</code>: Declaración del objetivo principal del proyecto.</li>
+        <li><code>GET /jugadores_lista</code>: Muestra una tabla con todos los jugadores activos.</li>
+        <li><code>GET /jugadores/{jugador_id}</code>: Presenta los detalles de un jugador específico.</li>
+        <li><code>GET /jugadores_crear</code>: Formulario para añadir un nuevo jugador.</li>
+        <li><code>POST /jugadores_crear</code>: Procesa el envío del formulario de creación de jugador.</li>
+        <li><code>GET /jugadores_editar/{jugador_id}</code>: Formulario pre-rellenado para editar un jugador existente.</li>
+        <li><code>POST /jugadores_editar/{jugador_id}</code>: Procesa el envío del formulario de edición de jugador.</li>
+        <li><code>POST /jugadores_eliminar/{jugador_id}</code>: Realiza la eliminación lógica de un jugador.</li>
+        <li><code>GET /equipos_lista</code>: Muestra una tabla con todos los equipos activos.</li>
+        <li><code>GET /equipos/{equipo_id}</code>: Presenta los detalles de un equipo específico.</li>
+        <li><code>GET /equipos_crear</code>: Formulario para añadir un nuevo equipo.</li>
+        <li><code>POST /equipos_crear</code>: Procesa el envío del formulario de creación de equipo.</li>
+        <li><code>GET /equipos_editar/{equipo_id}</code>: Formulario pre-rellenado para editar un equipo existente.</li>
+        <li><code>POST /equipos_editar/{equipo_id}</code>: Procesa el envío del formulario de edición de equipo.</li>
+        <li><code>POST /equipos_eliminar/{equipo_id}</code>: Realiza la eliminación lógica de un equipo.</li>
+        <li><code>GET /busqueda</code>: Interfaz para buscar jugadores y equipos por nombre.</li>
+    </ul>
+</section>
+
+<section class="info-section">
+    <h2>📱 Mockups/Wireframes (Representación Visual Conceptual):</h2>
+    <p>El diseño de la interfaz de usuario se enfoca en la claridad, la facilidad de uso y una estética que resuene con la temática de la Champions League. Se utilizan tarjetas para la visualización de elementos destacados y tablas para listados detallados.</p>
+    <ul class="styled-list">
+        <li><strong>Página de Inicio (`/home`):</strong>
+            <ul>
+                <li>Encabezado y barra de navegación global.</li>
+                <li>Secciones destacadas con "tarjetas" (cards) para los jugadores y equipos más recientes/relevantes, incluyendo su imagen, nombre y un botón para ver detalles.</li>
+                <li>Botones para navegar a las listas completas de jugadores y equipos.</li>
+            </ul>
+        </li>
+        <li><strong>Páginas de Listado (`/jugadores_lista`, `/equipos_lista`):</strong>
+            <ul>
+                <li>Tabla responsiva con encabezados claros: ID, Nombre, Equipo/País, Posición/Grupo, Nacionalidad, Imagen, y una columna de Acciones (Ver, Editar, Eliminar).</li>
+                <li>Botón prominente para "Añadir Nuevo [Elemento]".</li>
+            </ul>
+        </li>
+        <li><strong>Páginas de Detalle (`/jugadores/{id}`, `/equipos/{id}`):</strong>
+            <ul>
+                <li>Imagen grande del jugador/equipo en la parte superior.</li>
+                <li>Información detallada del elemento presentada de forma clara (nombre, edad, posición, etc.).</li>
+                <li>Para equipos, se listarán los jugadores asociados.</li>
+                <li>Botones de acción: "Volver a la Lista", "Editar", "Eliminar (Lógico)".</li>
+            </ul>
+        </li>
+        <li><strong>Formularios de Creación/Edición (`/jugadores_crear`, `/jugadores_editar/{id}`, etc.):</strong>
+            <ul>
+                <li>Diseño de formulario limpio con etiquetas claras y campos de entrada.</li>
+                <li>Campo de entrada para la URL de la imagen.</li>
+                <li>Botones "Crear/Guardar Cambios" y "Cancelar".</li>
+            </ul>
+        </li>
+        <li><strong>Página de Búsqueda (`/busqueda`):</strong>
+            <ul>
+                <li>Campo de entrada de texto para la consulta.</li>
+                <li>Botón "Buscar".</li>
+                <li>Resultados presentados en dos secciones separadas (Jugadores y Equipos) en formato de tabla.</li>
+            </ul>
+        </li>
+        <li><strong>Páginas de Documentación (`/planeacion`, `/objetivo`, `/desarrollador`):</strong>
+            <ul>
+                <li>Contenido textual bien estructurado con encabezados, párrafos y listas.</li>
+                <li>Estilo consistente con el resto de la aplicación.</li>
+            </ul>
+        </li>
+    </ul>
+</section>
+{% endblock %}
