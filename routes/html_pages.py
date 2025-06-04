@@ -5,6 +5,7 @@ from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 from utils.db import get_db
 from operations import jugadores_operations, equipos_operations, partidos_operations
+from data import models
 from data.models import JugadorCreate, JugadorUpdate, EquipoCreate, EquipoUpdate, PartidoCreate, PartidoUpdate, Jugador, Equipo, Partido
 from datetime import date
 from collections import defaultdict # Para agrupar partidos
