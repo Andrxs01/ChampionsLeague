@@ -4,8 +4,8 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 from utils.db import get_db
-from operations import jugadores_operations, equipos_operations, partidos_operations # Importar operaciones de partidos
-from data.models import JugadorCreate, JugadorUpdate, EquipoCreate, EquipoUpdate, PartidoCreate, PartidoUpdate, Jugador, Equipo, Partido # Importar Partido
+from operations import jugadores_operations, equipos_operations, partidos_operations
+from data.models import JugadorCreate, JugadorUpdate, EquipoCreate, EquipoUpdate, PartidoCreate, PartidoUpdate, Jugador, Equipo, Partido
 from datetime import date
 
 router = APIRouter(
@@ -20,7 +20,7 @@ templates = Jinja2Templates(directory="templates")
 async def home(request: Request, db: Session = Depends(get_db)):
     jugadores_recientes = jugadores_operations.get_all_jugadores(db, limit=5)
     equipos_recientes = equipos_operations.get_all_equipos(db, limit=5)
-    partidos_recientes = partidos_operations.get_all_partidos(db, limit=5) # Obtener partidos recientes
+    partidos_recientes = partidos_operations.get_all_partidos(db, limit=5)
     return templates.TemplateResponse(
         "index.html",
         {"request": request, "jugadores": jugadores_recientes, "equipos": equipos_recientes, "partidos": partidos_recientes}
@@ -78,7 +78,6 @@ async def create_jugador(
     nacionalidad: str = Form(...),
     goles: int = Form(0),
     asistencias: int = Form(0)
-    # imagen_url ya no es un parámetro de formulario para jugadores
 ):
     jugador_data = JugadorCreate(
         nombre=nombre,
@@ -131,7 +130,6 @@ async def edit_jugador(
     goles: int = Form(0),
     asistencias: int = Form(0),
     eliminado_logico: bool = Form(False)
-    # imagen_url ya no es un parámetro de formulario para jugadores
 ):
     jugador_update_data = JugadorUpdate(
         nombre=nombre,
@@ -283,28 +281,26 @@ async def eliminar_equipo_logico(request: Request, equipo_id: int, db: Session =
 async def show_search_page(request: Request, db: Session = Depends(get_db), query: str = None):
     jugadores_encontrados = []
     equipos_encontrados = []
+    partidos_encontrados = [] # Nueva lista para partidos
 
     if query:
-        jugadores_encontrados = db.query(Jugador).filter(
-            Jugador.nombre.ilike(f"%{query}%"),
-            Jugador.eliminado_logico == False
-        ).all()
-        equipos_encontrados = db.query(Equipo).filter(
-            Equipo.nombre.ilike(f"%{query}%"),
-            Equipo.eliminado_logico == False
-        ).all()
+        jugadores_encontrados = jugadores_operations.search_jugadores(db, nombre=query)
+        equipos_encontrados = equipos_operations.search_equipos(db, nombre=query)
+        # Buscar partidos por nombre de equipo en la consulta
+        partidos_encontrados = partidos_operations.search_partidos(db, equipo_nombre=query)
+
 
     return templates.TemplateResponse(
         "search.html",
-        {"request": request, "query": query, "jugadores": jugadores_encontrados, "equipos": equipos_encontrados}
+        {"request": request, "query": query, "jugadores": jugadores_encontrados, "equipos": equipos_encontrados, "partidos": partidos_encontrados}
     )
 
 # --- Rutas para Estadísticas ---
 @router.get("/estadisticas", response_class=HTMLResponse)
 async def show_statistics_page(request: Request, db: Session = Depends(get_db)):
-    top_scorers = jugadores_operations.get_top_scorers(db, limit=5) # Obtener los 5 mejores goleadores
-    top_assisters = jugadores_operations.get_top_assisters(db, limit=5) # Obtener los 5 mejores asistentes
-    teams_by_goals = equipos_operations.get_teams_by_total_goals(db, limit=5) # Obtener los 5 equipos con más goles
+    top_scorers = jugadores_operations.get_top_scorers(db, limit=10) # Obtener los 10 mejores goleadores
+    top_assisters = jugadores_operations.get_top_assisters(db, limit=10) # Obtener los 10 mejores asistentes
+    teams_by_goals = equipos_operations.get_teams_by_total_goals(db, limit=10) # Obtener los 10 equipos con más goles
 
     return templates.TemplateResponse(
         "statistics.html",
@@ -316,7 +312,7 @@ async def show_statistics_page(request: Request, db: Session = Depends(get_db)):
         }
     )
 
-# --- NUEVAS RUTAS PARA PARTIDOS ---
+# --- Rutas para Partidos ---
 
 @router.get("/partidos_lista", response_class=HTMLResponse)
 async def listar_partidos(request: Request, db: Session = Depends(get_db)):
@@ -465,3 +461,13 @@ async def eliminar_partido_logico(request: Request, partido_id: int, db: Session
     except Exception as e:
         partidos = partidos_operations.get_all_partidos(db)
         return templates.TemplateResponse("partidos/list.html", {"request": request, "partidos": partidos, "error_message": f"Error al eliminar partido: {e}"})
+
+# --- NUEVA RUTA: Historial de Eliminados ---
+@router.get("/historial_eliminados", response_class=HTMLResponse)
+async def show_deleted_history(request: Request, db: Session = Depends(get_db)):
+    deleted_jugadores = jugadores_operations.get_soft_deleted_jugadores(db)
+    deleted_equipos = equipos_operations.get_soft_deleted_equipos(db)
+    return templates.TemplateResponse(
+        "history_deleted.html",
+        {"request": request, "deleted_jugadores": deleted_jugadores, "deleted_equipos": deleted_equipos}
+    )

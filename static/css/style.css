@@ -18,6 +18,7 @@
     --spacing-unit: 1rem; /* Unidad base para espaciado */
     --neumorphism-shadow-light: -5px -5px 10px #ffffff, 5px 5px 10px #a3b1c6;
     --neumorphism-shadow-dark: -3px -3px 7px #ffffff70, 3px 3px 7px #a3b1c670;
+    --neumorphism-inset-shadow: inset 2px 2px 5px #b8c3d7, inset -2px -2px 5px #ffffff;
 }
 
 /* Estilos generales del cuerpo y tipografía */
@@ -32,6 +33,7 @@ body {
     flex-direction: column;
     min-height: 100vh; /* Asegura que el footer esté al final */
     overflow-x: hidden; /* Previene el scroll horizontal */
+    transition: background-color 0.3s ease;
 }
 
 /* Fondo con patrón de fútbol */
@@ -171,12 +173,42 @@ h2 {
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     font-size: 1.05rem;
     letter-spacing: 0.5px;
+    position: relative; /* Para efectos de "bubble" */
+    overflow: hidden;
 }
 
 .button:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
+
+/* Efecto de burbuja en botones */
+.button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease-out, height 0.4s ease-out, opacity 0.4s ease-out;
+    z-index: 0;
+}
+
+.button:hover::before {
+    width: 200%;
+    height: 200%;
+    opacity: 1;
+}
+
+.button span {
+    position: relative;
+    z-index: 1;
+}
+
 
 .button.primary {
     background-color: var(--button-bg-primary);
@@ -250,7 +282,7 @@ table th, table td {
 }
 
 table th {
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
     color: var(--light-text-color);
     font-weight: bold;
     text-transform: uppercase;
@@ -308,6 +340,7 @@ form {
 .form-group input[type="text"],
 .form-group input[type="number"],
 .form-group input[type="url"],
+.form-group input[type="date"], /* Añadido para input type date */
 .form-group select,
 .form-group textarea {
     width: 100%;
@@ -318,11 +351,13 @@ form {
     font-size: 1.05em;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     background-color: #fdfdfd;
+    box-shadow: var(--neumorphism-inset-shadow); /* Sombra interna para inputs */
 }
 
 .form-group input[type="text"]:focus,
 .form-group input[type="number"]:focus,
 .form-group input[type="url"]:focus,
+.form-group input[type="date"]:focus,
 .form-group select:focus,
 .form-group textarea:focus {
     border-color: var(--accent-color); /* Borde dorado al enfocar */
@@ -507,6 +542,125 @@ footer {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+/* Nuevos estilos para secciones de información/documentación */
+.info-section {
+    background-color: var(--card-background);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    padding: 35px;
+    margin-bottom: 40px;
+    line-height: 1.8;
+}
+
+.info-section h2 {
+    font-size: 2em;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.info-section p, .info-section ul, .info-section ol {
+    font-size: 1.1em;
+    color: var(--text-color);
+    margin-bottom: 15px;
+}
+
+.info-section ul.styled-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.info-section ul.styled-list li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 10px;
+}
+
+.info-section ul.styled-list li::before {
+    content: '⚽'; /* Icono de balón de fútbol */
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+    font-size: 0.9em;
+    top: 3px;
+}
+
+.info-section ol.styled-list {
+    padding-left: 25px;
+}
+
+.info-section ol.styled-list li {
+    margin-bottom: 10px;
+}
+
+.image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.image-gallery img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-gallery img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.image-caption {
+    font-style: italic;
+    color: #666;
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+/* Estilos para la sección de historial de eliminados */
+.deleted-items-section {
+    margin-bottom: 50px;
+    padding: 20px;
+    background-color: var(--card-background);
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+.deleted-items-section h2 {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 15px;
+    text-align: center;
+}
+.deleted-items-section .table-container {
+    box-shadow: none;
+}
+.deleted-items-section table th {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+}
+.deleted-items-section table tr:nth-child(even) {
+    background-color: #f0f4f7;
+}
+.deleted-items-section table tr:hover {
+    background-color: #e6f0ff;
+}
+.deleted-items-section .status-danger {
+    color: var(--button-bg-danger);
+}
+.deleted-items-section .status-success {
+    color: var(--button-bg-success);
+}
+
+
 /* Animaciones */
 @keyframes fadeInDown {
     from {
@@ -613,6 +767,16 @@ footer {
 
     .card-img {
         height: 150px; /* Ajustar altura para móviles también */
+    }
+
+    .info-section {
+        padding: 20px;
+    }
+    .info-section h2 {
+        font-size: 1.8em;
+    }
+    .info-section p, .info-section ul, .info-section ol {
+        font-size: 1em;
     }
 }
 

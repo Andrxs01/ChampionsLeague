@@ -61,7 +61,7 @@ def search_equipos(db: Session, nombre: str = None, grupo: str = None, pais: str
 
     return query.all()
 
-# --- NUEVAS FUNCIONES PARA ESTADÍSTICAS ---
+# --- FUNCIONES PARA ESTADÍSTICAS ---
 
 # Función para obtener equipos ordenados por el total de goles de sus jugadores
 def get_teams_by_total_goals(db: Session, limit: int = 10):
@@ -72,3 +72,9 @@ def get_teams_by_total_goals(db: Session, limit: int = 10):
         models.Equipo.eliminado_logico == False,
         models.Jugador.eliminado_logico == False
     ).group_by(models.Equipo.id).order_by(func.sum(models.Jugador.goles).desc()).limit(limit).all()
+
+# --- NUEVA FUNCIÓN: Obtener equipos eliminados lógicamente ---
+def get_soft_deleted_equipos(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Equipo).filter(
+        models.Equipo.eliminado_logico == True
+    ).offset(skip).limit(limit).all()

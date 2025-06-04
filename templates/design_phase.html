@@ -8,14 +8,14 @@
 
 <section class="info-section">
     <h2>📐 Diagrama de Clases (Conceptual):</h2>
-    <p>El diseño de la base de datos se centra en la relación fundamental entre equipos y jugadores. Un equipo puede tener muchos jugadores, pero un jugador pertenece a un solo equipo (en un momento dado, para esta temporada).</p>
+    <p>El diseño de la base de datos se centra en la relación fundamental entre equipos, jugadores y partidos. Un equipo puede tener muchos jugadores, y un jugador pertenece a un solo equipo. Un partido involucra a dos equipos.</p>
     <div class="diagram-container" style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
         <!-- Puedes reemplazar este SVG con una imagen de tu diagrama de clases real -->
-        <svg width="100%" height="300" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" style="max-width: 800px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        <svg width="100%" height="450" viewBox="0 0 900 450" xmlns="http://www.w3.org/2000/svg" style="max-width: 900px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
             <defs>
                 <style>
                     .cls-1 { fill: #e0e5ec; stroke: #a3b1c6; stroke-width: 2px; }
-                    .cls-2 { font-family: 'Inter', sans-serif; font-size: 16px; fill: #333; }
+                    .cls-2 { font-family: 'Inter', sans-serif; font-size: 18px; fill: var(--primary-color); font-weight: bold; }
                     .cls-3 { font-family: 'Inter', sans-serif; font-size: 14px; fill: #555; }
                     .cls-4 { stroke: #333; stroke-width: 1.5px; fill: none; marker-end: url(#arrow); }
                     .cls-5 { font-family: 'Inter', sans-serif; font-size: 12px; fill: #777; }
@@ -34,28 +34,62 @@
             <text x="60" y="175" class="cls-3">- grupo: str</text>
             <text x="60" y="195" class="cls-3">- imagen_url: str</text>
             <text x="60" y="215" class="cls-3">- eliminado_logico: bool</text>
+            <text x="60" y="235" class="cls-3">+ jugadores: List&lt;Jugador&gt;</text>
+            <text x="60" y="255" class="cls-3">+ partidos_local: List&lt;Partido&gt;</text>
+            <text x="60" y="275" class="cls-3">+ partidos_visitante: List&lt;Partido&gt;</text>
+
 
             <!-- Jugador Class -->
-            <rect x="500" y="50" width="250" height="200" class="cls-1" rx="10" ry="10"/>
-            <text x="625" y="75" text-anchor="middle" class="cls-2">Jugador</text>
-            <line x1="500" y1="90" x2="750" y2="90" stroke="#a3b1c6" stroke-width="1"/>
-            <text x="510" y="115" class="cls-3">- id: int (PK)</text>
-            <text x="510" y="135" class="cls-3">- nombre: str</text>
-            <text x="510" y="155" class="cls-3">- equipo_id: int (FK)</text>
-            <text x="510" y="175" class="cls-3">- posicion: str</text>
-            <text x="510" y="195" class="cls-3">- edad: int</text>
-            <text x="510" y="215" class="cls-3">- nacionalidad: str</text>
-            <text x="510" y="235" class="cls-3">- goles: int</text>
-            <text x="510" y="255" class="cls-3">- asistencias: int</text>
-            <text x="510" y="275" class="cls-3">- imagen_url: str</text>
-            <text x="510" y="295" class="cls-3">- eliminado_logico: bool</text>
+            <rect x="350" y="50" width="250" height="180" class="cls-1" rx="10" ry="10"/>
+            <text x="475" y="75" text-anchor="middle" class="cls-2">Jugador</text>
+            <line x1="350" y1="90" x2="600" y2="90" stroke="#a3b1c6" stroke-width="1"/>
+            <text x="360" y="115" class="cls-3">- id: int (PK)</text>
+            <text x="360" y="135" class="cls-3">- nombre: str</text>
+            <text x="360" y="155" class="cls-3">- equipo_id: int (FK)</text>
+            <text x="360" y="175" class="cls-3">- posicion: str</text>
+            <text x="360" y="195" class="cls-3">- edad: int</text>
+            <text x="360" y="215" class="cls-3">- nacionalidad: str</text>
+            <text x="360" y="235" class="cls-3">- goles: int</text>
+            <text x="360" y="255" class="cls-3">- asistencias: int</text>
+            <text x="360" y="275" class="cls-3">- eliminado_logico: bool</text>
+            <text x="360" y="295" class="cls-3">+ equipo_obj: Equipo</text>
 
-            <!-- Relationship Line -->
-            <line x1="300" y1="175" x2="500" y2="175" class="cls-4"/>
-            <text x="350" y="165" class="cls-5">1</text>
-            <text x="450" y="165" class="cls-5">*</text>
+
+            <!-- Partido Class -->
+            <rect x="650" y="50" width="250" height="200" class="cls-1" rx="10" ry="10"/>
+            <text x="775" y="75" text-anchor="middle" class="cls-2">Partido</text>
+            <line x1="650" y1="90" x2="900" y2="90" stroke="#a3b1c6" stroke-width="1"/>
+            <text x="660" y="115" class="cls-3">- id: int (PK)</text>
+            <text x="660" y="135" class="cls-3">- equipo_local_id: int (FK)</text>
+            <text x="660" y="155" class="cls-3">- equipo_visitante_id: int (FK)</text>
+            <text x="660" y="175" class="cls-3">- goles_local: int</text>
+            <text x="660" y="195" class="cls-3">- goles_visitante: int</text>
+            <text x="660" y="215" class="cls-3">- fecha: Date</text>
+            <text x="660" y="235" class="cls-3">- fase: str</text>
+            <text x="660" y="255" class="cls-3">- eliminado_logico: bool</text>
+            <text x="660" y="275" class="cls-3">+ equipo_local_obj: Equipo</text>
+            <text x="660" y="295" class="cls-3">+ equipo_visitante_obj: Equipo</text>
+
+            <!-- Relationships -->
+            <!-- Equipo to Jugador (One-to-Many) -->
+            <line x1="300" y1="175" x2="350" y2="175" class="cls-4"/>
+            <text x="310" y="165" class="cls-5">1</text>
+            <text x="340" y="165" class="cls-5">*</text>
+
+            <!-- Equipo to Partido (Local) -->
+            <line x1="300" y1="200" x2="650" y2="145" class="cls-4"/>
+            <text x="370" y="190" class="cls-5">1</text>
+            <text x="620" y="140" class="cls-5">*</text>
+            <text x="490" y="160" class="cls-5">local</text>
+
+            <!-- Equipo to Partido (Visitante) -->
+            <line x1="300" y1="220" x2="650" y2="165" class="cls-4"/>
+            <text x="370" y="210" class="cls-5">1</text>
+            <text x="620" y="160" class="cls-5">*</text>
+            <text x="490" y="180" class="cls-5">visitante</text>
+
         </svg>
-        <p class="image-caption" style="font-size: 0.9em; color: #666; margin-top: 10px;">[Image of Class Diagram]</p>
+        <p class="image-caption">[Image of Class Diagram]</p>
     </div>
     <p>Esta estructura permite consultas eficientes y una clara representación de los datos.</p>
 </section>
@@ -82,75 +116,92 @@
             <rect x="50" y="50" width="120" height="40" rx="5" ry="5" class="node"/>
             <text x="110" y="75" text-anchor="middle" class="text-node">/home</text>
 
-            <!-- Jugadores List -->
+            <!-- Equipos List -->
             <rect x="200" y="50" width="150" height="40" rx="5" ry="5" class="node"/>
-            <text x="275" y="75" text-anchor="middle" class="text-node">/jugadores_lista</text>
+            <text x="275" y="75" text-anchor="middle" class="text-node">/equipos_lista</text>
             <line x1="170" y1="70" x2="200" y2="70" class="edge"/>
 
-            <!-- Equipos List -->
+            <!-- Partidos List -->
             <rect x="370" y="50" width="150" height="40" rx="5" ry="5" class="node"/>
-            <text x="445" y="75" text-anchor="middle" class="text-node">/equipos_lista</text>
-            <line x1="170" y1="70" x2="370" y2="70" class="edge" transform="translate(0, 50)"/> <!-- Example offset -->
+            <text x="445" y="75" text-anchor="middle" class="text-node">/partidos_lista</text>
+            <line x1="350" y1="70" x2="370" y2="70" class="edge"/>
+
+            <!-- Jugadores List -->
+            <rect x="540" y="50" width="150" height="40" rx="5" ry="5" class="node"/>
+            <text x="615" y="75" text-anchor="middle" class="text-node">/jugadores_lista</text>
+            <line x1="520" y1="70" x2="540" y2="70" class="edge"/>
 
             <!-- Jugador Detail -->
-            <rect x="200" y="120" width="150" height="40" rx="5" ry="5" class="node"/>
-            <text x="275" y="145" text-anchor="middle" class="text-node">/jugadores/{id}</text>
-            <line x1="275" y1="90" x2="275" y2="120" class="edge"/>
+            <rect x="540" y="120" width="150" height="40" rx="5" ry="5" class="node"/>
+            <text x="615" y="145" text-anchor="middle" class="text-node">/jugadores/{id}</text>
+            <line x1="615" y1="90" x2="615" y2="120" class="edge"/>
 
             <!-- Equipo Detail -->
-            <rect x="370" y="120" width="150" height="40" rx="5" ry="5" class="node"/>
-            <text x="445" y="145" text-anchor="middle" class="text-node">/equipos/{id}</text>
-            <line x1="445" y1="90" x2="445" y2="120" class="edge"/>
+            <rect x="200" y="120" width="150" height="40" rx="5" ry="5" class="node"/>
+            <text x="275" y="145" text-anchor="middle" class="text-node">/equipos/{id}</text>
+            <line x1="275" y1="90" x2="275" y2="120" class="edge"/>
 
             <!-- Jugador Create -->
-            <rect x="540" y="50" width="150" height="40" rx="5" ry="5" class="node"/>
-            <text x="615" y="75" text-anchor="middle" class="text-node">/jugadores_crear</text>
-            <line x1="350" y1="70" x2="540" y2="70" class="edge"/>
+            <rect x="710" y="50" width="150" height="40" rx="5" ry="5" class="node"/>
+            <text x="785" y="75" text-anchor="middle" class="text-node">/jugadores_crear</text>
+            <line x1="690" y1="70" x2="710" y2="70" class="edge"/>
 
             <!-- Equipo Create -->
-            <rect x="710" y="50" width="150" height="40" rx="5" ry="5" class="node"/>
-            <text x="785" y="75" text-anchor="middle" class="text-node">/equipos_crear</text>
-            <line x1="520" y1="70" x2="710" y2="70" class="edge"/>
+            <rect x="710" y="120" width="150" height="40" rx="5" ry="5" class="node"/>
+            <text x="785" y="145" text-anchor="middle" class="text-node">/equipos_crear</text>
+            <line x1="690" y1="140" x2="710" y2="140" class="edge"/>
+
+            <!-- Partido Create -->
+            <rect x="710" y="190" width="150" height="40" rx="5" ry="5" class="node"/>
+            <text x="785" y="215" text-anchor="middle" class="text-node">/partidos_crear</text>
+            <line x1="690" y1="210" x2="710" y2="210" class="edge"/>
 
             <!-- Search -->
             <rect x="50" y="190" width="120" height="40" rx="5" ry="5" class="node"/>
             <text x="110" y="215" text-anchor="middle" class="text-node">/busqueda</text>
-            <line x1="110" y1="90" x2="110" y2="190" class="edge" transform="translate(0, 50)"/>
+            <line x1="170" y1="210" x2="50" y2="210" class="edge" style="marker-end: none;"/>
+            <line x1="110" y1="90" x2="110" y2="190" class="edge"/>
+
 
             <!-- Statistics -->
             <rect x="200" y="190" width="150" height="40" rx="5" ry="5" class="node"/>
             <text x="275" y="215" text-anchor="middle" class="text-node">/estadisticas</text>
             <line x1="170" y1="210" x2="200" y2="210" class="edge"/>
 
+            <!-- Historial Eliminados -->
+            <rect x="370" y="190" width="150" height="40" rx="5" ry="5" class="node"/>
+            <text x="445" y="215" text-anchor="middle" class="text-node">/historial_eliminados</text>
+            <line x1="350" y1="210" x2="370" y2="210" class="edge"/>
+
 
             <!-- Documentation Dropdown -->
-            <rect x="50" y="260" width="150" height="40" rx="5" ry="5" class="node"/>
-            <text x="125" y="285" text-anchor="middle" class="text-node">/documentacion</text>
+            <rect x="50" y="290" width="150" height="40" rx="5" ry="5" class="node"/>
+            <text x="125" y="315" text-anchor="middle" class="text-node">/documentacion</text>
 
-            <rect x="220" y="260" width="150" height="40" rx="5" ry="5" class="node"/>
-            <text x="295" y="285" text-anchor="middle" class="text-node">/planeacion</text>
-            <line x1="200" y1="280" x2="220" y2="280" class="edge"/>
+            <rect x="220" y="290" width="150" height="40" rx="5" ry="5" class="node"/>
+            <text x="295" y="315" text-anchor="middle" class="text-node">/planeacion</text>
+            <line x1="200" y1="310" x2="220" y2="310" class="edge"/>
 
-            <rect x="390" y="260" width="150" height="40" rx="5" ry="5" class="node"/>
-            <text x="465" y="285" text-anchor="middle" class="text-node">/diseno</text>
-            <line x1="370" y1="280" x2="390" y2="280" class="edge"/>
+            <rect x="390" y="290" width="150" height="40" rx="5" ry="5" class="node"/>
+            <text x="465" y="315" text-anchor="middle" class="text-node">/diseno</text>
+            <line x1="370" y1="310" x2="390" y2="310" class="edge"/>
 
-            <rect x="560" y="260" width="150" height="40" rx="5" ry="5" class="node"/>
-            <text x="635" y="285" text-anchor="middle" class="text-node">/objetivo</text>
-            <line x1="540" y1="280" x2="560" y2="280" class="edge"/>
+            <rect x="560" y="290" width="150" height="40" rx="5" ry="5" class="node"/>
+            <text x="635" y="315" text-anchor="middle" class="text-node">/objetivo</text>
+            <line x1="540" y1="310" x2="560" y2="310" class="edge"/>
 
-            <rect x="730" y="260" width="150" height="40" rx="5" ry="5" class="node"/>
-            <text x="805" y="285" text-anchor="middle" class="text-node">/desarrollador</text>
-            <line x1="710" y1="280" x2="730" y2="280" class="edge"/>
+            <rect x="730" y="290" width="150" height="40" rx="5" ry="5" class="node"/>
+            <text x="805" y="315" text-anchor="middle" class="text-node">/desarrollador</text>
+            <line x1="710" y1="310" x2="730" y2="310" class="edge"/>
 
         </svg>
-        <p class="image-caption" style="font-size: 0.9em; color: #666; margin-top: 10px;">[Image of HTML Endpoints Map]</p>
+        <p class="image-caption">[Image of HTML Endpoints Map]</p>
     </div>
     <ul class="styled-list">
-        <li><code>GET /home</code>: Página de inicio con un resumen visual.</li>
+        <li><code>GET /home</code>: Página de inicio con un resumen visual de equipos, jugadores y partidos recientes.</li>
         <li><code>GET /desarrollador</code>: Información detallada sobre el desarrollador.</li>
-        <li><code>GET /planeacion</code>: Documentación de la fase de planeación.</li>
-        <li><code>GET /diseno</code>: Documentación de la fase de diseño (esta página).</li>
+        <li><code>GET /planeacion</code>: Documentación de la fase de planeación (esta página).</li>
+        <li><code>GET /diseno</code>: Documentación de la fase de diseño.</li>
         <li><code>GET /objetivo</code>: Declaración del objetivo principal del proyecto.</li>
         <li><code>GET /jugadores_lista</code>: Muestra una tabla con todos los jugadores activos.</li>
         <li><code>GET /jugadores/{jugador_id}</code>: Presenta los detalles de un jugador específico.</li>
@@ -166,55 +217,65 @@
         <li><code>GET /equipos_editar/{equipo_id}</code>: Formulario pre-rellenado para editar un equipo existente.</li>
         <li><code>POST /equipos_editar/{equipo_id}</code>: Procesa el envío del formulario de edición de equipo.</li>
         <li><code>POST /equipos_eliminar/{equipo_id}</code>: Realiza la eliminación lógica de un equipo.</li>
-        <li><code>GET /busqueda</code>: Interfaz para buscar jugadores y equipos por nombre.</li>
-        <li><code>GET /estadisticas</code>: Página para visualizar estadísticas clave (nuevo).</li>
+        <li><code>GET /partidos_lista</code>: Muestra una tabla con todos los partidos.</li>
+        <li><code>GET /partidos_crear</code>: Formulario para añadir un nuevo partido.</li>
+        <li><code>POST /partidos_crear</code>: Procesa el envío del formulario de creación de partido.</li>
+        <li><code>GET /partidos_editar/{partido_id}</code>: Formulario pre-rellenado para editar un partido existente.</li>
+        <li><code>POST /partidos_editar/{partido_id}</code>: Procesa el envío del formulario de edición de partido.</li>
+        <li><code>POST /partidos_eliminar/{partido_id}</code>: Realiza la eliminación lógica de un partido.</li>
+        <li><code>GET /busqueda</code>: Interfaz para buscar jugadores, equipos y partidos por nombre.</li>
+        <li><code>GET /estadisticas</code>: Página para visualizar estadísticas clave.</li>
+        <li><code>GET /historial_eliminados</code>: Página para ver jugadores y equipos eliminados lógicamente (nuevo).</li>
     </ul>
 </section>
 
 <section class="info-section">
     <h2>📱 Mockups/Wireframes (Representación Visual Conceptual):</h2>
     <p>El diseño de la interfaz de usuario se enfoca en la claridad, la facilidad de uso y una estética que resuene con la temática de la Champions League. Se utilizan tarjetas para la visualización de elementos destacados y tablas para listados detallados.</p>
-    <div class="image-gallery" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 30px;">
+    <div class="image-gallery">
         <div class="mockup-item" style="text-align: center;">
-            <img src="https://placehold.co/400x250/cccccc/333333?text=Mockup+Inicio" alt="[Image of Home Page Mockup]" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
-            <p class="image-caption" style="font-size: 0.9em; color: #666; margin-top: 10px;">Mockup: Página de Inicio</p>
+            <img src="https://placehold.co/400x250/cccccc/333333?text=Mockup+Inicio" alt="[Image of Home Page Mockup]">
+            <p class="image-caption">Mockup: Página de Inicio</p>
         </div>
         <div class="mockup-item" style="text-align: center;">
-            <img src="https://placehold.co/400x250/cccccc/333333?text=Mockup+Listado" alt="[Image of List Page Mockup]" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
-            <p class="image-caption" style="font-size: 0.9em; color: #666; margin-top: 10px;">Mockup: Página de Listado (Jugadores/Equipos)</p>
+            <img src="https://placehold.co/400x250/cccccc/333333?text=Mockup+Listado" alt="[Image of List Page Mockup]">
+            <p class="image-caption">Mockup: Página de Listado (Jugadores/Equipos/Partidos)</p>
         </div>
         <div class="mockup-item" style="text-align: center;">
-            <img src="https://placehold.co/400x250/cccccc/333333?text=Mockup+Detalle" alt="[Image of Detail Page Mockup]" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
-            <p class="image-caption" style="font-size: 0.9em; color: #666; margin-top: 10px;">Mockup: Página de Detalle</p>
+            <img src="https://placehold.co/400x250/cccccc/333333?text=Mockup+Detalle" alt="[Image of Detail Page Mockup]">
+            <p class="image-caption">Mockup: Página de Detalle</p>
         </div>
-        <!-- Puedes añadir más mockups aquí -->
+        <div class="mockup-item" style="text-align: center;">
+            <img src="https://placehold.co/400x250/cccccc/333333?text=Mockup+Formulario" alt="[Image of Form Page Mockup]">
+            <p class="image-caption">Mockup: Página de Formulario (Crear/Editar)</p>
+        </div>
     </div>
     <ul class="styled-list" style="margin-top: 20px;">
         <li><strong>Página de Inicio (`/home`):</strong>
             <ul>
                 <li>Encabezado y barra de navegación global.</li>
-                <li>Secciones destacadas con "tarjetas" (cards) para los jugadores y equipos más recientes/relevantes, incluyendo su imagen, nombre y un botón para ver detalles.</li>
-                <li>Botones para navegar a las listas completas de jugadores y equipos.</li>
+                <li>Secciones destacadas con "tarjetas" (cards) para los equipos y jugadores más recientes/relevantes, incluyendo su imagen, nombre y un botón para ver detalles.</li>
+                <li>Una sección para los partidos más recientes, mostrando equipos y resultados.</li>
+                <li>Botones para navegar a las listas completas.</li>
             </ul>
         </li>
-        <li><strong>Páginas de Listado (`/jugadores_lista`, `/equipos_lista`):</strong>
+        <li><strong>Páginas de Listado (`/jugadores_lista`, `/equipos_lista`, `/partidos_lista`):</strong>
             <ul>
-                <li>Tabla responsiva con encabezados claros: ID, Nombre, Equipo/País, Posición/Grupo, Nacionalidad, Imagen, y una columna de Acciones (Ver, Editar, Eliminar).</li>
+                <li>Tabla responsiva con encabezados claros y datos relevantes.</li>
                 <li>Botón prominente para "Añadir Nuevo [Elemento]".</li>
             </ul>
         </li>
         <li><strong>Páginas de Detalle (`/jugadores/{id}`, `/equipos/{id}`):</strong>
             <ul>
-                <li>Imagen grande del jugador/equipo en la parte superior.</li>
-                <li>Información detallada del elemento presentada de forma clara (nombre, edad, posición, etc.).</li>
-                <li>Para equipos, se listarán los jugadores asociados.</li>
+                <li>Para equipos, imagen grande y listado de jugadores asociados.</li>
+                <li>Para jugadores, información detallada sin imagen de perfil.</li>
                 <li>Botones de acción: "Volver a la Lista", "Editar", "Eliminar (Lógico)".</li>
             </ul>
         </li>
-        <li><strong>Formularios de Creación/Edición (`/jugadores_crear`, `/jugadores_editar/{id}`, etc.):</strong>
+        <li><strong>Formularios de Creación/Edición (`/jugadores_crear`, `/equipos_crear`, `/partidos_crear`, etc.):</strong>
             <ul>
                 <li>Diseño de formulario limpio con etiquetas claras y campos de entrada.</li>
-                <li>Campo de entrada para la URL de la imagen.</li>
+                <li>Campo de entrada para la URL de la imagen (solo para equipos).</li>
                 <li>Botones "Crear/Guardar Cambios" y "Cancelar".</li>
             </ul>
         </li>
@@ -222,7 +283,7 @@
             <ul>
                 <li>Campo de entrada de texto para la consulta.</li>
                 <li>Botón "Buscar".</li>
-                <li>Resultados presentados en dos secciones separadas (Jugadores y Equipos) en formato de tabla.</li>
+                <li>Resultados presentados en secciones separadas (Jugadores, Equipos, Partidos) en formato de tabla.</li>
             </ul>
         </li>
         <li><strong>Página de Estadísticas (`/estadisticas`):</strong>
@@ -231,10 +292,16 @@
                 <li>Diseño claro y fácil de leer para comparar estadísticas.</li>
             </ul>
         </li>
+        <li><strong>Página de Historial de Eliminados (`/historial_eliminados`):</strong>
+            <ul>
+                <li>Tablas separadas para jugadores y equipos que han sido eliminados lógicamente.</li>
+                <li>Indicación visual clara de su estado "eliminado".</li>
+            </ul>
+        </li>
         <li><strong>Páginas de Documentación (`/planeacion`, `/objetivo`, `/desarrollador`):</strong>
             <ul>
                 <li>Contenido textual bien estructurado con encabezados, párrafos y listas.</li>
-                <li>Estilo consistente con el resto de la aplicación.</li>
+                <li>Estilo consistente con el resto de la aplicación, usando la clase `info-section`.</li>
             </ul>
         </li>
     </ul>

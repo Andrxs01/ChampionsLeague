@@ -31,11 +31,61 @@
 </section>
 
 <section class="highlight-section">
+    <h2>🗓️ Partidos Recientes 🗓️</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Fase</th>
+                    <th>Equipo Local</th>
+                    <th>Resultado</th>
+                    <th>Equipo Visitante</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for partido in partidos %}
+                <tr>
+                    <td>{{ partido.fecha.strftime('%d/%m/%Y') }}</td>
+                    <td>{{ partido.fase }}</td>
+                    <td>
+                        {% if partido.equipo_local_obj %}
+                            <span class="team-display">
+                                <img src="{{ partido.equipo_local_obj.imagen_url }}" alt="[Image of {{ partido.equipo_local_obj.nombre }}]" class="team-logo" onerror="this.onerror=null;this.src='https://placehold.co/30x30/cccccc/333333?text=N/A';">
+                                {{ partido.equipo_local_obj.nombre }}
+                            </span>
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                    <td class="result-score">
+                        <strong>{{ partido.goles_local }} - {{ partido.goles_visitante }}</strong>
+                    </td>
+                    <td>
+                        {% if partido.equipo_visitante_obj %}
+                            <span class="team-display">
+                                <img src="{{ partido.equipo_visitante_obj.imagen_url }}" alt="[Image of {{ partido.equipo_visitante_obj.nombre }}]" class="team-logo" onerror="this.onerror=null;this.src='https://placehold.co/30x30/cccccc/333333?text=N/A';">
+                                {{ partido.equipo_visitante_obj.nombre }}
+                            </span>
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="flex-row">
+        <a href="/partidos_lista" class="button secondary">Ver Todos los Partidos <i class="fas fa-arrow-right"></i></a>
+    </div>
+</section>
+
+<section class="highlight-section">
     <h2>🏃 Jugadores Recientes 🏃</h2>
     <div class="card-grid">
         {% for jugador in jugadores %}
         <div class="card">
-            {# Eliminamos la imagen del jugador de la tarjeta #}
             <div class="card-content">
                 <h3>{{ jugador.nombre }}</h3>
                 <p>Equipo: {{ jugador.equipo_obj.nombre if jugador.equipo_obj else 'N/A' }}</p>
@@ -92,6 +142,38 @@
     .card .button {
         margin-top: 15px;
         align-self: center; /* Centra el botón dentro de la tarjeta */
+    }
+
+    /* Estilos específicos para la tabla de partidos en el inicio */
+    .highlight-section .table-container {
+        box-shadow: none; /* Eliminar sombra extra */
+    }
+    .highlight-section table th {
+        background-color: var(--primary-color);
+        color: var(--light-text-color);
+    }
+    .highlight-section table td {
+        vertical-align: middle;
+    }
+    .team-display {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: bold;
+        color: var(--text-color); /* Asegurar color de texto */
+    }
+    .team-logo {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+        border-radius: 50%;
+        border: 1px solid var(--border-color);
+    }
+    .result-score {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: var(--primary-color);
+        text-align: center;
     }
 </style>
 {% endblock %}

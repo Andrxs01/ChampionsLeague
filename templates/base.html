@@ -19,14 +19,15 @@
     <nav>
         <ul>
             <li><a href="/home"><i class="fas fa-home"></i> Inicio</a></li>
-            <li><a href="/equipos_lista"><i class="fas fa-shield-alt"></i> Equipos</a></li> {# Resaltado #}
-            <li><a href="/partidos_lista"><i class="fas fa-calendar-alt"></i> Partidos</a></li> {# Nuevo y resaltado #}
+            <li><a href="/equipos_lista"><i class="fas fa-shield-alt"></i> Equipos</a></li>
+            <li><a href="/partidos_lista"><i class="fas fa-calendar-alt"></i> Partidos</a></li>
             <li><a href="/jugadores_lista"><i class="fas fa-user-friends"></i> Jugadores</a></li>
-            <li><a href="/jugadores_crear"><i class="fas fa-user-plus"></i> Crear Jugador</a></li>
-            <li><a href="/equipos_crear"><i class="fas fa-plus-circle"></i> Crear Equipo</a></li>
-            <li><a href="/partidos_crear"><i class="fas fa-plus-square"></i> Crear Partido</a></li> {# Nuevo #}
+            <li><a href="/jugadores_crear" class="small-icon-link"><i class="fas fa-user-plus"></i></a></li>
+            <li><a href="/equipos_crear" class="small-icon-link"><i class="fas fa-plus-circle"></i></a></li>
+            <li><a href="/partidos_crear" class="small-icon-link"><i class="fas fa-plus-square"></i></a></li>
             <li><a href="/busqueda"><i class="fas fa-search"></i> Buscar</a></li>
             <li><a href="/estadisticas"><i class="fas fa-chart-bar"></i> Estadísticas</a></li>
+            <li><a href="/historial_eliminados"><i class="fas fa-history"></i> Historial Eliminados</a></li> {# Nuevo enlace #}
             <li class="dropdown">
                 <a href="#" class="dropbtn"><i class="fas fa-book"></i> Documentación <i class="fas fa-caret-down"></i></a>
                 <div class="dropdown-content">
@@ -95,6 +96,24 @@
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-10px) translateX(-50%); }
             to { opacity: 1; transform: translateY(0) translateX(-50%); }
+        }
+
+        /* Estilos para enlaces de iconos pequeños en la navegación */
+        .small-icon-link {
+            padding: 8px 12px !important; /* Ajustar padding para hacerlos más pequeños */
+            font-size: 0.9rem !important; /* Reducir tamaño de fuente */
+        }
+        .small-icon-link .fas {
+            margin-right: 0 !important; /* Eliminar margen si solo es un icono */
+        }
+        /* Ocultar texto en móviles para los enlaces de iconos pequeños */
+        @media (max-width: 768px) {
+            .small-icon-link {
+                padding: 8px 10px !important;
+            }
+            .small-icon-link span { /* Si tuvieran texto, lo ocultaría */
+                display: none;
+            }
         }
     </style>
 </body>

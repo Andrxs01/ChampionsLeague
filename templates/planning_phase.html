@@ -10,27 +10,29 @@
     <h2>📝 Casos de Uso:</h2>
     <ul class="styled-list">
         <li>Como usuario, quiero ver una lista interactiva de todos los equipos registrados, con información clave y una imagen distintiva.</li>
-        <li>Como usuario, quiero ver una lista interactiva de todos los jugadores registrados, con su equipo, posición, nacionalidad y una imagen.</li>
+        <li>Como usuario, quiero ver una lista interactiva de todos los jugadores registrados, con su equipo, posición, nacionalidad y edad.</li>
+        <li>Como usuario, quiero ver un calendario y resultados de partidos, mostrando los equipos y el marcador.</li>
         <li>Como usuario, quiero poder acceder a una página de detalles completa para cualquier equipo o jugador, mostrando toda su información relevante.</li>
-        <li>Como administrador, quiero tener formularios intuitivos para añadir nuevos equipos y jugadores a la base de datos, incluyendo la URL de su imagen.</li>
-        <li>Como administrador, quiero poder modificar fácilmente la información existente de equipos y jugadores a través de formularios de edición.</li>
+        <li>Como administrador, quiero tener formularios intuitivos para añadir nuevos equipos, jugadores y partidos a la base de datos.</li>
+        <li>Como administrador, quiero poder modificar fácilmente la información existente de equipos, jugadores y partidos a través de formularios de edición.</li>
         <li>Como administrador, quiero la capacidad de "eliminar lógicamente" equipos o jugadores, manteniéndolos en la base de datos para historial pero ocultándolos de las vistas principales.</li>
-        <li>Como usuario, quiero una funcionalidad de búsqueda para encontrar rápidamente equipos y jugadores por nombre o características clave.</li>
+        <li>Como usuario, quiero una funcionalidad de búsqueda para encontrar rápidamente equipos, jugadores o partidos por nombre o características clave.</li>
         <li>Como usuario, quiero acceder a secciones de documentación que detallen la planeación, el diseño, los objetivos y la información del desarrollador del proyecto.</li>
-        <li>Como usuario, quiero ver estadísticas clave de jugadores y equipos (goleadores, asistentes, etc.).</li>
+        <li>Como usuario, quiero ver estadísticas clave de jugadores y equipos (goleadores, asistentes, equipos con más goles).</li>
+        <li>Como usuario, quiero poder ver un historial de los elementos (jugadores y equipos) que han sido eliminados lógicamente.</li>
     </ul>
 </section>
 
 <section class="info-section">
     <h2>📊 Modelo de Datos (Diagrama de Clases):</h2>
-    <p>El corazón de la aplicación se basa en un modelo de datos relacional simple pero efectivo, diseñado para capturar la esencia de la Champions League 2017/18. Las dos entidades centrales son `Equipo` y `Jugador`, interconectadas para reflejar la estructura del fútbol.</p>
+    <p>El corazón de la aplicación se basa en un modelo de datos relacional simple pero efectivo, diseñado para capturar la esencia de la Champions League 2017/18. Las tres entidades centrales son `Equipo`, `Jugador` y `Partido`, interconectadas para reflejar la estructura del fútbol.</p>
     <div class="diagram-container" style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
         <!-- Diagrama de Clases Conceptual (SVG inline para simplicidad) -->
-        <svg width="100%" height="300" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" style="max-width: 800px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        <svg width="100%" height="450" viewBox="0 0 900 450" xmlns="http://www.w3.org/2000/svg" style="max-width: 900px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
             <defs>
                 <style>
                     .cls-1 { fill: #e0e5ec; stroke: #a3b1c6; stroke-width: 2px; }
-                    .cls-2 { font-family: 'Inter', sans-serif; font-size: 16px; fill: #333; }
+                    .cls-2 { font-family: 'Inter', sans-serif; font-size: 18px; fill: var(--primary-color); font-weight: bold; }
                     .cls-3 { font-family: 'Inter', sans-serif; font-size: 14px; fill: #555; }
                     .cls-4 { stroke: #333; stroke-width: 1.5px; fill: none; marker-end: url(#arrow); }
                     .cls-5 { font-family: 'Inter', sans-serif; font-size: 12px; fill: #777; }
@@ -49,28 +51,62 @@
             <text x="60" y="175" class="cls-3">- grupo: str</text>
             <text x="60" y="195" class="cls-3">- imagen_url: str</text>
             <text x="60" y="215" class="cls-3">- eliminado_logico: bool</text>
+            <text x="60" y="235" class="cls-3">+ jugadores: List&lt;Jugador&gt;</text>
+            <text x="60" y="255" class="cls-3">+ partidos_local: List&lt;Partido&gt;</text>
+            <text x="60" y="275" class="cls-3">+ partidos_visitante: List&lt;Partido&gt;</text>
+
 
             <!-- Jugador Class -->
-            <rect x="500" y="50" width="250" height="200" class="cls-1" rx="10" ry="10"/>
-            <text x="625" y="75" text-anchor="middle" class="cls-2">Jugador</text>
-            <line x1="500" y1="90" x2="750" y2="90" stroke="#a3b1c6" stroke-width="1"/>
-            <text x="510" y="115" class="cls-3">- id: int (PK)</text>
-            <text x="510" y="135" class="cls-3">- nombre: str</text>
-            <text x="510" y="155" class="cls-3">- equipo_id: int (FK)</text>
-            <text x="510" y="175" class="cls-3">- posicion: str</text>
-            <text x="510" y="195" class="cls-3">- edad: int</text>
-            <text x="510" y="215" class="cls-3">- nacionalidad: str</text>
-            <text x="510" y="235" class="cls-3">- goles: int</text>
-            <text x="510" y="255" class="cls-3">- asistencias: int</text>
-            <text x="510" y="275" class="cls-3">- imagen_url: str</text>
-            <text x="510" y="295" class="cls-3">- eliminado_logico: bool</text>
+            <rect x="350" y="50" width="250" height="180" class="cls-1" rx="10" ry="10"/>
+            <text x="475" y="75" text-anchor="middle" class="cls-2">Jugador</text>
+            <line x1="350" y1="90" x2="600" y2="90" stroke="#a3b1c6" stroke-width="1"/>
+            <text x="360" y="115" class="cls-3">- id: int (PK)</text>
+            <text x="360" y="135" class="cls-3">- nombre: str</text>
+            <text x="360" y="155" class="cls-3">- equipo_id: int (FK)</text>
+            <text x="360" y="175" class="cls-3">- posicion: str</text>
+            <text x="360" y="195" class="cls-3">- edad: int</text>
+            <text x="360" y="215" class="cls-3">- nacionalidad: str</text>
+            <text x="360" y="235" class="cls-3">- goles: int</text>
+            <text x="360" y="255" class="cls-3">- asistencias: int</text>
+            <text x="360" y="275" class="cls-3">- eliminado_logico: bool</text>
+            <text x="360" y="295" class="cls-3">+ equipo_obj: Equipo</text>
 
-            <!-- Relationship Line -->
-            <line x1="300" y1="175" x2="500" y2="175" class="cls-4"/>
-            <text x="350" y="165" class="cls-5">1</text>
-            <text x="450" y="165" class="cls-5">*</text>
+
+            <!-- Partido Class -->
+            <rect x="650" y="50" width="250" height="200" class="cls-1" rx="10" ry="10"/>
+            <text x="775" y="75" text-anchor="middle" class="cls-2">Partido</text>
+            <line x1="650" y1="90" x2="900" y2="90" stroke="#a3b1c6" stroke-width="1"/>
+            <text x="660" y="115" class="cls-3">- id: int (PK)</text>
+            <text x="660" y="135" class="cls-3">- equipo_local_id: int (FK)</text>
+            <text x="660" y="155" class="cls-3">- equipo_visitante_id: int (FK)</text>
+            <text x="660" y="175" class="cls-3">- goles_local: int</text>
+            <text x="660" y="195" class="cls-3">- goles_visitante: int</text>
+            <text x="660" y="215" class="cls-3">- fecha: Date</text>
+            <text x="660" y="235" class="cls-3">- fase: str</text>
+            <text x="660" y="255" class="cls-3">- eliminado_logico: bool</text>
+            <text x="660" y="275" class="cls-3">+ equipo_local_obj: Equipo</text>
+            <text x="660" y="295" class="cls-3">+ equipo_visitante_obj: Equipo</text>
+
+            <!-- Relationships -->
+            <!-- Equipo to Jugador (One-to-Many) -->
+            <line x1="300" y1="175" x2="350" y2="175" class="cls-4"/>
+            <text x="310" y="165" class="cls-5">1</text>
+            <text x="340" y="165" class="cls-5">*</text>
+
+            <!-- Equipo to Partido (Local) -->
+            <line x1="300" y1="200" x2="650" y2="145" class="cls-4"/>
+            <text x="370" y="190" class="cls-5">1</text>
+            <text x="620" y="140" class="cls-5">*</text>
+            <text x="490" y="160" class="cls-5">local</text>
+
+            <!-- Equipo to Partido (Visitante) -->
+            <line x1="300" y1="220" x2="650" y2="165" class="cls-4"/>
+            <text x="370" y="210" class="cls-5">1</text>
+            <text x="620" y="160" class="cls-5">*</text>
+            <text x="490" y="180" class="cls-5">visitante</text>
+
         </svg>
-        <p class="image-caption" style="font-size: 0.9em; color: #666; margin-top: 10px;">[Image of Class Diagram]</p>
+        <p class="image-caption">[Image of Class Diagram]</p>
     </div>
     <p>Esta estructura permite consultas eficientes y una clara representación de los datos.</p>
 </section>
@@ -86,7 +122,7 @@
                 <li>Frontend: HTML5 y CSS3 para la interfaz de usuario, con Jinja2 para la renderización de plantillas dinámicas.</li>
             </ul>
         </li>
-        <li><strong>Fuente de Datos:</strong> Para la fase inicial de prueba y desarrollo, los datos de equipos y jugadores se han poblado manualmente en el script `populate_db.py` utilizando información real de la temporada 2017/18 de la Champions League y URLs de imágenes de Wikimedia Commons. Se prevé la posibilidad de integrar fuentes de datos externas (CSV, JSON) en futuras iteraciones para una populación masiva.</li>
+        <li><strong>Fuente de Datos:</strong> Para la fase inicial de prueba y desarrollo, los datos de equipos, jugadores y partidos se han poblado manualmente en el script `populate_db.py` utilizando información real de la temporada 2017/18 de la Champions League. Las URLs de las imágenes de los equipos son marcadores de posición de `placehold.co` para simplificar la gestión y asegurar la carga. Se prevé la posibilidad de integrar fuentes de datos externas (CSV, JSON) en futuras iteraciones para una populación masiva.</li>
     </ul>
 </section>
 {% endblock %}

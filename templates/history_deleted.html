@@ -1,0 +1,85 @@
+<!-- templates/history_deleted.html -->
+{% extends "base.html" %}
+
+{% block title %}Historial de Eliminados{% endblock %}
+
+{% block content %}
+<h1 class="main-title">🗑️ Historial de Elementos Eliminados Lógicamente 🚫</h1>
+<p style="text-align: center; font-size: 1.1em; color: var(--text-color); margin-bottom: 40px;">
+    Aquí puedes ver los jugadores y equipos que han sido marcados como eliminados lógicamente del sistema.
+</p>
+
+<section class="deleted-items-section">
+    <h2>Jugadores Eliminados</h2>
+    {% if deleted_jugadores %}
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Equipo</th>
+                    <th>Posición</th>
+                    <th>Nacionalidad</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for jugador in deleted_jugadores %}
+                <tr>
+                    <td>{{ jugador.id }}</td>
+                    <td>{{ jugador.nombre }}</td>
+                    <td>{{ jugador.equipo_obj.nombre if jugador.equipo_obj else 'N/A' }}</td>
+                    <td>{{ jugador.posicion }}</td>
+                    <td>{{ jugador.nacionalidad }}</td>
+                    <td><span class="status-danger">Eliminado Lógicamente</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="no-data-message">No hay jugadores eliminados lógicamente.</p>
+    {% endif %}
+</section>
+
+<section class="deleted-items-section">
+    <h2>Equipos Eliminados</h2>
+    {% if deleted_equipos %}
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>País</th>
+                    <th>Grupo</th>
+                    <th>Imagen</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for equipo in deleted_equipos %}
+                <tr>
+                    <td>{{ equipo.id }}</td>
+                    <td>{{ equipo.nombre }}</td>
+                    <td>{{ equipo.pais }}</td>
+                    <td>{{ equipo.grupo }}</td>
+                    <td>
+                        {% if equipo.imagen_url %}
+                            <img src="{{ equipo.imagen_url }}" alt="[Image of {{ equipo.nombre }}]" style="width: 40px; height: 40px; object-fit: contain; border-radius: 50%; margin-right: 10px;" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/333333?text=N/A';">
+                        {% else %}
+                            <img src="https://placehold.co/40x40/cccccc/333333?text=N/A" alt="[Image of Equipo N/A]" style="width: 40px; height: 40px; object-fit: contain; border-radius: 50%; margin-right: 10px;">
+                        {% endif %}
+                    </td>
+                    <td><span class="status-danger">Eliminado Lógicamente</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="no-data-message">No hay equipos eliminados lógicamente.</p>
+    {% endif %}
+</section>
+{% endblock %}

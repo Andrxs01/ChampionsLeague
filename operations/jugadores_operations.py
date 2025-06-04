@@ -13,7 +13,6 @@ def create_jugador(db: Session, jugador: JugadorCreate):
         nacionalidad=jugador.nacionalidad,
         goles=jugador.goles,
         asistencias=jugador.asistencias,
-        # imagen_url ya no es parte del modelo Jugador
     )
     db.add(db_jugador)
     db.commit()
@@ -37,9 +36,6 @@ def update_jugador(db: Session, jugador_id: int, jugador: JugadorUpdate):
     db_jugador = db.query(models.Jugador).filter(models.Jugador.id == jugador_id).first()
     if db_jugador:
         update_data = jugador.model_dump(exclude_unset=True)
-        # Asegurarse de que imagen_url no se intente actualizar si no existe en el modelo
-        if 'imagen_url' in update_data: # Esto es una precaución, ya no debería estar en JugadorUpdate
-            del update_data['imagen_url']
         for key, value in update_data.items():
             setattr(db_jugador, key, value)
         db.commit()
@@ -69,7 +65,7 @@ def search_jugadores(db: Session, nombre: str = None, equipo_id: int = None, pos
 
     return query.all()
 
-# --- FUNCIONES PARA ESTADÍSTICAS (se mantienen, pero sin imagen_url) ---
+# --- FUNCIONES PARA ESTADÍSTICAS ---
 
 # Función para obtener los máximos goleadores
 def get_top_scorers(db: Session, limit: int = 10):
@@ -82,3 +78,9 @@ def get_top_assisters(db: Session, limit: int = 10):
     return db.query(models.Jugador).options(joinedload(models.Jugador.equipo_obj)).filter(
         models.Jugador.eliminado_logico == False
     ).order_by(models.Jugador.asistencias.desc()).limit(limit).all()
+
+# --- NUEVA FUNCIÓN: Obtener jugadores eliminados lógicamente ---
+def get_soft_deleted_jugadores(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Jugador).options(joinedload(models.Jugador.equipo_obj)).filter(
+        models.Jugador.eliminado_logico == True
+    ).offset(skip).limit(limit).all()

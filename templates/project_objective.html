@@ -4,18 +4,33 @@
 {% block title %}Objetivo del Proyecto{% endblock %}
 
 {% block content %}
-<h1 class="main-title">🎯 Objetivo Principal del Proyecto 🎯</h1>
+<h1 class="main-title">🎯 Objetivo del Proyecto 🎯</h1>
+
 <section class="info-section">
-    <p>El propósito fundamental de este proyecto es construir una aplicación web completa y robusta que sirva como una plataforma interactiva para la gestión y visualización de datos de la Liga de Campeones de la UEFA 2017/18. A través de este desarrollo, buscamos demostrar la capacidad de:</p>
+    <h2>Visión General:</h2>
+    <p>El objetivo principal de este proyecto es desarrollar una aplicación web interactiva y fácil de usar, diseñada para la gestión y visualización de datos relacionados con la UEFA Champions League 2017/18. La aplicación busca proporcionar una experiencia inmersiva para los aficionados al fútbol, permitiéndoles explorar información detallada sobre equipos, jugadores y partidos de una de las temporadas más memorables de la competición.</p>
+</section>
+
+<section class="info-section">
+    <h2>Objetivos Específicos:</h2>
     <ul class="styled-list">
-        <li><strong>Dominio de Tecnologías Modernas:</strong> Implementar un backend sólido utilizando el framework web FastAPI de Python para construir una API RESTful eficiente y escalable.</li>
-        <li><strong>Persistencia de Datos Fiable:</strong> Utilizar SQLAlchemy como un ORM (Object-Relational Mapper) para interactuar de manera fluida con una base de datos PostgreSQL, garantizando la integridad y persistencia de los datos.</li>
-        <li><strong>Interfaz de Usuario Intuitiva y Atractiva:</strong> Diseñar y desarrollar un frontend con HTML5 y CSS3, empleando Jinja2 para la renderización de plantillas dinámicas. El objetivo es crear una experiencia de usuario (UX) clara, con una navegación coherente y un estilo visual que evoque la temática deportiva de la Champions League.</li>
-        <li><strong>Funcionalidades CRUD Completas:</strong> Proporcionar todas las operaciones básicas de gestión de datos (Crear, Leer, Actualizar, Eliminar Lógicamente) para las entidades de Jugadores y Equipos.</li>
-        <li><strong>Manejo de Contenido Multimedia:</strong> Integrar la capacidad de asociar y mostrar imágenes para cada jugador y equipo, enriqueciendo la información visual.</li>
-        <li><strong>Búsqueda y Consulta Eficiente:</strong> Implementar funcionalidades de búsqueda que permitan a los usuarios encontrar rápidamente la información deseada.</li>
-        <li><strong>Documentación Integrada:</strong> Ofrecer secciones de documentación dentro de la propia aplicación web que detallen las fases de planeación, diseño, los objetivos del proyecto y la información del desarrollador.</li>
+        <li><strong>Base de Datos Robusta:</strong> Implementar una base de datos relacional (PostgreSQL) con SQLAlchemy para almacenar de manera eficiente y estructurada la información de equipos, jugadores y partidos, incluyendo sus estadísticas clave.</li>
+        <li><strong>API RESTful Completa:</strong> Desarrollar una API RESTful utilizando FastAPI que permita la interacción programática con los datos, facilitando operaciones CRUD (Crear, Leer, Actualizar, Eliminar) para cada entidad.</li>
+        <li><strong>Interfaz de Usuario Intuitiva:</strong> Diseñar y construir una interfaz de usuario atractiva y responsiva con HTML y CSS, utilizando Jinja2 para la renderización dinámica. La UI debe permitir a los usuarios navegar fácilmente por la información, realizar búsquedas y visualizar estadísticas.</li>
+        <li><strong>Funcionalidades de Gestión:</strong> Proporcionar formularios web para que los administradores puedan añadir nuevos equipos, jugadores y partidos, así como editar y eliminar (lógicamente) los existentes.</li>
+        <li><strong>Estadísticas Detalladas:</strong> Incluir secciones dedicadas a estadísticas clave, como máximos goleadores, asistentes y equipos con mejor rendimiento, para ofrecer una visión analítica de la temporada.</li>
+        <li><strong>Documentación Clara:</strong> Asegurar que el proyecto esté bien documentado, cubriendo las fases de planeación, diseño y desarrollo, así como la información del desarrollador y la documentación automática de la API (Swagger UI).</li>
+        <li><strong>Despliegue en la Nube:</strong> Configurar el despliegue de la aplicación en una plataforma en la nube (Render.com) para garantizar su accesibilidad y disponibilidad.</li>
     </ul>
-    <p>En resumen, este proyecto es una demostración práctica de la construcción de una aplicación web completa, desde la base de datos hasta la interfaz de usuario, con un enfoque en la calidad del código, la usabilidad y la estética.</p>
+</section>
+
+<section class="info-section">
+    <h2>Audiencia Objetivo:</h2>
+    <p>Esta aplicación está dirigida a:</p>
+    <ul class="styled-list">
+        <li>Aficionados al fútbol que deseen revivir o consultar datos de la Champions League 2017/18.</li>
+        <li>Analistas deportivos o entusiastas de los datos que busquen una plataforma para explorar estadísticas de la competición.</li>
+        <li>Desarrolladores interesados en un ejemplo práctico de una aplicación web full-stack con FastAPI, SQLAlchemy y Jinja2.</li>
+    </ul>
 </section>
 {% endblock %}

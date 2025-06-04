@@ -4,12 +4,39 @@
 {% block title %}Acerca del Desarrollador{% endblock %}
 
 {% block content %}
-<h1 class="main-title">🧑‍💻 Información del Desarrollador 🧑‍💻</h1>
-<div class="info-card" style="max-width: 600px; margin: 30px auto; padding: 30px; background-color: var(--card-background); border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-    <p><strong>Nombre:</strong> [Tu Nombre Aquí]</p>
-    <p><strong>Contacto:</strong> <a href="mailto:[tu.correo@example.com]" class="text-link">[tu.correo@example.com]</a></p>
-    <p><strong>LinkedIn:</strong> <a href="[Tu URL de LinkedIn]" target="_blank" class="text-link">Tu Perfil de LinkedIn</a></p>
-    <p><strong>GitHub:</strong> <a href="[Tu URL de GitHub]" target="_blank" class="text-link">Repositorio del Proyecto</a></p>
-    <p style="margin-top: 20px;">Este proyecto fue desarrollado como parte de un ejercicio de aprendizaje y demostración de habilidades en el desarrollo web con FastAPI, SQLAlchemy y Jinja2. Mi objetivo es crear soluciones robustas y atractivas, aplicando las mejores prácticas en el desarrollo de software.</p>
-</div>
+<h1 class="main-title">👨‍💻 Acerca del Desarrollador 👩‍💻</h1>
+
+<section class="info-section">
+    <h2>Información Personal:</h2>
+    <p>Este proyecto fue desarrollado por [Tu Nombre/Nombre del Equipo]. Soy un entusiasta de la programación y del fútbol, y este proyecto es una muestra de mis habilidades en el desarrollo web full-stack.</p>
+    <ul class="styled-list">
+        <li><strong>Nombre:</strong> [Tu Nombre o Nombre del Equipo]</li>
+        <li><strong>Rol:</strong> Desarrollador Full-Stack</li>
+        <li><strong>Contacto:</strong> [Tu Correo Electrónico o Enlace a LinkedIn/GitHub]</li>
+    </ul>
+</section>
+
+<section class="info-section">
+    <h2>Filosofía de Desarrollo:</h2>
+    <p>Mi enfoque en este proyecto ha sido crear una aplicación que no solo sea funcional y robusta, sino también intuitiva y visualmente atractiva. He priorizado la claridad del código, la modularidad y la escalabilidad, utilizando las mejores prácticas en cada etapa del desarrollo.</p>
+    <ul class="styled-list">
+        <li><strong>Clean Code:</strong> Escribir código legible y fácil de mantener.</li>
+        <li><strong>Modularidad:</strong> Dividir el proyecto en componentes lógicos para una mejor organización.</li>
+        <li><strong>Experiencia de Usuario:</strong> Diseñar una interfaz que sea agradable y fácil de usar para el usuario final.</li>
+        <li><strong>Rendimiento:</strong> Optimizar la aplicación para una carga rápida y una respuesta eficiente.</li>
+    </ul>
+</section>
+
+<section class="info-section">
+    <h2>Tecnologías Utilizadas:</h2>
+    <p>Las principales tecnologías y herramientas empleadas en este proyecto incluyen:</p>
+    <ul class="styled-list">
+        <li><strong>Backend:</strong> Python, FastAPI, SQLAlchemy</li>
+        <li><strong>Base de Datos:</strong> PostgreSQL (SQLite para desarrollo local)</li>
+        <li><strong>Frontend:</strong> HTML5, CSS3, Jinja2</li>
+        <li><strong>Despliegue:</strong> Render.com</li>
+        <li><strong>Control de Versiones:</strong> Git, GitHub</li>
+        <li><strong>Herramientas Adicionales:</strong> Uvicorn, python-dotenv, Pydantic</li>
+    </ul>
+</section>
 {% endblock %}
