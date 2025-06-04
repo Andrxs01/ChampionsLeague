@@ -6,11 +6,15 @@ from data.models import EquipoCreate, EquipoUpdate
 
 # Función para crear un nuevo equipo en la base de datos
 def create_equipo(db: Session, equipo: EquipoCreate):
+    # Asegúrate de convertir el objeto HttpUrl a str antes de pasarlo al modelo ORM.
+    # Si equipo.imagen_url es None, se pasará None, lo cual es manejado por nullable=True en el modelo.
+    imagen_url_str = str(equipo.imagen_url) if equipo.imagen_url else None
+
     db_equipo = models.Equipo(
         nombre=equipo.nombre,
         pais=equipo.pais,
         grupo=equipo.grupo,
-        imagen_url=equipo.imagen_url
+        imagen_url=imagen_url_str # Usa la versión convertida a string
     )
     db.add(db_equipo)
     db.commit()
