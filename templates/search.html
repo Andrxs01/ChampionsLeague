@@ -79,12 +79,8 @@
     </div>
 </form>
 
+{# ESTE ES EL ÚNICO BLOQUE IF/ELSE GRANDE QUE NECESITAS PARA MOSTRAR/OCULTAR LOS RESULTADOS #}
 {% if query or jugador_id or jugador_posicion or jugador_nacionalidad or jugador_equipo_id or equipo_id or equipo_pais or equipo_grupo or partido_id or partido_fase or partido_fecha_inicio or partido_fecha_fin or partido_equipo_nombre %}
-    {# Tu código actual que muestra los resultados de búsqueda va aquí #}
-{% else %}
-    <p>No se han especificado criterios de búsqueda. Utilice los campos anteriores para encontrar jugadores, equipos o partidos.</p>
-{% endif %}
-
     <h2 class="search-results-title">Resultados de la Búsqueda Avanzada</h2>
 
     <section class="search-results-section info-section">
@@ -231,9 +227,10 @@
         {% endif %}
     </section>
 
-{% else %}
+{% else %} {# Este else corresponde al primer if grande #}
     <p class="no-data-message info-section">Ingresa un término o aplica filtros para encontrar jugadores, equipos o partidos.</p>
 {% endif %}
+
 {% endblock %}
 
 {% block scripts_extra %}
@@ -362,10 +359,3 @@
     }
 </style>
 {% endblock %}
-
-
-
-
-
-
-
