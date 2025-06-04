@@ -6,7 +6,7 @@
 {% block content %}
 <h1 class="main-title">🗑️ Historial de Elementos Eliminados Lógicamente 🚫</h1>
 <p style="text-align: center; font-size: 1.1em; color: var(--text-color); margin-bottom: 40px;">
-    Aquí puedes ver los jugadores y equipos que han sido marcados como eliminados lógicamente del sistema.
+    Aquí puedes ver los jugadores, equipos y partidos que han sido marcados como eliminados lógicamente del sistema.
 </p>
 
 <section class="deleted-items-section">
@@ -80,6 +80,42 @@
     </div>
     {% else %}
     <p class="no-data-message">No hay equipos eliminados lógicamente.</p>
+    {% endif %}
+</section>
+
+<section class="deleted-items-section">
+    <h2>Partidos Eliminados</h2>
+    {% if deleted_partidos %}
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Equipo Local</th>
+                    <th>Equipo Visitante</th>
+                    <th>Marcador</th>
+                    <th>Fecha</th>
+                    <th>Fase</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for partido in deleted_partidos %}
+                <tr>
+                    <td>{{ partido.id }}</td>
+                    <td>{{ partido.equipo_local_obj.nombre if partido.equipo_local_obj else 'N/A' }}</td>
+                    <td>{{ partido.equipo_visitante_obj.nombre if partido.equipo_visitante_obj else 'N/A' }}</td>
+                    <td>{{ partido.goles_local }} - {{ partido.goles_visitante }}</td>
+                    <td>{{ partido.fecha.strftime('%d/%m/%Y') }}</td> {# Formatear la fecha #}
+                    <td>{{ partido.fase }}</td>
+                    <td><span class="status-danger">Eliminado Lógicamente</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="no-data-message">No hay partidos eliminados lógicamente.</p>
     {% endif %}
 </section>
 {% endblock %}

@@ -484,13 +484,20 @@ async def eliminar_partido_logico(request: Request, partido_id: int, db: Session
     except Exception as e:
         partidos = partidos_operations.get_all_partidos(db)
         return templates.TemplateResponse("partidos/list.html", {"request": request, "partidos": partidos, "error_message": f"Error al eliminar partido: {e}"})
-
 # --- NUEVA RUTA: Historial de Eliminados ---
 @router.get("/historial_eliminados", response_class=HTMLResponse)
 async def show_deleted_history(request: Request, db: Session = Depends(get_db)):
     deleted_jugadores = jugadores_operations.get_soft_deleted_jugadores(db)
     deleted_equipos = equipos_operations.get_soft_deleted_equipos(db)
+    deleted_partidos = partidos_operations.get_soft_deleted_partidos(db)
+
     return templates.TemplateResponse(
         "history_deleted.html",
-        {"request": request, "deleted_jugadores": deleted_jugadores, "deleted_equipos": deleted_equipos}
+        {
+            "request": request,
+            "deleted_jugadores": deleted_jugadores,
+            "deleted_equipos": deleted_equipos,
+            "deleted_partidos": deleted_partidos
+        }
     )
+

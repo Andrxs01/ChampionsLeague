@@ -75,3 +75,13 @@ def search_partidos(db: Session, equipo_nombre: str = None, fase: str = None, fe
         query = query.filter(models.Partido.fecha <= fecha_fin)
 
     return query.all()
+def get_soft_deleted_partidos(db: Session, skip: int = 0, limit: int = 100):
+    """
+    Obtiene los partidos que han sido eliminados lógicamente.
+    """
+    return db.query(models.Partido).options(
+        joinedload(models.Partido.equipo_local_obj),
+        joinedload(models.Partido.equipo_visitante_obj)
+    ).filter(
+        models.Partido.eliminado_logico == True
+    ).offset(skip).limit(limit).all()
