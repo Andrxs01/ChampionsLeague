@@ -8,7 +8,9 @@ from datetime import date
 
 Base = declarative_base()
 
-# Esquemas Pydantic para validación de datos
+# Esquemas Pydantic para validación de datos de entrada (Create/Update)
+# y para la estructura base de los modelos de respuesta.
+
 class JugadorBase(BaseModel):
     nombre: str
     equipo_id: int
@@ -31,24 +33,13 @@ class JugadorUpdate(JugadorBase):
     goles: Optional[int] = None
     asistencias: Optional[int] = None
 
-class Jugador(Base):
-    __tablename__ = "jugadores"
+# --- NUEVOS ESQUEMAS PYDANTIC PARA RESPUESTAS API ---
+class JugadorResponse(JugadorBase):
+    id: int
+    eliminado_logico: bool
 
-    id = Column(Integer, primary_key=True, index=True)
-    nombre = Column(String, index=True)
-    equipo_id = Column(Integer, ForeignKey("equipos.id"))
-    posicion = Column(String)
-    edad = Column(Integer)
-    nacionalidad = Column(String)
-    goles = Column(Integer, default=0)
-    asistencias = Column(Integer, default=0)
-    eliminado_logico = Column(Boolean, default=False)
-
-    equipo_obj = relationship("Equipo", back_populates="jugadores")
-
-    # Configuración para Pydantic (para serialización)
     class Config:
-        from_attributes = True
+        from_attributes = True # Permite que Pydantic lea datos de objetos ORM
 
 class EquipoBase(BaseModel):
     nombre: str
@@ -66,24 +57,13 @@ class EquipoUpdate(EquipoBase):
     grupo: Optional[str] = None
     imagen_url: Optional[HttpUrl] = None
 
-class Equipo(Base):
-    __tablename__ = "equipos"
-
-    id = Column(Integer, primary_key=True, index=True)
-    nombre = Column(String, unique=True, index=True)
-    pais = Column(String)
-    grupo = Column(String)
-    imagen_url = Column(String, nullable=True) # Almacenamos la URL como String
-    eliminado_logico = Column(Boolean, default=False)
-
-    jugadores = relationship("Jugador", back_populates="equipo_obj")
-    partidos_local = relationship("Partido", foreign_keys="[Partido.equipo_local_id]", back_populates="equipo_local_obj")
-    partidos_visitante = relationship("Partido", foreign_keys="[Partido.equipo_visitante_id]", back_populates="equipo_visitante_obj")
+class EquipoResponse(EquipoBase):
+    id: int
+    eliminado_logico: bool
 
     class Config:
         from_attributes = True
 
-# --- NUEVO MODELO PARA PARTIDOS ---
 class PartidoBase(BaseModel):
     equipo_local_id: int
     equipo_visitante_id: int
@@ -104,6 +84,48 @@ class PartidoUpdate(PartidoBase):
     fase: Optional[str] = None
     eliminado_logico: bool = False
 
+class PartidoResponse(PartidoBase):
+    id: int
+    eliminado_logico: bool
+
+    class Config:
+        from_attributes = True
+
+# --- Modelos SQLAlchemy (mapeo a la base de datos) ---
+class Jugador(Base):
+    __tablename__ = "jugadores"
+
+    id = Column(Integer, primary_key=True, index=True)
+    nombre = Column(String, index=True)
+    equipo_id = Column(Integer, ForeignKey("equipos.id"))
+    posicion = Column(String)
+    edad = Column(Integer)
+    nacionalidad = Column(String)
+    goles = Column(Integer, default=0)
+    asistencias = Column(Integer, default=0)
+    eliminado_logico = Column(Boolean, default=False)
+
+    equipo_obj = relationship("Equipo", back_populates="jugadores")
+
+    # No necesitamos Config aquí para el modelo ORM,
+    # ya que los Pydantic Response Models se encargan de la serialización.
+
+class Equipo(Base):
+    __tablename__ = "equipos"
+
+    id = Column(Integer, primary_key=True, index=True)
+    nombre = Column(String, unique=True, index=True)
+    pais = Column(String)
+    grupo = Column(String)
+    imagen_url = Column(String, nullable=True) # Almacenamos la URL como String
+    eliminado_logico = Column(Boolean, default=False)
+
+    jugadores = relationship("Jugador", back_populates="equipo_obj")
+    partidos_local = relationship("Partido", foreign_keys="[Partido.equipo_local_id]", back_populates="equipo_local_obj")
+    partidos_visitante = relationship("Partido", foreign_keys="[Partido.equipo_visitante_id]", back_populates="equipo_visitante_obj")
+
+    # No necesitamos Config aquí para el modelo ORM.
+
 class Partido(Base):
     __tablename__ = "partidos"
 
@@ -119,5 +141,4 @@ class Partido(Base):
     equipo_local_obj = relationship("Equipo", foreign_keys=[equipo_local_id], back_populates="partidos_local")
     equipo_visitante_obj = relationship("Equipo", foreign_keys=[equipo_visitante_id], back_populates="partidos_visitante")
 
-    class Config:
-        from_attributes = True
+    # No necesitamos Config aquí para el modelo ORM.
