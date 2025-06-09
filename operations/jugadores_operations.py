@@ -60,24 +60,39 @@ def soft_delete_jugador(db: Session, jugador_id: int):
 # Función para buscar jugadores por varios criterios (ACTUALIZADA)
 def search_jugadores(
     db: Session,
-    nombre: Optional[str] = None,
+    nombre: Optional[str] = None, # Este es el 'query' general de FastAPI
     equipo_id: Optional[int] = None,
     posicion: Optional[str] = None,
     nacionalidad: Optional[str] = None,
-    id: Optional[int] = None, # <--- ¡Nuevo parámetro añadido!
+    id: Optional[int] = None,
     eliminado: bool = False
 ):
     query = db.query(models.Jugador).options(joinedload(models.Jugador.equipo_obj)).filter(models.Jugador.eliminado_logico == eliminado)
+
+    # Filtros iniciales se guardan en una lista
+    filters = []
+
     if nombre:
-        query = query.filter(models.Jugador.nombre.ilike(f"%{nombre}%"))
+        # Si se proporciona un nombre (el 'query' general),
+        # busca en el nombre del jugador O en el nombre del equipo asociado
+        filters.append(
+            or_(
+                models.Jugador.nombre.ilike(f"%{nombre}%"),
+                models.Jugador.equipo_obj.has(models.Equipo.nombre.ilike(f"%{nombre}%"))
+            )
+        )
     if equipo_id:
-        query = query.filter(models.Jugador.equipo_id == equipo_id)
+        filters.append(models.Jugador.equipo_id == equipo_id)
     if posicion:
-        query = query.filter(models.Jugador.posicion.ilike(f"%{posicion}%"))
+        filters.append(models.Jugador.posicion.ilike(f"%{posicion}%"))
     if nacionalidad:
-        query = query.filter(models.Jugador.nacionalidad.ilike(f"%{nacionalidad}%"))
-    if id: # <--- ¡Nuevo filtro añadido!
-        query = query.filter(models.Jugador.id == id)
+        filters.append(models.Jugador.nacionalidad.ilike(f"%{nacionalidad}%"))
+    if id:
+        filters.append(models.Jugador.id == id)
+
+    # Aplica todos los filtros
+    if filters:
+        query = query.filter(*filters)
 
     return query.all()
 

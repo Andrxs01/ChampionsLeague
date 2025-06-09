@@ -374,7 +374,7 @@ async def show_search_page(
             fase=partido_fase,
             fecha_inicio=converted_partido_fecha_inicio,
             fecha_fin=converted_partido_fecha_fin,
-            equipo_nombre=partido_equipo_nombre
+            equipo_nombre=partido_equipo_nombre if partido_equipo_nombre else query
         )
 
     return templates.TemplateResponse(

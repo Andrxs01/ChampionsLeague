@@ -20,7 +20,6 @@ def create_partido(db: Session, partido: PartidoCreate):
     db.commit()
     db.refresh(db_partido)
     return db_partido
-
 # Función para obtener todos los partidos
 def get_all_partidos(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Partido).options(
