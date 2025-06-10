@@ -1,4 +1,3 @@
-<!-- templates/equipos/edit.html -->
 {% extends "base.html" %}
 
 {% block title %}Editar Equipo - {{ equipo.nombre }}{% endblock %}
@@ -25,15 +24,18 @@
     </div>
     <div class="form-group">
         <label for="imagen_url">URL de Imagen del Equipo:</label>
+        {# Si imagen_url es None o vacío, muestra un string vacío para evitar 'None' en el campo #}
         <input type="url" id="imagen_url" name="imagen_url" value="{{ equipo.imagen_url if equipo.imagen_url else '' }}" placeholder="Ej: https://ejemplo.com/logo.png">
-        <small>Puedes usar una URL externa o una ruta a tu carpeta /static/images/equipos/.</small>
+        <small>Puedes usar una URL externa o una ruta a tu carpeta `/static/images/equipos/`.</small>
     </div>
     <div class="form-group">
         <label for="eliminado_logico">Eliminado Lógicamente:</label>
+        {# Marca el checkbox si el equipo está lógicamente eliminado #}
         <input type="checkbox" id="eliminado_logico" name="eliminado_logico" {% if equipo.eliminado_logico %}checked{% endif %}>
         <small>Marcar esta casilla para ocultar el equipo de las listas principales.</small>
     </div>
-    <div class="flex-row" style="justify-content: center;">
+    <div class="flex-row">
+        {# El estilo 'justify-content: center;' ya se aplica a través de la clase CSS 'flex-row' en style.css #}
         <button type="submit" class="button success">💾 Guardar Cambios</button>
         <a href="/equipos/{{ equipo.id }}" class="button primary">↩️ Cancelar</a>
     </div>

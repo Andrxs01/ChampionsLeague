@@ -1,7 +1,6 @@
-<!-- templates/partidos/list.html -->
 {% extends "base.html" %}
 
-{% block title %}Lista de Partidos{% endblock %}
+{% block title %}Calendario y Resultados de Partidos{% endblock %}
 
 {% block content %}
 <h1 class="main-title">🗓️ Calendario y Resultados de Partidos ⚽</h1>
@@ -13,14 +12,14 @@
     <div class="message success">{{ success_message }}</div>
 {% endif %}
 
-<div class="flex-row" style="justify-content: flex-end; margin-bottom: 20px;">
-    <a href="/partidos_crear" class="button primary"><i class="fas fa-plus-circle"></i> Añadir Nuevo Partido</a>
+<div class="flex-row"> {# Se centra por defecto con flex-row, como en otras plantillas #}
+    <a href="/partidos_crear" class="button success">➕ Añadir Nuevo Partido</a> {# Botón 'success' y emoji #}
 </div>
 
 {% if partidos_agrupados %}
     {% for fase, partidos_en_fase in partidos_agrupados %}
         <section class="info-section" style="margin-top: 40px;">
-            <h2 style="font-size: 1.8em; text-align: left; border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; margin-bottom: 25px;">{{ fase }}</h2>
+            <h2 class="section-title-with-border">{{ fase }}</h2> {# Nueva clase para este título #}
             <div class="table-container">
                 <table>
                     <thead>
@@ -35,39 +34,50 @@
                     </thead>
                     <tbody>
                         {% for partido in partidos_en_fase %}
+                        {# Solo mostrar si NO está eliminado lógicamente #}
+                        {% if not partido.eliminado_logico %}
                         <tr>
                             <td>{{ partido.id }}</td>
                             <td>{{ partido.fecha.strftime('%d/%m/%Y') }}</td>
                             <td>
                                 {% if partido.equipo_local_obj %}
                                     <a href="/equipos/{{ partido.equipo_local_obj.id }}" class="text-link team-display">
-                                        <img src="{{ partido.equipo_local_obj.imagen_url }}" alt="[Image of {{ partido.equipo_local_obj.nombre }}]" class="team-logo" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/333333?text=N/A';">
+                                        {# Si imagen_url es None o vacío, usa el placeholder local #}
+                                        <img src="{{ partido.equipo_local_obj.imagen_url if partido.equipo_local_obj.imagen_url else '/static/images/placeholder_team_small.png' }}"
+                                             alt="Logo de {{ partido.equipo_local_obj.nombre }}"
+                                             class="team-logo"
+                                             onerror="this.onerror=null;this.src='/static/images/placeholder_team_small.png';">
                                         {{ partido.equipo_local_obj.nombre }}
                                     </a>
                                 {% else %}
-                                    N/A
+                                    <span class="status-danger">Equipo No Disp.</span> {# Mensaje más claro #}
                                 {% endif %}
                             </td>
                             <td class="result-score">
-                                <strong>{{ partido.goles_local }} - {{ partido.goles_visitante }}</strong>
+                                <strong>{{ partido.goles_local }}</strong> - <strong>{{ partido.goles_visitante }}</strong>
                             </td>
                             <td>
                                 {% if partido.equipo_visitante_obj %}
                                     <a href="/equipos/{{ partido.equipo_visitante_obj.id }}" class="text-link team-display">
-                                        <img src="{{ partido.equipo_visitante_obj.imagen_url }}" alt="[Image of {{ partido.equipo_visitante_obj.nombre }}]" class="team-logo" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/333333?text=N/A';">
+                                        {# Si imagen_url es None o vacío, usa el placeholder local #}
+                                        <img src="{{ partido.equipo_visitante_obj.imagen_url if partido.equipo_visitante_obj.imagen_url else '/static/images/placeholder_team_small.png' }}"
+                                             alt="Logo de {{ partido.equipo_visitante_obj.nombre }}"
+                                             class="team-logo"
+                                             onerror="this.onerror=null;this.src='/static/images/placeholder_team_small.png';">
                                         {{ partido.equipo_visitante_obj.nombre }}
                                     </a>
                                 {% else %}
-                                    N/A
+                                    <span class="status-danger">Equipo No Disp.</span> {# Mensaje más claro #}
                                 {% endif %}
                             </td>
-                            <td class="flex-row">
-                                <a href="/partidos_editar/{{ partido.id }}" class="button warning small-button">Editar</a>
-                                <form action="/partidos_eliminar/{{ partido.id }}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar lógicamente este partido?');">
-                                    <button type="submit" class="button danger small-button">Eliminar</button>
+                            <td class="flex-row action-buttons-cell">
+                                <a href="/partidos_editar/{{ partido.id }}" class="button warning small-button">✏️ Editar</a>
+                                <form action="/partidos_eliminar/{{ partido.id }}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar lógicamente este partido? Esta acción puede revertirse si es necesario.');" style="display: inline;">
+                                    <button type="submit" class="button danger small-button">🗑️ Eliminar</button>
                                 </form>
                             </td>
                         </tr>
+                        {% endif %}
                         {% endfor %}
                     </tbody>
                 </table>
@@ -75,10 +85,19 @@
         </section>
     {% endfor %}
 {% else %}
-    <p class="no-data-message">No hay partidos registrados o activos. ¡Añade uno!</p>
+    <p class="no-data-message">No hay partidos registrados o activos. ¡Añade uno para ver el calendario!</p>
 {% endif %}
 
 <style>
+    /* Estilos adicionales específicos para esta página */
+    .section-title-with-border {
+        font-size: 1.8em;
+        text-align: left;
+        border-bottom: 2px solid var(--accent-color);
+        padding-bottom: 10px;
+        margin-bottom: 25px;
+        color: var(--primary-color); /* Color de texto del título de sección */
+    }
     .team-display {
         display: flex;
         align-items: center;
@@ -93,12 +112,27 @@
         object-fit: contain; /* Para que el logo no se corte */
         border-radius: 50%; /* Opcional: logos circulares */
         border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-sm); /* Pequeña sombra para realzar */
     }
     .result-score {
-        font-size: 1.1em;
-        font-weight: bold;
-        color: var(--primary-color);
+        font-size: 1.2em; /* Un poco más grande para el resultado */
+        font-weight: bolder; /* Más negrita */
+        color: var(--text-color-dark); /* Un color más oscuro para el contraste */
         text-align: center;
+        padding: 5px 10px; /* Espaciado interno */
+        background-color: var(--background-light); /* Fondo ligero para el score */
+        border-radius: var(--border-radius);
+    }
+    /* Mejora de la fuente del resultado para que se parezca más a un marcador */
+    .result-score strong {
+        font-family: 'Arial Black', sans-serif; /* Fuente más robusta */
+        letter-spacing: 1px; /* Espaciado entre letras */
+    }
+    .no-data-message {
+        text-align: center;
+        font-size: 1.1em;
+        color: var(--text-color-light);
+        margin-top: 30px;
     }
 </style>
 {% endblock %}

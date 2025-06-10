@@ -1,4 +1,3 @@
-<!-- templates/equipos/detail.html -->
 {% extends "base.html" %}
 
 {% block title %}Detalle del Equipo - {{ equipo.nombre }}{% endblock %}
@@ -9,9 +8,12 @@
 <div class="detail-card">
     <div class="detail-image-container">
         {% if equipo.imagen_url %}
-            <img src="{{ equipo.imagen_url }}" alt="" onerror="this.onerror=null;this.src='https://placehold.co/300x300/cccccc/333333?text=Sin+Imagen';" class="detail-img">
+            {# Muestra la imagen del equipo con un fallback si la URL no funciona #}
+            <img src="{{ equipo.imagen_url }}" alt="Logo del Equipo {{ equipo.nombre }}" onerror="this.onerror=null;this.src='/static/images/placeholder_team.png';" class="detail-img">
         {% else %}
-            <p class="no-data-message">No hay imagen disponible para este equipo.</p>
+            {# Mensaje si no hay URL de imagen, mostrado dentro del contenedor de imagen #}
+            <img src="/static/images/placeholder_team.png" alt="Imagen no disponible" class="detail-img">
+            <p class="no-data-message">No hay imagen definida.</p>
         {% endif %}
     </div>
 
@@ -19,123 +21,35 @@
         <p><strong>ID:</strong> {{ equipo.id }}</p>
         <p><strong>País:</strong> {{ equipo.pais }}</p>
         <p><strong>Grupo:</strong> {{ equipo.grupo }}</p>
+        {# Muestra el estado de eliminado lógicamente con el color adecuado #}
         <p><strong>Estado (Eliminado Lógicamente):</strong> <span class="status-{{ 'danger' if equipo.eliminado_logico else 'success' }}">{{ "Sí" if equipo.eliminado_logico else "No" }}</span></p>
     </div>
 
-   <h2 style="margin-top: 40px;">Jugadores del Equipo:</h2>
-{% if equipo.jugadores %}
-<ul class="player-list">
-    {% for jugador in equipo.jugadores %}
-        {% if not jugador.eliminado_logico %}
-        <li>
-            <a href="/jugadores/{{ jugador.id }}" class="text-link">
-                {{ jugador.nombre }} ({{ jugador.posicion }})
-            </a>
-        </li>
-        {% endif %}
-    {% endfor %}
-</ul>
-{% else %}
-<p class="no-data-message">No hay jugadores registrados para este equipo.</p>
-{% endif %}
+    <h2 style="margin-top: 40px;">Jugadores del Equipo:</h2>
+    {% if equipo.jugadores %}
+        <ul class="player-list">
+            {% for jugador in equipo.jugadores %}
+                {# Solo muestra jugadores que NO están eliminados lógicamente #}
+                {% if not jugador.eliminado_logico %}
+                <li>
+                    <a href="/jugadores/{{ jugador.id }}" class="text-link">
+                        {{ jugador.nombre }} ({{ jugador.posicion }})
+                    </a>
+                </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="no-data-message">No hay jugadores registrados para este equipo.</p>
+    {% endif %}
 
     <div class="flex-row detail-actions">
         <a href="/equipos_lista" class="button primary">← Volver a la Lista</a>
         <a href="/equipos_editar/{{ equipo.id }}" class="button warning">✏️ Editar Equipo</a>
-        <form action="/equipos_eliminar/{{ equipo.id }}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar lógicamente a este equipo?');" style="display: inline;">
+        {# Formulario para eliminación lógica con confirmación al usuario #}
+        <form action="/equipos_eliminar/{{ equipo.id }}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar lógicamente a este equipo? Esta acción puede revertirse si es necesario.');" style="display: inline;">
             <button type="submit" class="button danger">🗑️ Eliminar (Lógico)</button>
         </form>
     </div>
 </div>
-
-<style>
-    /* Reutiliza estilos de detail-card de jugadores */
-    .detail-card {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 25px;
-        padding: 30px;
-        background-color: var(--card-background);
-        border-radius: 12px;
-        box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-        max-width: 700px;
-        margin: 30px auto;
-        text-align: center;
-    }
-
-    .detail-image-container {
-        width: 100%;
-        max-width: 300px;
-        height: 300px;
-        border-radius: 50%; /* Imagen circular */
-        overflow: hidden;
-        border: 5px solid var(--primary-color);
-        box-shadow: 0 0 15px rgba(0,0,0,0.3);
-    }
-
-    .detail-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .detail-info p {
-        font-size: 1.1em;
-        margin-bottom: 10px;
-    }
-
-    .detail-info strong {
-        color: var(--secondary-color);
-    }
-
-    .detail-actions {
-        margin-top: 25px;
-        justify-content: center;
-    }
-
-    .status-success {
-        color: var(--button-bg-success);
-        font-weight: bold;
-    }
-
-    .status-danger {
-        color: var(--button-bg-danger);
-        font-weight: bold;
-    }
-
-    .text-link {
-        color: var(--primary-color);
-        text-decoration: none;
-        font-weight: bold;
-    }
-    .text-link:hover {
-        text-decoration: underline;
-    }
-
-    .player-list {
-        list-style: none;
-        padding: 0;
-        margin-top: 15px;
-    }
-
-    .player-list li {
-        margin-bottom: 8px;
-        font-size: 1.05em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    @media (max-width: 768px) {
-        .detail-card {
-            padding: 20px;
-            gap: 15px;
-        }
-        .detail-image-container {
-            max-width: 200px;
-            height: 200px;
-        }
-    }
-</style>
 {% endblock %}

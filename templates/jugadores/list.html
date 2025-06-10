@@ -1,4 +1,3 @@
-<!-- templates/jugadores/list.html -->
 {% extends "base.html" %}
 
 {% block title %}Lista de Jugadores{% endblock %}
@@ -13,8 +12,8 @@
     <div class="message success">{{ success_message }}</div>
 {% endif %}
 
-<div class="flex-row" style="justify-content: flex-end; margin-bottom: 20px;">
-    <a href="/jugadores_crear" class="button primary"><i class="fas fa-user-plus"></i> Añadir Nuevo Jugador</a>
+<div class="flex-row"> {# La clase flex-row ya centra, no necesitamos flex-end #}
+    <a href="/jugadores_crear" class="button success">➕ Añadir Nuevo Jugador</a> {# Botón 'success' para añadir y emoji #}
 </div>
 
 {% if jugadores %}
@@ -35,23 +34,31 @@
         </thead>
         <tbody>
             {% for jugador in jugadores %}
+            {% if not jugador.eliminado_logico %} {# ¡Importante! Solo mostrar si NO está eliminado lógicamente #}
             <tr>
                 <td>{{ jugador.id }}</td>
                 <td>{{ jugador.nombre }}</td>
-                <td>{{ jugador.equipo_obj.nombre if jugador.equipo_obj else 'N/A' }}</td>
+                <td>
+                    {% if jugador.equipo_obj %}
+                        <a href="/equipos/{{ jugador.equipo_obj.id }}" class="text-link">{{ jugador.equipo_obj.nombre }}</a>
+                    {% else %}
+                        <span class="status-danger">Sin Equipo</span> {# Mensaje más claro #}
+                    {% endif %}
+                </td>
                 <td>{{ jugador.posicion }}</td>
                 <td>{{ jugador.nacionalidad }}</td>
                 <td>{{ jugador.edad }}</td>
                 <td>{{ jugador.goles }}</td>
                 <td>{{ jugador.asistencias }}</td>
-                <td class="flex-row">
-                    <a href="/jugadores/{{ jugador.id }}" class="button primary small-button">Ver</a>
-                    <a href="/jugadores_editar/{{ jugador.id }}" class="button warning small-button">Editar</a>
-                    <form action="/jugadores_eliminar/{{ jugador.id }}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar lógicamente a este jugador?');">
-                        <button type="submit" class="button danger small-button">Eliminar</button>
+                <td class="flex-row action-buttons-cell"> {# Mantiene flex-row para los botones de acción #}
+                    <a href="/jugadores/{{ jugador.id }}" class="button primary small-button">🔍 Ver</a> {# Emoji #}
+                    <a href="/jugadores_editar/{{ jugador.id }}" class="button warning small-button">✏️ Editar</a> {# Emoji #}
+                    <form action="/jugadores_eliminar/{{ jugador.id }}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar lógicamente a este jugador? Esta acción puede revertirse si es necesario.');" style="display: inline;">
+                        <button type="submit" class="button danger small-button">🗑️ Eliminar</button> {# Emoji #}
                     </form>
                 </td>
             </tr>
+            {% endif %}
             {% endfor %}
         </tbody>
     </table>

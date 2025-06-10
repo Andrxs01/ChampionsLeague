@@ -1,4 +1,3 @@
-<!-- templates/equipos/create.html -->
 {% extends "base.html" %}
 
 {% block title %}Crear Nuevo Equipo{% endblock %}
@@ -6,6 +5,7 @@
 {% block content %}
 <h1 class="main-title">✨ Registrar Nuevo Equipo ✨</h1>
 
+{# Manejo de excepciones: muestra un mensaje de error si la variable error_message está definida #}
 {% if error_message %}
     <div class="message error">{{ error_message }}</div>
 {% endif %}
@@ -26,9 +26,10 @@
     <div class="form-group">
         <label for="imagen_url">URL de Imagen del Equipo:</label>
         <input type="url" id="imagen_url" name="imagen_url" placeholder="Ej: https://ejemplo.com/logo.png">
-        <small>Puedes usar una URL externa o una ruta a tu carpeta /static/images/equipos/.</small>
+        <small>Puedes usar una URL externa o una ruta a tu carpeta `/static/images/equipos/`.</small>
     </div>
-    <div class="flex-row" style="justify-content: center;">
+    <div class="flex-row">
+        {# El estilo 'justify-content: center;' se aplica a través de la clase CSS 'flex-row' en style.css #}
         <button type="submit" class="button success">✔️ Crear Equipo</button>
         <a href="/equipos_lista" class="button primary">↩️ Cancelar</a>
     </div>

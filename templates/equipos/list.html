@@ -1,4 +1,3 @@
-<!-- templates/equipos/list.html -->
 {% extends "base.html" %}
 
 {% block title %}Lista de Equipos{% endblock %}
@@ -10,7 +9,7 @@
     <div class="message error">{{ error_message }}</div>
 {% endif %}
 
-<div style="text-align: center; margin-bottom: 25px;">
+<div class="flex-row" style="margin-bottom: 25px;"> {# Using flex-row for consistent centering #}
     <a href="/equipos_crear" class="button success">➕ Añadir Nuevo Equipo</a>
 </div>
 
@@ -29,7 +28,7 @@
         </thead>
         <tbody>
             {% for equipo in equipos %}
-            {% if not equipo.eliminado_logico %} {# Solo mostrar si NO está eliminado lógicamente #}
+            {% if not equipo.eliminado_logico %} {# Only show if NOT logically deleted #}
             <tr>
                 <td>{{ equipo.id }}</td>
                 <td>{{ equipo.nombre }}</td>
@@ -37,15 +36,17 @@
                 <td>{{ equipo.grupo }}</td>
                 <td>
                     {% if equipo.imagen_url %}
-                        <img src="{{ equipo.imagen_url }}" alt="" onerror="this.onerror=null;this.src='https://placehold.co/70x70/cccccc/333333?text=N/A';">
+                        {# Display team image, with a local placeholder if URL fails #}
+                        <img src="{{ equipo.imagen_url }}" alt="Logo de {{ equipo.nombre }}" onerror="this.onerror=null;this.src='/static/images/placeholder_team_small.png';">
                     {% else %}
-                        <p>Sin imagen</p>
+                        {# Display a local placeholder image if no URL is provided #}
+                        <img src="/static/images/placeholder_team_small.png" alt="Sin imagen">
                     {% endif %}
                 </td>
-                <td class="flex-row">
+                <td class="flex-row action-buttons-cell"> {# Added a class for potential specific styling #}
                     <a href="/equipos/{{ equipo.id }}" class="button primary small-button">Ver</a>
                     <a href="/equipos_editar/{{ equipo.id }}" class="button warning small-button">Editar</a>
-                    <form action="/equipos_eliminar/{{ equipo.id }}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar lógicamente a este equipo?');" style="display: inline;">
+                    <form action="/equipos_eliminar/{{ equipo.id }}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar lógicamente a este equipo? Esta acción puede revertirse si es necesario.');" style="display: inline;">
                         <button type="submit" class="button danger small-button">Eliminar</button>
                     </form>
                 </td>

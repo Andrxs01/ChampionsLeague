@@ -1,29 +1,40 @@
 /* static/css/style.css */
 
-/* Variables CSS para colores y espaciado, facilitan la consistencia */
+/* --- Variables CSS: Define colores y espaciado para una fácil personalización y consistencia --- */
 :root {
-    --primary-color: #0d47a1; /* Azul oscuro, como el logo de la Champions */
-    --secondary-color: #1976d2; /* Azul medio */
-    --accent-color: #ffc107; /* Amarillo/Dorado, para acentos */
-    --text-color: #333; /* Color de texto principal */
-    --light-text-color: #f8f8f8; /* Color de texto para fondos oscuros */
-    --background-color: #e0e5ec; /* Fondo general de la página - Neumorfismo suave */
-    --card-background: #ffffff; /* Fondo para tarjetas y contenedores */
-    --border-color: #cdd3da; /* Color de borde suave */
-    --button-bg-primary: var(--primary-color);
-    --button-bg-success: #4CAF50; /* Verde para acciones de éxito */
-    --button-bg-warning: #ff9800; /* Naranja para advertencias/edición */
-    --button-bg-danger: #f44336; /* Rojo para acciones peligrosas */
-    --button-text-color: white;
-    --spacing-unit: 1rem; /* Unidad base para espaciado */
-    --neumorphism-shadow-light: -5px -5px 10px #ffffff, 5px 5px 10px #a3b1c6;
-    --neumorphism-shadow-dark: -3px -3px 7px #ffffff70, 3px 3px 7px #a3b1c670;
-    --neumorphism-inset-shadow: inset 2px 2px 5px #b8c3d7, inset -2px -2px 5px #ffffff;
+    /* Paleta de Colores inspirada en el fútbol y la elegancia */
+    --primary-color: #0d47a1; /* Azul profundo, como el cielo en una noche de final */
+    --secondary-color: #1976d2; /* Azul vibrante, energía en el campo */
+    --accent-color: #ffc107; /* Amarillo/Dorado, brillo del trofeo */
+    --text-color: #333; /* Texto principal para legibilidad */
+    --light-text-color: #f8f8f8; /* Texto para fondos oscuros */
+    --background-color: #e0e5ec; /* Fondo suave y neutro, base del Neumorfismo */
+    --card-background: #ffffff; /* Fondo para elementos destacados */
+    --border-color: #cdd3da; /* Borde sutil para separación */
+
+    /* Colores de Botones: Estandarizados para acciones claras */
+    --button-bg-primary: var(--primary-color); /* Azul principal para acciones clave */
+    --button-bg-secondary: var(--accent-color); /* Amarillo para acciones secundarias */
+    --button-bg-success: #4CAF50; /* Verde: ¡Gol! Acción completada */
+    --button-bg-warning: #ff9800; /* Naranja: ¡Atención! Editar, modificar */
+    --button-bg-danger: #f44336; /* Rojo: ¡Tarjeta Roja! Eliminar, cancelar */
+    --button-text-color-light: white; /* Texto claro para botones oscuros */
+    --button-text-color-dark: var(--primary-color); /* Texto oscuro para botones claros */
+
+    /* Espaciado y Sombra: Para la armonía del diseño */
+    --spacing-unit: 1rem; /* Unidad base para márgenes y paddings */
+    --neumorphism-shadow-light: -5px -5px 10px #ffffff, 5px 5px 10px #a3b1c6; /* Sombra ligera hacia afuera */
+    --neumorphism-shadow-dark: -3px -3px 7px rgba(255, 255, 255, 0.4), 3px 3px 7px rgba(163, 177, 198, 0.7); /* Sombra más pronunciada */
+    --neumorphism-inset-shadow: inset 2px 2px 5px #b8c3d7, inset -2px -2px 5px #ffffff; /* Sombra interna para "hundir" elementos */
+
+    /* Transiciones: Para animaciones suaves */
+    --transition-speed: 0.3s;
+    --transition-ease: ease-in-out;
 }
 
-/* Estilos generales del cuerpo y tipografía */
+/* --- Estilos Generales del Cuerpo y Tipografía --- */
 body {
-    font-family: 'Inter', sans-serif; /* Fuente Inter para un look moderno */
+    font-family: 'Inter', sans-serif; /* Fuente moderna y legible */
     margin: 0;
     padding: 0;
     background-color: var(--background-color);
@@ -31,12 +42,12 @@ body {
     line-height: 1.6;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Asegura que el footer esté al final */
-    overflow-x: hidden; /* Previene el scroll horizontal */
-    transition: background-color 0.3s ease;
+    min-height: 100vh; /* Asegura que el pie de página siempre esté abajo */
+    overflow-x: hidden; /* Evita el scroll horizontal no deseado */
+    transition: background-color var(--transition-speed) var(--transition-ease); /* Transición suave de fondo */
 }
 
-/* Fondo con patrón de fútbol */
+/* Fondo con patrón sutil de campo de fútbol */
 body::before {
     content: '';
     position: fixed;
@@ -44,50 +55,51 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 0L0 25L0 75L50 100L100 75L100 25L50 0Z" fill="%23e0e5ec" stroke="%23cdd3da" stroke-width="1"/><path d="M50 0L25 12.5L25 37.5L50 50L75 37.5L75 12.5L50 0Z" fill="%23d0d5dc" stroke="%23cdd3da" stroke-width="1"/></svg>'); /* Patrón de hexágonos/balón */
-    background-size: 50px 50px;
-    opacity: 0.1; /* Sutil */
-    z-index: -1;
+    /* Patrón de hexágonos que evoca un balón de fútbol o las redes */
+    background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 0L0 25L0 75L50 100L100 75L100 25L50 0Z" fill="%23e0e5ec" stroke="%23cdd3da" stroke-width="1"/><path d="M50 0L25 12.5L25 37.5L50 50L75 37.5L75 12.5L50 0Z" fill="%23d0d5dc" stroke="%23cdd3da" stroke-width="1"/></svg>');
+    background-size: 50px 50px; /* Tamaño del patrón */
+    opacity: 0.08; /* Muy sutil, para no distraer */
+    z-index: -1; /* Asegura que esté detrás del contenido */
 }
 
-/* Encabezado de la página */
+/* --- Encabezado de la Página --- */
 header {
     background: linear-gradient(to right, var(--primary-color) 0%, var(--secondary-color) 100%);
     color: var(--light-text-color);
     padding: 1.8rem 0;
     text-align: center;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-    position: sticky;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3); /* Sombra marcada para profundidad */
+    position: sticky; /* Se mantiene en la parte superior al hacer scroll */
     top: 0;
-    z-index: 1000;
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
-    animation: fadeInDown 0.8s ease-out;
+    animation: fadeInDown 0.8s var(--transition-ease); /* Animación de entrada */
 }
 
 header h1 {
     margin: 0;
     font-size: 3rem;
     letter-spacing: 2px;
-    text-shadow: 4px 4px 10px rgba(0,0,0,0.8); /* Sombra más fuerte para el título */
+    text-shadow: 4px 4px 10px rgba(0,0,0,0.8); /* Sombra dramática para el título */
 }
 
 header h1 a {
-    color: var(--light-text-color); /* Asegura que el color sea claro */
+    color: var(--light-text-color);
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: color var(--transition-speed) var(--transition-ease);
 }
 
 header h1 a:hover {
-    color: var(--accent-color);
+    color: var(--accent-color); /* Resaltado dorado al pasar el ratón */
 }
 
-/* Barra de navegación */
+/* --- Barra de Navegación --- */
 nav {
     background-color: var(--secondary-color);
     padding: 1rem 0;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    border-top: 1px solid rgba(255,255,255,0.2);
+    border-top: 1px solid rgba(255,255,255,0.2); /* Borde sutil superior */
 }
 
 nav ul {
@@ -96,11 +108,11 @@ nav ul {
     margin: 0;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
 }
 
 nav ul li {
-    margin: 0 25px;
+    margin: 0 25px; /* Espaciado entre elementos del menú */
 }
 
 nav ul li a {
@@ -109,57 +121,59 @@ nav ul li a {
     font-weight: bold;
     padding: 10px 20px;
     border-radius: 8px;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-    display: block;
+    transition: background-color var(--transition-speed) var(--transition-ease),
+                color var(--transition-speed) var(--transition-ease),
+                transform 0.2s var(--transition-ease); /* Transiciones suaves */
+    display: block; /* Ocupa todo el espacio de su li */
 }
 
 nav ul li a:hover {
-    background-color: var(--primary-color);
-    color: var(--accent-color);
-    transform: translateY(-2px);
+    background-color: var(--primary-color); /* Fondo oscuro al pasar el ratón */
+    color: var(--accent-color); /* Texto dorado */
+    transform: translateY(-2px); /* Pequeño levantamiento */
 }
 
-/* Contenedor principal del contenido */
+/* --- Contenedor Principal del Contenido --- */
 .container {
-    flex-grow: 1;
+    flex-grow: 1; /* Ocupa el espacio restante, empujando el footer hacia abajo */
     width: 92%;
-    max-width: 1400px;
-    margin: 30px auto;
+    max-width: 1400px; /* Ancho máximo para legibilidad en pantallas grandes */
+    margin: 30px auto; /* Centrado horizontal con margen vertical */
     padding: 40px;
     background-color: var(--card-background);
     border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    animation: fadeInUp 0.8s ease-out;
+    box-shadow: var(--neumorphism-shadow-dark); /* Sombra neumórfica para el contenedor principal */
+    animation: fadeInUp 0.8s var(--transition-ease); /* Animación de entrada */
 }
 
-/* Estilos de encabezados de contenido */
+/* --- Estilos de Encabezados de Contenido --- */
 h1, h2, h3 {
     color: var(--primary-color);
     margin-top: 0;
     text-align: center;
     margin-bottom: 30px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Sombra suave para los títulos */
 }
 
 h1.main-title {
     font-size: 2.5rem;
-    border-bottom: 3px solid var(--accent-color); /* Línea dorada */
+    border-bottom: 3px solid var(--accent-color); /* Línea divisoria dorada */
     padding-bottom: 20px;
     margin-bottom: 40px;
-    text-transform: uppercase;
+    text-transform: uppercase; /* Mayúsculas para títulos principales */
 }
 
 h2 {
     font-size: 2rem;
     color: var(--secondary-color);
     margin-top: 40px;
-    border-bottom: 1px dashed var(--border-color);
+    border-bottom: 1px dashed var(--border-color); /* Línea punteada sutil */
     padding-bottom: 10px;
 }
 
-/* Estilos de botones */
+/* --- Estilos de Botones --- */
 .button {
-    display: inline-flex; /* Usar flex para centrar contenido y alinear iconos */
+    display: inline-flex; /* Permite centrar contenido y alinear iconos si los hubiera */
     align-items: center;
     justify-content: center;
     padding: 14px 30px;
@@ -168,21 +182,24 @@ h2 {
     cursor: pointer;
     text-decoration: none;
     font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    transition: background-color var(--transition-speed) var(--transition-ease),
+                transform 0.2s var(--transition-ease),
+                box-shadow 0.2s var(--transition-ease);
     margin: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    box-shadow: var(--neumorphism-shadow-light); /* Sombra neumórfica para botones */
     font-size: 1.05rem;
     letter-spacing: 0.5px;
-    position: relative; /* Para efectos de "bubble" */
-    overflow: hidden;
+    position: relative; /* Necesario para el efecto de "bubble" */
+    overflow: hidden; /* Oculta la burbuja hasta que se active */
+    z-index: 1; /* Asegura que el botón esté sobre la burbuja */
 }
 
 .button:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    transform: translateY(-4px); /* Efecto de levantamiento al pasar el ratón */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25); /* Sombra más intensa al levantar */
 }
 
-/* Efecto de burbuja en botones */
+/* Efecto de "burbuja" en botones al pasar el ratón */
 .button::before {
     content: '';
     position: absolute;
@@ -190,37 +207,37 @@ h2 {
     left: 50%;
     width: 5px;
     height: 5px;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.3); /* Burbuja translúcida */
     border-radius: 50%;
     opacity: 0;
     transform: translate(-50%, -50%);
     transition: width 0.4s ease-out, height 0.4s ease-out, opacity 0.4s ease-out;
-    z-index: 0;
+    z-index: 0; /* Detrás del contenido del botón */
 }
 
 .button:hover::before {
-    width: 200%;
+    width: 200%; /* La burbuja se expande */
     height: 200%;
     opacity: 1;
 }
 
 .button span {
     position: relative;
-    z-index: 1;
+    z-index: 1; /* Asegura que el texto del botón esté sobre la burbuja */
 }
 
-
+/* Variantes de color para botones */
 .button.primary {
     background-color: var(--button-bg-primary);
-    color: var(--button-text-color);
+    color: var(--button-text-color-light);
 }
 .button.primary:hover {
     background-color: #0a3d8b; /* Tono más oscuro al pasar el ratón */
 }
 
-.button.secondary { /* Nuevo estilo de botón */
-    background-color: var(--accent-color);
-    color: var(--primary-color);
+.button.secondary {
+    background-color: var(--button-bg-secondary);
+    color: var(--button-text-color-dark); /* Texto oscuro para contraste */
 }
 .button.secondary:hover {
     background-color: #e6b000;
@@ -228,7 +245,7 @@ h2 {
 
 .button.success {
     background-color: var(--button-bg-success);
-    color: var(--button-text-color);
+    color: var(--button-text-color-light);
 }
 .button.success:hover {
     background-color: #43a047;
@@ -236,7 +253,7 @@ h2 {
 
 .button.warning {
     background-color: var(--button-bg-warning);
-    color: var(--button-text-color);
+    color: var(--button-text-color-light);
 }
 .button.warning:hover {
     background-color: #e68a00;
@@ -244,7 +261,7 @@ h2 {
 
 .button.danger {
     background-color: var(--button-bg-danger);
-    color: var(--button-text-color);
+    color: var(--button-text-color-light);
 }
 .button.danger:hover {
     background-color: #d32f2f;
@@ -256,29 +273,29 @@ h2 {
     margin: 3px;
 }
 
-/* Contenedores de tablas */
+/* --- Contenedores de Tablas --- */
 .table-container {
-    overflow-x: auto;
+    overflow-x: auto; /* Permite scroll horizontal en tablas grandes */
     margin-top: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: var(--neumorphism-shadow-dark); /* Sombra neumórfica para la tabla */
     background-color: var(--card-background); /* Fondo para la tabla */
 }
 
 table {
     width: 100%;
-    border-collapse: separate;
+    border-collapse: separate; /* Permite border-spacing */
     border-spacing: 0;
-    margin: 0; /* Eliminar margen superior */
+    margin: 0;
     border-radius: 10px;
-    overflow: hidden;
+    overflow: hidden; /* Asegura que los bordes redondeados se apliquen bien */
 }
 
 table th, table td {
     border: 1px solid var(--border-color);
     padding: 18px 20px;
     text-align: left;
-    vertical-align: middle; /* Alineación vertical */
+    vertical-align: middle; /* Alineación vertical para contenido de celda */
 }
 
 table th {
@@ -291,42 +308,43 @@ table th {
 }
 
 table tr:nth-child(even) {
-    background-color: #f8f8f8; /* Un gris muy claro */
+    background-color: #f8f8f8; /* Un gris muy claro para filas pares */
 }
 
 table tr:hover {
     background-color: #eef; /* Un azul muy claro al pasar el ratón */
+    cursor: pointer; /* Indica que la fila es interactiva */
 }
 
 table img {
-    max-width: 80px; /* Tamaño de imagen en tabla */
+    max-width: 80px;
     height: 80px;
-    object-fit: cover;
+    object-fit: cover; /* Recorta la imagen para que quepa sin distorsión */
     border-radius: 50%; /* Imágenes circulares */
-    border: 3px solid var(--accent-color); /* Borde dorado */
+    border: 3px solid var(--accent-color); /* Borde dorado destacado */
     box-shadow: 0 0 8px rgba(0,0,0,0.2);
-    transition: transform 0.3s ease;
+    transition: transform var(--transition-speed) var(--transition-ease);
 }
 
 table img:hover {
-    transform: scale(1.05); /* Efecto de zoom en hover */
+    transform: scale(1.05); /* Efecto de zoom sutil */
 }
 
-/* Estilos de formularios */
+/* --- Estilos de Formularios --- */
 form {
     background-color: var(--card-background);
     padding: 35px;
     border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    box-shadow: var(--neumorphism-shadow-dark); /* Sombra neumórfica para formularios */
     display: flex;
     flex-direction: column;
-    gap: 25px;
-    max-width: 700px; /* Ancho máximo para formularios */
+    gap: 25px; /* Espacio entre grupos de formulario */
+    max-width: 700px;
     margin: 30px auto;
 }
 
 .form-group {
-    margin-bottom: 0;
+    margin-bottom: 0; /* Eliminado el margen inferior redundante con gap */
 }
 
 .form-group label {
@@ -340,18 +358,19 @@ form {
 .form-group input[type="text"],
 .form-group input[type="number"],
 .form-group input[type="url"],
-.form-group input[type="date"], /* Añadido para input type date */
+.form-group input[type="date"],
 .form-group select,
 .form-group textarea {
     width: 100%;
     padding: 14px;
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Asegura que padding y border se incluyan en el ancho */
     font-size: 1.05em;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: border-color var(--transition-speed) var(--transition-ease),
+                box-shadow var(--transition-speed) var(--transition-ease);
     background-color: #fdfdfd;
-    box-shadow: var(--neumorphism-inset-shadow); /* Sombra interna para inputs */
+    box-shadow: var(--neumorphism-inset-shadow); /* Sombra interna para inputs "hundidos" */
 }
 
 .form-group input[type="text"]:focus,
@@ -360,31 +379,31 @@ form {
 .form-group input[type="date"]:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-    border-color: var(--accent-color); /* Borde dorado al enfocar */
-    box-shadow: 0 0 0 4px rgba(var(--accent-color), 0.3);
-    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 4px rgba(var(--accent-color), 0.3); /* Resplandor dorado al enfocar */
+    outline: none; /* Elimina el contorno predeterminado del navegador */
 }
 
 .form-group input[type="checkbox"] {
     margin-right: 10px;
-    transform: scale(1.3);
+    transform: scale(1.3); /* Checkbox más grande */
 }
 
 .flex-row {
     display: flex;
-    justify-content: center; /* Centrar botones */
+    justify-content: center;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 15px; /* Espacio entre botones */
     margin-top: 30px;
 }
 
-/* Estilos para tarjetas de información (usadas en index.html) */
+/* --- Estilos para Tarjetas de Información (Home/Index) --- */
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Columnas responsivas */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsivo con auto-fit */
     gap: 30px;
     margin-top: 30px;
-    justify-content: center;
+    justify-content: center; /* Centra las tarjetas si no llenan la cuadrícula */
 }
 
 .card {
@@ -392,8 +411,9 @@ form {
     border: 1px solid var(--border-color);
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: var(--neumorphism-shadow-light); /* Sombra neumórfica suave */
+    transition: transform var(--transition-speed) var(--transition-ease),
+                box-shadow var(--transition-speed) var(--transition-ease);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -404,18 +424,18 @@ form {
 }
 
 .card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    transform: translateY(-8px); /* Efecto de levantamiento al pasar el ratón */
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25); /* Sombra más pronunciada */
 }
 
 .card-img {
     width: 100%;
-    height: 180px; /* Reducir ligeramente la altura para menos zoom */
-    object-fit: cover;
-    border-bottom: 2px solid var(--accent-color); /* Línea dorada bajo la imagen */
+    height: 180px;
+    object-fit: cover; /* Mantiene la proporción y recorta */
+    border-bottom: 2px solid var(--accent-color); /* Línea dorada divisoria */
 }
 
-/* Mensajes de error/éxito */
+/* --- Mensajes de Error/Éxito --- */
 .message {
     padding: 18px;
     border-radius: 10px;
@@ -437,12 +457,33 @@ form {
     color: #2e7d32; /* Verde oscuro */
     border: 1px solid #a5d6a7;
 }
+/* Estilo para mensajes de advertencia */
+.message.warning {
+    background-color: #fffde7; /* Amarillo muy claro */
+    color: #f57f17; /* Naranja oscuro */
+    border: 1px solid #ffe082;
+}
 
-/* Pie de página */
+/* --- Mensaje cuando no hay datos disponibles --- */
+.no-data-message {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+    padding: 20px;
+    border: 1px dashed var(--border-color); /* Borde punteado para indicar un "vacío" */
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin: 20px auto; /* Para centrar y dar espacio */
+    max-width: 80%; /* Para que no ocupe todo el ancho */
+    box-shadow: var(--neumorphism-inset-shadow); /* Le da un aspecto "hundido" */
+}
+
+
+/* --- Pie de Página --- */
 footer {
     text-align: center;
     padding: 1.8rem;
-    margin-top: auto;
+    margin-top: auto; /* Empuja el footer hacia abajo */
     background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
     color: var(--light-text-color);
     box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
@@ -450,7 +491,7 @@ footer {
     border-top-right-radius: 20px;
 }
 
-/* Estilos para páginas de detalle */
+/* --- Estilos para Páginas de Detalle (Jugador, Equipo) --- */
 .detail-card {
     display: flex;
     flex-direction: column;
@@ -459,7 +500,7 @@ footer {
     padding: 40px;
     background-color: var(--card-background);
     border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    box-shadow: var(--neumorphism-shadow-dark);
     max-width: 800px;
     margin: 40px auto;
     text-align: center;
@@ -471,13 +512,13 @@ footer {
     height: 350px;
     border-radius: 50%;
     overflow: hidden;
-    border: 6px solid var(--accent-color); /* Borde dorado más grueso */
-    box-shadow: 0 0 20px rgba(0,0,0,0.4);
-    transition: transform 0.3s ease;
+    border: 6px solid var(--accent-color); /* Borde dorado grueso */
+    box-shadow: 0 0 20px rgba(0,0,0,0.4); /* Sombra dramática para la imagen */
+    transition: transform var(--transition-speed) var(--transition-ease);
 }
 
 .detail-image-container:hover {
-    transform: scale(1.02);
+    transform: scale(1.02); /* Pequeño zoom al pasar el ratón */
 }
 
 .detail-img {
@@ -514,7 +555,8 @@ footer {
     color: var(--primary-color);
     text-decoration: none;
     font-weight: bold;
-    transition: color 0.3s ease, text-decoration 0.3s ease;
+    transition: color var(--transition-speed) var(--transition-ease),
+                text-decoration var(--transition-speed) var(--transition-ease);
 }
 .text-link:hover {
     color: var(--accent-color);
@@ -536,17 +578,22 @@ footer {
     font-size: 1.1em;
     display: flex;
     align-items: center;
+    justify-content: center; /* Centra el contenido de cada item de jugador */
     background-color: #f0f4f7; /* Fondo suave para elementos de lista */
     padding: 10px 15px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: background-color 0.2s ease;
+}
+.player-list li:hover {
+    background-color: #e2e8ed; /* Un poco más oscuro al pasar el ratón */
 }
 
-/* Nuevos estilos para secciones de información/documentación */
+/* --- Nuevos Estilos para Secciones de Información/Documentación --- */
 .info-section {
     background-color: var(--card-background);
     border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    box-shadow: var(--neumorphism-shadow-dark);
     padding: 35px;
     margin-bottom: 40px;
     line-height: 1.8;
@@ -582,13 +629,13 @@ footer {
     content: '⚽'; /* Icono de balón de fútbol */
     position: absolute;
     left: 0;
-    color: var(--accent-color);
+    color: var(--accent-color); /* Color del icono */
     font-size: 0.9em;
     top: 3px;
 }
 
 .info-section ol.styled-list {
-    padding-left: 25px;
+    padding-left: 25px; /* Indentación para listas ordenadas */
 }
 
 .info-section ol.styled-list li {
@@ -609,7 +656,8 @@ footer {
     height: auto;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform var(--transition-speed) var(--transition-ease),
+                box-shadow var(--transition-speed) var(--transition-ease);
 }
 
 .image-gallery img:hover {
@@ -624,13 +672,13 @@ footer {
     font-size: 0.9em;
 }
 
-/* Estilos para la sección de historial de eliminados */
+/* --- Estilos para la Sección de Historial de Eliminados --- */
 .deleted-items-section {
     margin-bottom: 50px;
     padding: 20px;
     background-color: var(--card-background);
     border-radius: 15px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    box-shadow: var(--neumorphism-shadow-dark); /* Sombra neumórfica para esta sección */
 }
 .deleted-items-section h2 {
     font-size: 2.2rem;
@@ -641,7 +689,7 @@ footer {
     text-align: center;
 }
 .deleted-items-section .table-container {
-    box-shadow: none;
+    box-shadow: none; /* Eliminar sombra duplicada si el contenedor ya tiene una */
 }
 .deleted-items-section table th {
     background-color: var(--primary-color);
@@ -654,14 +702,13 @@ footer {
     background-color: #e6f0ff;
 }
 .deleted-items-section .status-danger {
-    color: var(--button-bg-danger);
+    color: var(--button-bg-danger); /* Usa la variable para consistencia */
 }
 .deleted-items-section .status-success {
-    color: var(--button-bg-success);
+    color: var(--button-bg-success); /* Usa la variable para consistencia */
 }
 
-
-/* Animaciones */
+/* --- Animaciones (permanecen igual, son efectivas) --- */
 @keyframes fadeInDown {
     from {
         opacity: 0;
@@ -684,7 +731,7 @@ footer {
     }
 }
 
-/* Responsive adjustments */
+/* --- Ajustes Responsivos --- */
 @media (max-width: 1024px) {
     .container {
         width: 95%;
@@ -709,7 +756,7 @@ footer {
     }
 
     nav ul li {
-        margin: 5px 0;
+        margin: 5px 0; /* Más espacio vertical en pantallas pequeñas */
     }
 
     .container {
@@ -737,11 +784,11 @@ footer {
     }
 
     .card-grid {
-        grid-template-columns: 1fr; /* Una columna en móvil */
+        grid-template-columns: 1fr; /* Una columna en móvil para mejor legibilidad */
     }
 
     .card {
-        width: 100%; /* Ocupa todo el ancho disponible */
+        width: 100%; /* Ocupa todo el ancho disponible para ser más prominente */
     }
 
     table th, table td {
@@ -766,7 +813,7 @@ footer {
     }
 
     .card-img {
-        height: 150px; /* Ajustar altura para móviles también */
+        height: 150px; /* Ajustar altura para mantener la proporción en móviles */
     }
 
     .info-section {

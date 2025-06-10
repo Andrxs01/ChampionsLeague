@@ -1,16 +1,15 @@
-<!-- templates/statistics.html -->
 {% extends "base.html" %}
 
 {% block title %}Estadísticas de la Champions League{% endblock %}
 
 {% block content %}
 <h1 class="main-title">📊 Estadísticas de la Champions League 2017/18 📈</h1>
-<p style="text-align: center; font-size: 1.1em; color: var(--text-color); margin-bottom: 40px;">
+<p class="section-description">
     Explora los datos más relevantes de la temporada, incluyendo los máximos goleadores, asistentes y el rendimiento de los equipos.
 </p>
 
-<section class="statistics-section info-section"> {# Añadido info-section para el estilo general #}
-    <h2>⚽ Máximos Goleadores ⚽</h2>
+<section class="statistics-section info-section">
+    <h2 class="statistics-header">⚽ Máximos Goleadores ⚽</h2>
     {% if top_scorers %}
     <div class="table-container">
         <table>
@@ -25,14 +24,14 @@
             <tbody>
                 {% for jugador in top_scorers %}
                 <tr>
-                    <td>{{ loop.index }}</td>
+                    <td class="pos-cell">{{ loop.index }}</td>
                     <td>
-                        <a href="/jugadores/{{ jugador.id }}" class="text-link">
+                        <a href="/jugadores/{{ jugador.id }}" class="text-link player-link">
                             {{ jugador.nombre }}
                         </a>
                     </td>
                     <td>{{ jugador.equipo_obj.nombre if jugador.equipo_obj else 'N/A' }}</td>
-                    <td><strong>{{ jugador.goles }}</strong></td>
+                    <td class="highlight-value"><strong>{{ jugador.goles }}</strong></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -43,8 +42,8 @@
     {% endif %}
 </section>
 
-<section class="statistics-section info-section"> {# Añadido info-section #}
-    <h2>🎯 Máximos Asistentes 🎯</h2>
+<section class="statistics-section info-section">
+    <h2 class="statistics-header">🎯 Máximos Asistentes 🎯</h2>
     {% if top_assisters %}
     <div class="table-container">
         <table>
@@ -59,14 +58,14 @@
             <tbody>
                 {% for jugador in top_assisters %}
                 <tr>
-                    <td>{{ loop.index }}</td>
+                    <td class="pos-cell">{{ loop.index }}</td>
                     <td>
-                        <a href="/jugadores/{{ jugador.id }}" class="text-link">
+                        <a href="/jugadores/{{ jugador.id }}" class="text-link player-link">
                             {{ jugador.nombre }}
                         </a>
                     </td>
                     <td>{{ jugador.equipo_obj.nombre if jugador.equipo_obj else 'N/A' }}</td>
-                    <td><strong>{{ jugador.asistencias }}</strong></td>
+                    <td class="highlight-value"><strong>{{ jugador.asistencias }}</strong></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -77,8 +76,8 @@
     {% endif %}
 </section>
 
-<section class="statistics-section info-section"> {# Añadido info-section #}
-    <h2>🏆 Equipos con Más Goles (Total de Goles de Jugadores) 🏆</h2>
+<section class="statistics-section info-section">
+    <h2 class="statistics-header">🏆 Equipos con Más Goles (Total de Goles de Jugadores) 🏆</h2>
     {% if teams_by_goals %}
     <div class="table-container">
         <table>
@@ -93,19 +92,18 @@
             <tbody>
                 {% for equipo, total_goles in teams_by_goals %}
                 <tr>
-                    <td>{{ loop.index }}</td>
+                    <td class="pos-cell">{{ loop.index }}</td>
                     <td>
                         <a href="/equipos/{{ equipo.id }}" class="text-link team-display">
-                            {% if equipo.imagen_url %}
-                                <img src="{{ equipo.imagen_url }}" alt="[Image of {{ equipo.nombre }}]" style="width: 40px; height: 40px; object-fit: contain; border-radius: 50%; margin-right: 10px;" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/333333?text=N/A';">
-                            {% else %}
-                                <img src="https://placehold.co/40x40/cccccc/333333?text=N/A" alt="[Image of Equipo N/A]" style="width: 40px; height: 40px; object-fit: contain; border-radius: 50%; margin-right: 10px;">
-                            {% endif %}
+                            <img src="{{ equipo.imagen_url if equipo.imagen_url else '/static/images/placeholder_team_small.png' }}"
+                                 alt="Logo de {{ equipo.nombre if equipo.nombre else 'Equipo' }}"
+                                 class="team-logo-stats"
+                                 onerror="this.onerror=null;this.src='/static/images/placeholder_team_small.png';">
                             {{ equipo.nombre }}
                         </a>
                     </td>
                     <td>{{ equipo.pais }}</td>
-                    <td><strong>{{ total_goles }}</strong></td>
+                    <td class="highlight-value"><strong>{{ total_goles }}</strong></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -115,44 +113,238 @@
     <p class="no-data-message">No hay datos de equipos por goles disponibles.</p>
     {% endif %}
 </section>
+{% endblock %}
 
+{% block scripts_extra %}
 <style>
-    /* Estilos específicos para la página de estadísticas, ahora complementando info-section */
-    .statistics-section h2 {
-        font-size: 2.2rem;
-        color: var(--primary-color);
-        margin-bottom: 25px;
-        border-bottom: 2px solid var(--accent-color);
-        padding-bottom: 15px;
+    /* Variables de color adicionales para un toque más futbolero (si no están en base.html) */
+    :root {
+        --football-green: #4CAF50; /* Un verde césped */
+        --gold-trophy: #FFD700; /* Color oro */
+        --dark-blue-champions: #0D47A1; /* Un azul oscuro distintivo */
+        --light-grey-bg: #f4f6f9; /* Fondo de tabla más suave */
+        --dark-text: #212529; /* Texto oscuro para contraste */
+        --light-hover: #e3f2fd; /* Azul claro para hover */
+        --table-header-bg: var(--primary-color, #1a237e); /* Usar primary-color o un azul oscuro si no está definido */
+    }
+
+    /* Ajustes generales a elementos globales */
+    .section-description {
         text-align: center;
+        font-size: 1.15em; /* Un poco más grande */
+        color: var(--text-color-light);
+        margin-bottom: 50px; /* Más espacio */
+        max-width: 800px; /* Ancho máximo para mejor legibilidad */
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.6;
+        padding: 0 15px; /* Pequeño padding para móviles */
     }
-    .statistics-section .table-container {
-        box-shadow: none; /* Eliminar sombra extra ya que la sección ya la tiene */
+
+    /* Estilos para las secciones de estadísticas */
+    .statistics-section {
+        margin-top: 40px; /* Espacio entre secciones */
+        margin-bottom: 50px;
+        padding: 35px; /* Más padding */
+        background-color: var(--card-background); /* Fondo de tarjeta */
+        border-radius: var(--border-radius-lg);
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--border-color-light);
     }
-    .statistics-section table th {
-        background-color: var(--primary-color);
+
+    .statistics-header {
+        font-size: 2.5rem; /* Más grande y prominente */
+        color: var(--dark-blue-champions); /* Azul distintivo */
+        margin-bottom: 35px;
+        padding-bottom: 18px; /* Más padding abajo */
+        border-bottom: 4px solid var(--gold-trophy); /* Línea dorada más gruesa */
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: 800; /* Extra bold */
+        letter-spacing: 1.5px; /* Espaciado de letras */
+        position: relative; /* Para posibles decoraciones */
+        padding-top: 10px;
+    }
+
+    .statistics-header::after { /* Elemento decorativo bajo el título */
+        content: '';
+        position: absolute;
+        bottom: -6px; /* Ajusta para que quede justo debajo de la línea */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px; /* Pequeña extensión dorada */
+        height: 8px;
+        background-color: var(--gold-trophy);
+        border-radius: 4px;
+    }
+
+    /* Mejoras en las tablas */
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: var(--border-radius-md); /* Bordes más redondeados */
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-inset); /* Sombra sutil interna */
+        background-color: var(--background-color-dark); /* Fondo de la tabla */
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 600px; /* Asegura que la tabla no sea demasiado estrecha */
+        background-color: var(--background-color); /* Fondo de las filas por defecto */
+    }
+
+    table th, table td {
+        padding: 16px 20px; /* Más padding para celdas */
+        border: 1px solid var(--border-color-light); /* Bordes más suaves */
+        text-align: left;
+        color: var(--text-color);
+    }
+
+    table th {
+        background-color: var(--table-header-bg); /* Un azul más profundo para el encabezado */
         color: var(--light-text-color);
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 1em; /* Ajustado */
+        letter-spacing: 0.8px;
     }
-    .statistics-section table tr:nth-child(even) {
-        background-color: #f0f4f7;
+
+    table tbody tr:nth-child(even) {
+        background-color: var(--background-color-dark); /* Fondo ligeramente más oscuro para filas pares */
     }
-    .statistics-section table tr:hover {
-        background-color: #e6f0ff;
+    table tbody tr:hover {
+        background-color: var(--light-hover); /* Azul claro al pasar el ratón */
+        color: var(--dark-text); /* Texto más oscuro al hacer hover */
+        transform: translateY(-2px); /* Efecto de "levantar" */
+        transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra al levantar */
     }
-    .team-display { /* Asegurar que este estilo esté presente para los logos en las tablas */
+
+    .pos-cell {
+        font-weight: bold;
+        color: var(--primary-color); /* Resaltar la posición */
+        text-align: center;
+        width: 60px; /* Ancho fijo para posición */
+    }
+
+    .highlight-value {
+        font-size: 1.3em; /* Números más grandes */
+        font-weight: bolder;
+        color: var(--gold-trophy); /* Color oro para goles/asistencias */
+        text-align: center;
+        width: 100px; /* Ancho fijo para valores */
+    }
+    .highlight-value strong {
+        font-family: 'Oswald', sans-serif; /* Usar una fuente más deportiva si está disponible */
+        letter-spacing: 0.5px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Sombra para resaltar */
+    }
+
+    .player-link, .team-display {
+        color: var(--text-color);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.2s ease;
+    }
+    .player-link:hover, .team-display:hover {
+        color: var(--primary-color);
+        text-decoration: underline; /* Subrayar al pasar el ratón */
+    }
+
+    .team-display {
         display: flex;
         align-items: center;
-        gap: 8px;
-        text-decoration: none;
-        color: var(--text-color);
-        font-weight: bold;
+        gap: 12px; /* Más espacio entre logo y texto */
     }
-    .team-logo {
-        width: 30px; /* Tamaño más pequeño para logos en tabla */
-        height: 30px;
+
+    .team-logo-stats { /* Estilo específico para los logos en estas tablas de estadísticas */
+        width: 45px; /* Un poco más grandes para mejor visibilidad */
+        height: 45px;
         object-fit: contain;
         border-radius: 50%;
-        border: 1px solid var(--border-color);
+        border: 2px solid var(--border-color); /* Borde más pronunciado */
+        background-color: white; /* Fondo blanco para el logo */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.15); /* Sombra para el logo */
+    }
+
+    .no-data-message {
+        font-size: 1.1em;
+        padding: 25px;
+        border: 2px dashed var(--accent-color); /* Borde más fuerte */
+        background-color: var(--background-color-light); /* Fondo más claro */
+        border-radius: var(--border-radius);
+        color: var(--text-color-dark);
+        font-weight: 500;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .statistics-section {
+            padding: 25px;
+        }
+        .statistics-header {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+        }
+        .statistics-header::after {
+            bottom: -4px;
+            height: 6px;
+        }
+        table th, table td {
+            padding: 12px 15px;
+            font-size: 0.9em;
+        }
+        .highlight-value {
+            font-size: 1.1em;
+        }
+        .team-logo-stats {
+            width: 35px;
+            height: 35px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .main-title {
+            font-size: 1.8em;
+        }
+        .section-description {
+            font-size: 1em;
+            margin-bottom: 30px;
+        }
+        .statistics-section {
+            padding: 15px;
+            margin-bottom: 30px;
+        }
+        .statistics-header {
+            font-size: 1.6em;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+        .statistics-header::after {
+            width: 40px;
+            height: 5px;
+        }
+        table {
+            min-width: unset; /* Permitir que la tabla se ajuste más */
+        }
+        table th, table td {
+            padding: 10px;
+            font-size: 0.85em;
+        }
+        .highlight-value {
+            font-size: 1em;
+        }
+        .pos-cell {
+            width: 40px;
+        }
+        .team-logo-stats {
+            width: 30px;
+            height: 30px;
+            margin-right: 8px; /* Ajuste del margen */
+        }
     }
 </style>
 {% endblock %}

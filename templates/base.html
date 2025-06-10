@@ -1,14 +1,12 @@
-<!-- templates/base.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Champions League Project{% endblock %}</title>
-    <!-- Enlazar tu archivo CSS global -->
     <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
-    <!-- Opcional: Iconos de Font Awesome para un toque extra -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     {% block head_extra %}{% endblock %} {# Bloque para CSS o JS adicional por página #}
 </head>
 <body>
@@ -18,24 +16,25 @@
 
     <nav>
         <ul>
-            <li><a href="/home"><i class="fas fa-home"></i> Inicio</a></li>
-            <li><a href="/equipos_lista"><i class="fas fa-shield-alt"></i> Equipos</a></li>
-            <li><a href="/partidos_lista"><i class="fas fa-calendar-alt"></i> Partidos</a></li>
-            <li><a href="/jugadores_lista"><i class="fas fa-user-friends"></i> Jugadores</a></li>
-            <li><a href="/jugadores_crear" class="small-icon-link"><i class="fas fa-user-plus"></i></a></li>
-            <li><a href="/equipos_crear" class="small-icon-link"><i class="fas fa-plus-circle"></i></a></li>
-            <li><a href="/partidos_crear" class="small-icon-link"><i class="fas fa-plus-square"></i></a></li>
-            <li><a href="/busqueda"><i class="fas fa-search"></i> Buscar</a></li>
-            <li><a href="/estadisticas"><i class="fas fa-chart-bar"></i> Estadísticas</a></li>
-            <li><a href="/historial_eliminados"><i class="fas fa-history"></i> Historial Eliminados</a></li> {# Nuevo enlace #}
+            <li><a href="/home">🏠 Inicio</a></li>
+            <li><a href="/equipos_lista">🛡️ Equipos</a></li>
+            <li><a href="/partidos_lista">🗓️ Partidos</a></li>
+            <li><a href="/jugadores_lista">👤 Jugadores</a></li>
+            {# Enlaces de creación de iconos pequeños - eliminamos Font Awesome por emojis #}
+            <li><a href="/jugadores_crear" class="small-icon-link">➕ Jugador</a></li> {# Texto para accesibilidad #}
+            <li><a href="/equipos_crear" class="small-icon-link">➕ Equipo</a></li> {# Texto para accesibilidad #}
+            <li><a href="/partidos_crear" class="small-icon-link">➕ Partido</a></li> {# Texto para accesibilidad #}
+            <li><a href="/busqueda">🔍 Buscar</a></li>
+            <li><a href="/estadisticas">📊 Estadísticas</a></li>
+            <li><a href="/historial_eliminados">↩️ Historial Eliminados</a></li> {# Emoji #}
             <li class="dropdown">
-                <a href="#" class="dropbtn"><i class="fas fa-book"></i> Documentación <i class="fas fa-caret-down"></i></a>
+                <a href="#" class="dropbtn">📚 Documentación ▼</a> {# Emoji y flecha sencilla #}
                 <div class="dropdown-content">
                     <a href="/planeacion">Planeación</a>
                     <a href="/diseno">Diseño</a>
                     <a href="/objetivo">Objetivo</a>
-                    <a href="/desarrollador">Desarrollador</a>
-                    <a href="/docs" target="_blank">API Docs (Swagger)</a> {# Abre en nueva pestaña #}
+                    <a href="/desarrollador">Acerca del Desarrollador</a> {# Texto más descriptivo #}
+                    <a href="/docs" target="_blank">API Docs (Swagger) ↗️</a> {# Emoji para abrir en nueva pestaña #}
                 </div>
             </li>
         </ul>
@@ -46,7 +45,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 Proyecto Champions League - Desarrollado con pasión por el fútbol.</p>
+        <p>&copy; 2025 Proyecto Champions League - Desarrollado con pasión por el fútbol. ✨</p>
     </footer>
 
     {% block scripts_extra %}{% endblock %} {# Bloque para JS adicional por página #}
@@ -63,14 +62,15 @@
             position: absolute;
             background-color: var(--secondary-color);
             min-width: 180px; /* Ancho mínimo para el dropdown */
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            box-shadow: var(--shadow-md); /* Usar variable CSS para la sombra */
             z-index: 1;
-            border-radius: 8px; /* Bordes redondeados */
+            border-radius: var(--border-radius); /* Bordes redondeados */
             overflow: hidden; /* Asegura que los bordes redondeados se apliquen a los enlaces */
             top: 100%; /* Posiciona justo debajo del botón */
             left: 50%;
             transform: translateX(-50%); /* Centra el dropdown bajo el botón */
             animation: fadeIn 0.3s ease-out; /* Animación de aparición */
+            border: 1px solid var(--border-color); /* Borde sutil */
         }
 
         .dropdown-content a {
@@ -100,20 +100,41 @@
 
         /* Estilos para enlaces de iconos pequeños en la navegación */
         .small-icon-link {
-            padding: 8px 12px !important; /* Ajustar padding para hacerlos más pequeños */
-            font-size: 0.9rem !important; /* Reducir tamaño de fuente */
+            padding: 8px 12px; /* Ajustar padding */
+            font-size: 0.95em; /* Reducir tamaño de fuente ligeramente */
+            display: flex; /* Para alinear el emoji y el texto */
+            align-items: center;
+            gap: 5px; /* Espacio entre el emoji y el texto */
         }
-        .small-icon-link .fas {
-            margin-right: 0 !important; /* Eliminar margen si solo es un icono */
-        }
-        /* Ocultar texto en móviles para los enlaces de iconos pequeños */
+
+        /* Media query para ocultar texto en móviles y mostrar solo iconos */
         @media (max-width: 768px) {
-            .small-icon-link {
-                padding: 8px 10px !important;
+            nav ul li a:not(.dropbtn) { /* Afecta a todos los enlaces excepto el del dropdown */
+                font-size: 0.85em; /* Un poco más pequeño para caber */
+                padding: 10px 8px; /* Ajuste de padding */
+                text-align: center; /* Centrar el texto en móviles */
+                display: flex;
+                flex-direction: column; /* Icono arriba, texto abajo */
+                align-items: center;
+                gap: 2px; /* Espacio más pequeño entre icono y texto */
             }
-            .small-icon-link span { /* Si tuvieran texto, lo ocultaría */
+
+            /* Para los "small-icon-link", solo mostramos el emoji/icono en móviles */
+            .small-icon-link {
+                font-size: 1.2em; /* Haz el emoji más grande */
+                padding: 10px 10px; /* Padding para que el icono se vea bien */
+            }
+            .small-icon-link span { /* Ocultar el texto en el small-icon-link en móviles */
                 display: none;
             }
+            /* Asegúrate de que los emojis directamente en <a> se vean bien en móviles */
+            nav ul li a:not(.small-icon-link):not(.dropbtn) {
+                white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+            }
+        }
+        /* Ajuste específico para evitar que los emojis se separen del texto en ciertos navegadores */
+        nav ul li a {
+            white-space: nowrap;
         }
     </style>
 </body>

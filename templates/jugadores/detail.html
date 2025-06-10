@@ -1,21 +1,20 @@
-<!-- templates/jugadores/detail.html -->
 {% extends "base.html" %}
 
-{% block title %}Detalle del Jugador{% endblock %}
+{% block title %}Detalle del Jugador - {{ jugador.nombre }}{% endblock %}
 
 {% block content %}
 <h1 class="main-title">👤 Detalle del Jugador: {{ jugador.nombre }}</h1>
 
-<div class="detail-card">
-    {# Eliminamos la sección de imagen del jugador #}
     <div class="detail-info">
         <p><strong>ID:</strong> {{ jugador.id }}</p>
         <p><strong>Nombre:</strong> {{ jugador.nombre }}</p>
         <p><strong>Equipo:</strong>
             {% if jugador.equipo_obj %}
+                {# Enlace al detalle del equipo, si el equipo existe #}
                 <a href="/equipos/{{ jugador.equipo_obj.id }}" class="text-link">{{ jugador.equipo_obj.nombre }}</a>
             {% else %}
-                N/A
+                {# Mensaje si el equipo no está disponible (quizás eliminado o no asignado) #}
+                <span class="status-danger">Equipo No Disponible</span>
             {% endif %}
         </p>
         <p><strong>Posición:</strong> {{ jugador.posicion }}</p>
@@ -24,6 +23,7 @@
         <p><strong>Goles:</strong> {{ jugador.goles }}</p>
         <p><strong>Asistencias:</strong> {{ jugador.asistencias }}</p>
         <p><strong>Estado:</strong>
+            {# Muestra el estado del jugador con el color correspondiente #}
             {% if jugador.eliminado_logico %}
                 <span class="status-danger">Eliminado Lógicamente</span>
             {% else %}
@@ -33,10 +33,10 @@
     </div>
 
     <div class="flex-row detail-actions">
-        <a href="/jugadores_lista" class="button secondary"><i class="fas fa-arrow-left"></i> Volver a la Lista</a>
-        <a href="/jugadores_editar/{{ jugador.id }}" class="button warning"><i class="fas fa-edit"></i> Editar Jugador</a>
-        <form action="/jugadores_eliminar/{{ jugador.id }}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar lógicamente a este jugador?');">
-            <button type="submit" class="button danger"><i class="fas fa-trash-alt"></i> Eliminar Jugador</button>
+        <a href="/jugadores_lista" class="button primary">↩️ Volver a la Lista</a> {# Icono y clase cambiados #}
+        <a href="/jugadores_editar/{{ jugador.id }}" class="button warning">✏️ Editar Jugador</a> {# Icono cambiado #}
+        <form action="/jugadores_eliminar/{{ jugador.id }}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar lógicamente a este jugador? Esta acción puede revertirse si es necesario.');">
+            <button type="submit" class="button danger">🗑️ Eliminar Jugador</button> {# Icono cambiado #}
         </form>
     </div>
 </div>

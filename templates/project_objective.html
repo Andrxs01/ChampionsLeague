@@ -1,4 +1,3 @@
-<!-- templates/project_objective.html -->
 {% extends "base.html" %}
 
 {% block title %}Objetivo del Proyecto{% endblock %}
@@ -6,31 +5,76 @@
 {% block content %}
 <h1 class="main-title">🎯 Objetivo del Proyecto 🎯</h1>
 
+<p class="section-description">
+    Este proyecto nace de la pasión por el fútbol y la necesidad de organizar y visualizar de forma efectiva los datos de una de las competiciones más prestigiosas: la UEFA Champions League.
+</p>
+
 <section class="info-section">
-    <h2>Visión General:</h2>
-    <p>El objetivo principal de este proyecto es desarrollar una aplicación web interactiva y fácil de usar, diseñada para la gestión y visualización de datos relacionados con la UEFA Champions League 2017/18. La aplicación busca proporcionar una experiencia inmersiva para los aficionados al fútbol, permitiéndoles explorar información detallada sobre equipos, jugadores y partidos de una de las temporadas más memorables de la competición.</p>
+    <h2 class="section-title-with-border">✨ Visión General del Proyecto:</h2>
+    <p>El objetivo principal de este proyecto es desarrollar una <strong>aplicación web interactiva, robusta y fácil de usar</strong>, diseñada específicamente para la <strong>gestión y visualización de datos</strong> relacionados con la memorable temporada <strong>2017/18 de la UEFA Champions League</strong>. La aplicación busca proporcionar una <strong>experiencia inmersiva y analítica</strong> para los aficionados y entusiastas del fútbol, permitiéndoles explorar información detallada sobre los equipos participantes, los jugadores clave y todos los partidos disputados en esa edición histórica.</p>
 </section>
 
 <section class="info-section">
-    <h2>Objetivos Específicos:</h2>
+    <h2 class="section-title-with-border">🚀 Objetivos Específicos Detallados:</h2>
+    <p>Para alcanzar la visión general, se han definido los siguientes objetivos específicos:</p>
     <ul class="styled-list">
-        <li><strong>Base de Datos Robusta:</strong> Implementar una base de datos relacional (PostgreSQL) con SQLAlchemy para almacenar de manera eficiente y estructurada la información de equipos, jugadores y partidos, incluyendo sus estadísticas clave.</li>
-        <li><strong>API RESTful Completa:</strong> Desarrollar una API RESTful utilizando FastAPI que permita la interacción programática con los datos, facilitando operaciones CRUD (Crear, Leer, Actualizar, Eliminar) para cada entidad.</li>
-        <li><strong>Interfaz de Usuario Intuitiva:</strong> Diseñar y construir una interfaz de usuario atractiva y responsiva con HTML y CSS, utilizando Jinja2 para la renderización dinámica. La UI debe permitir a los usuarios navegar fácilmente por la información, realizar búsquedas y visualizar estadísticas.</li>
-        <li><strong>Funcionalidades de Gestión:</strong> Proporcionar formularios web para que los administradores puedan añadir nuevos equipos, jugadores y partidos, así como editar y eliminar (lógicamente) los existentes.</li>
-        <li><strong>Estadísticas Detalladas:</strong> Incluir secciones dedicadas a estadísticas clave, como máximos goleadores, asistentes y equipos con mejor rendimiento, para ofrecer una visión analítica de la temporada.</li>
-        <li><strong>Documentación Clara:</strong> Asegurar que el proyecto esté bien documentado, cubriendo las fases de planeación, diseño y desarrollo, así como la información del desarrollador y la documentación automática de la API (Swagger UI).</li>
-        <li><strong>Despliegue en la Nube:</strong> Configurar el despliegue de la aplicación en una plataforma en la nube (Render.com) para garantizar su accesibilidad y disponibilidad.</li>
+        <li><strong>Base de Datos Relacional Robusta:</strong> Implementar una <strong>base de datos relacional eficiente (PostgreSQL)</strong>, gestionada a través de <strong>SQLAlchemy ORM</strong>. Esta base de datos almacenará de manera estructurada toda la información de equipos, jugadores y partidos, incluyendo sus estadísticas clave y estado de eliminación lógica, asegurando la <strong>integridad y persistencia de los datos</strong>.</li>
+        <li><strong>API RESTful Completa y Eficiente:</strong> Desarrollar una <strong>API RESTful de alto rendimiento</strong> utilizando el framework <strong>FastAPI de Python</strong>. Esta API expondrá <em>endpoints</em> bien definidos para facilitar la interacción programática con los datos, permitiendo operaciones <strong>CRUD (Crear, Leer, Actualizar, Eliminar)</strong> para cada entidad (equipos, jugadores, partidos) de forma segura y validada.</li>
+        <li><strong>Interfaz de Usuario Intuitiva y Responsiva:</strong> Diseñar y construir una <strong>interfaz de usuario (UI) atractiva y completamente responsiva</strong> empleando <strong>HTML5 y CSS3</strong>, con <strong>Jinja2</strong> para la renderización dinámica de plantillas. La UI deberá ser intuitiva, permitiendo a los usuarios navegar fácilmente por la información, realizar búsquedas rápidas y visualizar estadísticas de manera clara y agradable en cualquier dispositivo.</li>
+        <li><strong>Funcionalidades de Gestión de Contenido:</strong> Proporcionar <strong>formularios web amigables</strong> y validados para que los administradores del sistema puedan <strong>añadir nuevos equipos, jugadores y partidos</strong>. Además, se incluirán funcionalidades robustas para <strong>editar y eliminar (lógicamente)</strong> los registros existentes, manteniendo un historial de los elementos "retirados" del sistema principal.</li>
+        <li><strong>Secciones de Estadísticas y Análisis:</strong> Integrar secciones dedicadas a presentar <strong>estadísticas clave y gráficos descriptivos</strong> (si aplica) de la temporada. Esto incluirá listas de máximos goleadores, asistentes y equipos con mejor rendimiento ofensivo y defensivo, ofreciendo una <strong>visión analítica profunda</strong> de la competición.</li>
+        <li><strong>Documentación Integral del Proyecto:</strong> Asegurar que todo el proyecto esté <strong>exhaustivamente documentado</strong>. Esto abarca las fases de planeación, diseño y desarrollo, la información detallada sobre el desarrollador, y la <strong>documentación automática de la API (Swagger UI)</strong> para facilitar el entendimiento y la futura extensión del proyecto.</li>
+        <li><strong>Despliegue en la Nube y Accesibilidad:</strong> Configurar y realizar el <strong>despliegue de la aplicación en una plataforma en la nube (Render.com)</strong>. Esto garantizará que la aplicación sea <strong>accesible públicamente</strong> y esté disponible de manera continua para todos los usuarios interesados, demostrando su operatividad en un entorno real.</li>
     </ul>
 </section>
 
 <section class="info-section">
-    <h2>Audiencia Objetivo:</h2>
-    <p>Esta aplicación está dirigida a:</p>
+    <h2 class="section-title-with-border">👥 Audiencia Objetivo:</h2>
+    <p>Esta aplicación está diseñada para ser de utilidad y disfrute para una amplia gama de usuarios, incluyendo:</p>
     <ul class="styled-list">
-        <li>Aficionados al fútbol que deseen revivir o consultar datos de la Champions League 2017/18.</li>
-        <li>Analistas deportivos o entusiastas de los datos que busquen una plataforma para explorar estadísticas de la competición.</li>
-        <li>Desarrolladores interesados en un ejemplo práctico de una aplicación web full-stack con FastAPI, SQLAlchemy y Jinja2.</li>
+        <li><strong>Aficionados al Fútbol:</strong> Aquellos que deseen revivir momentos de la Champions League 2017/18, consultar datos históricos de equipos y jugadores, o simplemente explorar la información de su torneo favorito.</li>
+        <li><strong>Analistas Deportivos y Entusiastas de los Datos:</strong> Personas interesadas en extraer y analizar datos específicos de la competición para estudios, comparaciones o simplemente por curiosidad estadística.</li>
+        <li><strong>Desarrolladores Web y Estudiantes:</strong> Aquellos que busquen un ejemplo práctico y bien estructurado de una <strong>aplicación web <em>full-stack</em></strong> construida con tecnologías modernas como FastAPI, SQLAlchemy y Jinja2, sirviendo como una guía o punto de partida para sus propios proyectos.</li>
     </ul>
 </section>
+
+<style>
+    /* Estilos específicos para esta página */
+    .section-description {
+        text-align: center;
+        font-size: 1.1em;
+        color: var(--text-color-light);
+        margin-bottom: 40px;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.6;
+    }
+
+    /* .info-section h2 ya es estilizado por .section-title-with-border */
+
+    .styled-list li {
+        margin-bottom: 10px;
+        line-height: 1.6; /* Aumentar interlineado para mejor lectura */
+        color: var(--text-color);
+        padding-left: 5px; /* Pequeño padding para los ítems de lista */
+    }
+
+    .styled-list li strong {
+        color: var(--primary-color); /* Usar el color primario para resaltar negritas */
+        font-size: 1.05em; /* Ligeramente más grande para énfasis */
+    }
+
+    .styled-list ul { /* Para listas anidadas */
+        margin-top: 8px;
+        margin-bottom: 8px;
+        margin-left: 25px; /* Indentación para sub-listas */
+        list-style-type: disc; /* Asegurar viñetas de disco para sub-listas */
+    }
+
+    .styled-list ul li {
+        margin-bottom: 5px;
+        line-height: 1.4;
+    }
+</style>
 {% endblock %}

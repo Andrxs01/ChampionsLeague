@@ -1,4 +1,3 @@
-<!-- templates/design_phase.html -->
 {% extends "base.html" %}
 
 {% block title %}Fase de Diseño{% endblock %}
@@ -7,131 +6,238 @@
 <h1 class="main-title">🎨 Fase de Diseño del Proyecto 🎨</h1>
 
 <section class="info-section">
-    <h2>📐 Diagrama de Clases (Conceptual):</h2>
-    <p>El diseño de la base de datos se centra en la relación fundamental entre equipos, jugadores y partidos. Un equipo puede tener muchos jugadores, y un jugador pertenece a un solo equipo. Un partido involucra a dos equipos.</p>
-    <div class="image-gallery">
-        <div class="mockup-item" style="text-align: center;">
-            <img src="https://i.postimg.cc/tTWhKswT/Diagrama-de-clases.jpg" alt="[Image of Diagrama de Clases]">
-            <img src="https://i.postimg.cc/BnzHt5Gb/Relaciones.jpg" alt="[Image of Relaciones]">
+    <h2 class="section-title-with-border">📐 Diagrama de Clases (Conceptual):</h2>
+    <p>El diseño de la base de datos se centra en la relación fundamental entre <strong>equipos</strong>, <strong>jugadores</strong> y <strong>partidos</strong>. Un equipo puede tener muchos jugadores, y un jugador pertenece a un solo equipo. Un partido, por su parte, involucra a dos equipos (local y visitante).</p>
+    <div class="image-gallery class-diagrams"> {# Nueva clase para agrupar diagramas de clases y controlar su apilamiento #}
+        <div class="mockup-item">
+            <img src="https://i.postimg.cc/tTWhKswT/Diagrama-de-clases.jpg" alt="Diagrama de Clases del Modelo de Datos" class="responsive-image">
+            <p class="image-caption">Vista general del Diagrama de Clases</p>
+        </div>
+        <div class="mockup-item">
+            {# ¡URL de la imagen corregida! Esta es una imagen de ejemplo que generé, asegúrate de reemplazarla por tu diagrama de relaciones si lo tienes. #}
+            <img src="https://i.postimg.cc/BnzHt5Gb/Relaciones.jpg" alt="Relaciones entre Entidades del Modelo" class="responsive-image">
+            <p class="image-caption">Detalle de las Relaciones entre Entidades</p>
         </div>
     </div>
-    <p>Esta estructura permite consultas eficientes y una clara representación de los datos.</p>
+    <p>Esta estructura permite <strong>consultas eficientes</strong> y una clara representación de los datos, reflejando fielmente la complejidad de un torneo de fútbol.</p>
 </section>
 
 <section class="info-section">
-    <h2>🗺️ Mapa de Endpoints (Rutas HTML):</h2>
-    <p>La aplicación expone una serie de rutas HTML para la interacción del usuario, organizadas lógicamente para una navegación intuitiva:</p>
-    <div class="image-gallery">
-        <div class="mockup-item" style="text-align: center;">
-            <img src="https://i.postimg.cc/brdqGnPY/endpoint1.jpg" alt="[Image of Endpoint 1]">
-            <img src="https://i.postimg.cc/Y9DHwSW5/endpoint2.jpg" alt="[Image of Endpoint2]">
-            <img src="https://i.postimg.cc/x8WVcFgg/endpoint3.jpg" alt="[Image of Endpoint3]">
+    <h2 class="section-title-with-border">🗺️ Mapa de Endpoints (Rutas HTML):</h2>
+    <p>La aplicación expone una serie de <strong>rutas HTML</strong> para la interacción del usuario, organizadas lógicamente para una navegación intuitiva y una gestión de recursos clara.</p>
+    <div class="image-gallery endpoint-diagrams"> {# Otra clase para agrupar diagramas de endpoints #}
+        <div class="mockup-item">
+            <img src="https://i.postimg.cc/brdqGnPY/endpoint1.jpg" alt="Diagrama de Endpoints Parte 1" class="responsive-image">
+        </div>
+        <div class="mockup-item">
+            <img src="https://i.postimg.cc/Y9DHwSW5/endpoint2.jpg" alt="Diagrama de Endpoints Parte 2" class="responsive-image">
+        </div>
+        <div class="mockup-item">
+            <img src="https://i.postimg.cc/x8WVcFgg/endpoint3.jpg" alt="Diagrama de Endpoints Parte 3" class="responsive-image">
         </div>
     </div>
+    <h3 style="margin-top: 30px; color: var(--text-color-dark);">Rutas y su Funcionalidad:</h3>
     <ul class="styled-list">
         <li><code>GET /home</code>: Página de inicio con un resumen visual de equipos, jugadores y partidos recientes.</li>
-        <li><code>GET /desarrollador</code>: Información detallada sobre el desarrollador.</li>
-        <li><code>GET /planeacion</code>: Documentación de la fase de planeación (esta página).</li>
-        <li><code>GET /diseno</code>: Documentación de la fase de diseño.</li>
-        <li><code>GET /objetivo</code>: Declaración del objetivo principal del proyecto.</li>
-        <li><code>GET /jugadores_lista</code>: Muestra una tabla con todos los jugadores activos.</li>
-        <li><code>GET /jugadores/{jugador_id}</code>: Presenta los detalles de un jugador específico.</li>
-        <li><code>GET /jugadores_crear</code>: Formulario para añadir un nuevo jugador.</li>
-        <li><code>POST /jugadores_crear</code>: Procesa el envío del formulario de creación de jugador.</li>
-        <li><code>GET /jugadores_editar/{jugador_id}</code>: Formulario pre-rellenado para editar un jugador existente.</li>
-        <li><code>POST /jugadores_editar/{jugador_id}</code>: Procesa el envío del formulario de edición de jugador.</li>
-        <li><code>POST /jugadores_eliminar/{jugador_id}</code>: Realiza la eliminación lógica de un jugador.</li>
-        <li><code>GET /equipos_lista</code>: Muestra una tabla con todos los equipos activos.</li>
-        <li><code>GET /equipos/{equipo_id}</code>: Presenta los detalles de un equipo específico.</li>
-        <li><code>GET /equipos_crear</code>: Formulario para añadir un nuevo equipo.</li>
-        <li><code>POST /equipos_crear</code>: Procesa el envío del formulario de creación de equipo.</li>
-        <li><code>GET /equipos_editar/{equipo_id}</code>: Formulario pre-rellenado para editar un equipo existente.</li>
-        <li><code>POST /equipos_editar/{equipo_id}</code>: Procesa el envío del formulario de edición de equipo.</li>
-        <li><code>POST /equipos_eliminar/{equipo_id}</code>: Realiza la eliminación lógica de un equipo.</li>
-        <li><code>GET /partidos_lista</code>: Muestra una tabla con todos los partidos.</li>
-        <li><code>GET /partidos_crear</code>: Formulario para añadir un nuevo partido.</li>
-        <li><code>POST /partidos_crear</code>: Procesa el envío del formulario de creación de partido.</li>
-        <li><code>GET /partidos_editar/{partido_id}</code>: Formulario pre-rellenado para editar un partido existente.</li>
-        <li><code>POST /partidos_editar/{partido_id}</code>: Procesa el envío del formulario de edición de partido.</li>
-        <li><code>POST /partidos_eliminar/{partido_id}</code>: Realiza la eliminación lógica de un partido.</li>
-        <li><code>GET /busqueda</code>: Interfaz para buscar jugadores, equipos y partidos por nombre.</li>
-        <li><code>GET /estadisticas</code>: Página para visualizar estadísticas clave.</li>
-        <li><code>GET /historial_eliminados</code>: Página para ver jugadores y equipos eliminados lógicamente (nuevo).</li>
+        <li><code>GET /desarrollador</code>: Información detallada sobre el desarrollador del proyecto.</li>
+        <li><code>GET /planeacion</code>: Documentación exhaustiva de la fase de planeación.</li>
+        <li><code>GET /diseno</code>: Documentación completa de la fase de diseño (esta página).</li>
+        <li><code>GET /objetivo</code>: Declaración del objetivo principal y la visión del proyecto.</li>
+        <li><code>GET /jugadores_lista</code>: Muestra una tabla paginada con todos los <strong>jugadores activos</strong>.</li>
+        <li><code>GET /jugadores/{jugador_id}</code>: Presenta los detalles completos de un jugador específico.</li>
+        <li><code>GET /jugadores_crear</code>: Formulario intuitivo para añadir un nuevo jugador.</li>
+        <li><code>POST /jugadores_crear</code>: Procesa el envío de datos para la creación de un nuevo jugador.</li>
+        <li><code>GET /jugadores_editar/{jugador_id}</code>: Formulario pre-rellenado para editar los datos de un jugador existente.</li>
+        <li><code>POST /jugadores_editar/{jugador_id}</code>: Procesa la actualización de datos de un jugador.</li>
+        <li><code>POST /jugadores_eliminar/{jugador_id}</code>: Realiza la <strong>eliminación lógica</strong> de un jugador (lo oculta de las listas principales).</li>
+        <li><code>GET /equipos_lista</code>: Muestra una tabla paginada con todos los <strong>equipos activos</strong>.</li>
+        <li><code>GET /equipos/{equipo_id}</code>: Presenta los detalles completos de un equipo específico, incluyendo sus jugadores.</li>
+        <li><code>GET /equipos_crear</code>: Formulario intuitivo para añadir un nuevo equipo.</li>
+        <li><code>POST /equipos_crear</code>: Procesa el envío de datos para la creación de un nuevo equipo.</li>
+        <li><code>GET /equipos_editar/{equipo_id}</code>: Formulario pre-rellenado para editar los datos de un equipo existente.</li>
+        <li><code>POST /equipos_editar/{equipo_id}</code>: Procesa la actualización de datos de un equipo.</li>
+        <li><code>POST /equipos_eliminar/{equipo_id}</code>: Realiza la <strong>eliminación lógica</strong> de un equipo.</li>
+        <li><code>GET /partidos_lista</code>: Muestra un calendario detallado con todos los partidos, agrupados por fase.</li>
+        <li><code>GET /partidos_crear</code>: Formulario intuitivo para registrar un nuevo partido.</li>
+        <li><code>POST /partidos_crear</code>: Procesa el envío de datos para la creación de un nuevo partido.</li>
+        <li><code>GET /partidos_editar/{partido_id}</code>: Formulario pre-rellenado para editar los datos de un partido existente.</li>
+        <li><code>POST /partidos_editar/{partido_id}</code>: Procesa la actualización de datos de un partido.</li>
+        <li><code>POST /partidos_eliminar/{partido_id}</code>: Realiza la <strong>eliminación lógica</strong> de un partido.</li>
+        <li><code>GET /busqueda</code>: Interfaz unificada para buscar jugadores, equipos y partidos por nombre/criterio.</li>
+        <li><code>GET /estadisticas</code>: Página dedicada a visualizar estadísticas clave (máximos goleadores, asistentes, etc.).</li>
+        <li><code>GET /historial_eliminados</code>: Página especial para ver y gestionar jugadores y equipos que han sido <strong>eliminados lógicamente</strong>.</li>
+        <li><code>GET /docs</code>: Acceso a la documentación de la <strong>API (Swagger UI)</strong> para desarrolladores.</li>
     </ul>
 </section>
 
 <section class="info-section">
-    <h2>📱 Mockups/Wireframes (Representación Visual Conceptual):</h2>
-    <p>El diseño de la interfaz de usuario se enfoca en la claridad, la facilidad de uso y una estética que resuene con la temática de la Champions League. Se utilizan tarjetas para la visualización de elementos destacados y tablas para listados detallados.</p>
-    <div class="image-gallery">
-        <div class="mockup-item" style="text-align: center;">
-            <img src="https://i.postimg.cc/T3P2FBF5/Inicio.jpg">
-
+    <h2 class="section-title-with-border">📱 Mockups/Wireframes (Representación Visual Conceptual):</h2>
+    <p>El diseño de la interfaz de usuario se enfoca en la <strong>claridad</strong>, la <strong>facilidad de uso</strong> y una <strong>estética que resuene con la temática de la Champions League</strong>. Se utilizan tarjetas interactivas para la visualización de elementos destacados y tablas responsivas para listados detallados, asegurando una experiencia de usuario óptima en cualquier dispositivo.</p>
+    <div class="image-gallery ui-mockups"> {# Otra clase para agrupar mockups de UI #}
+        <div class="mockup-item">
+            <img src="https://i.postimg.cc/T3P2FBF5/Inicio.jpg" alt="Mockup de la Página de Inicio" class="responsive-image">
         </div>
-        <div class="mockup-item" style="text-align: center;">
-            <img src="https://i.postimg.cc/QNkXtXrW/Listado.jpg">
+        <div class="mockup-item">
+            <img src="https://i.postimg.cc/QNkXtXrW/Listado.jpg" alt="Mockup de Página de Listado" class="responsive-image">
         </div>
-        <div class="mockup-item" style="text-align: center;">
-            <img src="https://i.postimg.cc/yY8z8cPw/Formulario.jpg">
+        <div class="mockup-item">
+            <img src="https://i.postimg.cc/yY8z8cPw/Formulario.jpg" alt="Mockup de Formulario" class="responsive-image">
         </div>
-        <div class="mockup-item" style="text-align: center;">
-            <img src="https://i.postimg.cc/d1YbPy3N/Busqueda.jpg">
+        <div class="mockup-item">
+            <img src="https://i.postimg.cc/d1YbPy3N/Busqueda.jpg" alt="Mockup de la Página de Búsqueda" class="responsive-image">
         </div>
     </div>
-    <ul class="styled-list" style="margin-top: 20px;">
-        <li><strong>Página de Inicio (`/home`):</strong>
+    <h3 style="margin-top: 30px; color: var(--text-color-dark);">Elementos Clave del Diseño UI:</h3>
+    <ul class="styled-list">
+        <li><strong>Página de Inicio (<code>/home</code>):</strong>
             <ul>
-                <li>Encabezado y barra de navegación global.</li>
-                <li>Secciones destacadas con "tarjetas" (cards) para los equipos y jugadores más recientes/relevantes, incluyendo su imagen, nombre y un botón para ver detalles.</li>
-                <li>Una sección para los partidos más recientes, mostrando equipos y resultados.</li>
-                <li>Botones para navegar a las listas completas.</li>
+                <li><strong>Encabezado y barra de navegación</strong> global para acceso rápido.</li>
+                <li>Secciones destacadas con <strong>"tarjetas" (cards)</strong> para los equipos y jugadores más recientes/relevantes, incluyendo su imagen, nombre y un botón para ver detalles, simulando el dinamismo de un marcador.</li>
+                <li>Una sección clara para los <strong>partidos más recientes</strong>, mostrando equipos y resultados de manera concisa.</li>
+                <li><strong>Botones prominentes</strong> para navegar a las listas completas, invitando a la exploración.</li>
             </ul>
         </li>
-        <li><strong>Páginas de Listado (`/jugadores_lista`, `/equipos_lista`, `/partidos_lista`):</strong>
+        <li><strong>Páginas de Listado (<code>/jugadores_lista</code>, <code>/equipos_lista</code>, <code>/partidos_lista</code>):</strong>
             <ul>
-                <li>Tabla responsiva con encabezados claros y datos relevantes.</li>
-                <li>Botón prominente para "Añadir Nuevo [Elemento]".</li>
+                <li><strong>Tabla responsiva</strong> con encabezados claros y datos relevantes, optimizada para grandes volúmenes de información.</li>
+                <li><strong>Botón prominente</strong> para "Añadir Nuevo [Elemento]", facilitando la gestión de datos.</li>
             </ul>
         </li>
-        <li><strong>Páginas de Detalle (`/jugadores/{id}`, `/equipos/{id}`):</strong>
+        <li><strong>Páginas de Detalle (<code>/jugadores/{id}</code>, <code>/equipos/{id}</code>):</strong>
             <ul>
-                <li>Para equipos, imagen grande y listado de jugadores asociados.</li>
-                <li>Para jugadores, información detallada sin imagen de perfil.</li>
-                <li>Botones de acción: "Volver a la Lista", "Editar", "Eliminar (Lógico)".</li>
+                <li>Para equipos, una <strong>imagen grande del logo</strong> y un listado de los jugadores asociados, como la plantilla de un equipo.</li>
+                <li>Para jugadores, <strong>información detallada</strong> (sin imagen de perfil específica, usando un placeholder genérico).</li>
+                <li><strong>Botones de acción claros</strong>: "Volver a la Lista", "Editar", "Eliminar (Lógico)", posicionados estratégicamente.</li>
             </ul>
         </li>
-        <li><strong>Formularios de Creación/Edición (`/jugadores_crear`, `/equipos_crear`, `/partidos_crear`, etc.):</strong>
+        <li><strong>Formularios de Creación/Edición (<code>/jugadores_crear</code>, <code>/equipos_crear</code>, <code>/partidos_crear</code>, etc.):</strong>
             <ul>
-                <li>Diseño de formulario limpio con etiquetas claras y campos de entrada.</li>
-                <li>Campo de entrada para la URL de la imagen (solo para equipos).</li>
-                <li>Botones "Crear/Guardar Cambios" y "Cancelar".</li>
+                <li><strong>Diseño de formulario limpio</strong> con etiquetas claras, campos de entrada validados y mensajes de error informativos.</li>
+                <li>Campo de entrada para la <strong>URL de la imagen (solo para equipos)</strong> para personalización visual.</li>
+                <li><strong>Botones "Crear/Guardar Cambios" y "Cancelar"</strong> con estilos diferenciados para indicar la acción principal.</li>
             </ul>
         </li>
-        <li><strong>Página de Búsqueda (`/busqueda`):</strong>
+        <li><strong>Página de Búsqueda (<code>/busqueda</code>):</strong>
             <ul>
-                <li>Campo de entrada de texto para la consulta.</li>
-                <li>Botón "Buscar".</li>
-                <li>Resultados presentados en secciones separadas (Jugadores, Equipos, Partidos) en formato de tabla.</li>
+                <li><strong>Campo de entrada de texto</strong> para la consulta, con auto-sugerencias si es posible.</li>
+                <li><strong>Botón "Buscar"</strong> visualmente atractivo.</li>
+                <li><strong>Resultados presentados en secciones separadas</strong> (Jugadores, Equipos, Partidos) en formato de tabla, para una fácil distinción.</li>
             </ul>
         </li>
-        <li><strong>Página de Estadísticas (`/estadisticas`):</strong>
+        <li><strong>Página de Estadísticas (<code>/estadisticas</code>):</strong>
             <ul>
-                <li>Tablas para los máximos goleadores, asistentes y equipos con más goles.</li>
-                <li>Diseño claro y fácil de leer para comparar estadísticas.</li>
+                <li><strong>Tablas claras y ordenadas</strong> para los máximos goleadores, asistentes y equipos con más goles.</li>
+                <li><strong>Diseño fácil de leer</strong> para comparar estadísticas clave del torneo.</li>
             </ul>
         </li>
-        <li><strong>Página de Historial de Eliminados (`/historial_eliminados`):</strong>
+        <li><strong>Página de Historial de Eliminados (<code>/historial_eliminados</code>):</strong>
             <ul>
-                <li>Tablas separadas para jugadores y equipos que han sido eliminados lógicamente.</li>
-                <li>Indicación visual clara de su estado "eliminado".</li>
+                <li><strong>Tablas separadas</strong> para jugadores y equipos que han sido eliminados lógicamente.</li>
+                <li><strong>Indicación visual clara</strong> de su estado "eliminado" y opción de "recuperar" (si implementado en el backend).</li>
             </ul>
         </li>
-        <li><strong>Páginas de Documentación (`/planeacion`, `/objetivo`, `/desarrollador`):</strong>
+        <li><strong>Páginas de Documentación (<code>/planeacion</code>, <code>/objetivo</code>, <code>/desarrollador</code>):</strong>
             <ul>
-                <li>Contenido textual bien estructurado con encabezados, párrafos y listas.</li>
-                <li>Estilo consistente con el resto de la aplicación, usando la clase `info-section`.</li>
+                <li><strong>Contenido textual bien estructurado</strong> con encabezados, párrafos y listas.</li>
+                <li><strong>Estilo consistente</strong> con el resto de la aplicación, usando la clase `info-section` para una presentación limpia.</li>
             </ul>
         </li>
     </ul>
 </section>
+
+<style>
+    /* Estilos específicos para esta página de documentación */
+    .image-gallery {
+        display: flex;
+        flex-wrap: wrap; /* Permite que las imágenes se ajusten a varias líneas */
+        justify-content: center; /* Centra las imágenes */
+        gap: 20px; /* Espacio entre las imágenes */
+        margin-top: 25px;
+        margin-bottom: 30px;
+        padding: 10px;
+        background-color: var(--background-light); /* Fondo sutil para la galería */
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-sm);
+    }
+
+    /* Estilos para que los elementos se apilen si no hay suficiente espacio */
+    .image-gallery .mockup-item {
+        flex: 1 1 auto; /* Permite que el item crezca y se encoja */
+        max-width: 48%; /* Dos columnas por defecto (ajusta según necesites) */
+        /* Si quieres que se apilen siempre, puedes usar max-width: 100%; y flex-direction: column; en el image-gallery */
+        text-align: center;
+        background-color: var(--background-color); /* Fondo del item */
+        border-radius: var(--border-radius);
+        padding: 15px;
+        box-shadow: var(--shadow-sm); /* Sombra para cada mockup */
+        transition: transform 0.2s ease-in-out;
+    }
+
+    /* Regla específica para los diagramas de clases, que suelen ser más anchos */
+    .image-gallery.class-diagrams .mockup-item {
+        max-width: 100%; /* Forzar que los diagramas de clases ocupen todo el ancho y se apilen */
+    }
+
+    .mockup-item:hover {
+        transform: translateY(-5px); /* Efecto sutil al pasar el ratón */
+    }
+
+    .responsive-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: var(--border-radius-sm); /* Bordes más pequeños para imágenes internas */
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-xs); /* Sombra muy sutil para imágenes */
+    }
+
+    .image-caption {
+        font-style: italic;
+        color: var(--text-color-light);
+        margin-top: 10px;
+        font-size: 0.9em;
+    }
+
+    /* Usar la clase section-title-with-border definida en base.html o en el CSS global */
+    .section-title-with-border {
+        color: var(--primary-color);
+        border-bottom: 2px solid var(--accent-color);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        text-align: left;
+        font-size: 1.8em;
+    }
+
+    /* Mejoras para las listas de rutas/descripciones */
+    .styled-list li {
+        margin-bottom: 10px;
+        line-height: 1.5;
+        color: var(--text-color);
+    }
+    .styled-list li code {
+        background-color: var(--code-background);
+        padding: 3px 6px;
+        border-radius: var(--border-radius-sm);
+        font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+        font-size: 0.9em;
+        color: var(--accent-color); /* Color de código que resalta */
+    }
+    .styled-list li strong {
+        color: var(--text-color-dark); /* Texto en negrita más oscuro */
+    }
+
+    /* Pequeño ajuste para subtítulos */
+    h3 {
+        color: var(--primary-color);
+        margin-top: 25px;
+        margin-bottom: 15px;
+        font-size: 1.5em;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .image-gallery .mockup-item {
+            max-width: 100%; /* En pantallas más pequeñas, siempre se apilan */
+        }
+    }
+</style>
 {% endblock %}

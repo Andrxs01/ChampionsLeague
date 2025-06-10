@@ -1,4 +1,3 @@
-<!-- templates/about_developer.html -->
 {% extends "base.html" %}
 
 {% block title %}Acerca del Desarrollador{% endblock %}
@@ -7,39 +6,94 @@
 <h1 class="main-title">👨‍💻 Acerca del Desarrollador 👩‍💻</h1>
 
 <section class="info-section">
-    <div style="text-align: center; margin-bottom: 30px;">
-        <img src="https://i.postimg.cc/FFG2814G/me.jpg" alt="[Image of Your Photo]" style="border-radius: 50%; width: 200px; height: 200px; object-fit: cover; border: 5px solid var(--accent-color); box-shadow: 0 0 15px rgba(0,0,0,0.3);">
+    <div class="developer-photo-container">
+        <img src="https://i.postimg.cc/FFG2814G/me.jpg" alt="Foto de perfil de Adrian Bohorquez" class="developer-photo">
     </div>
-    <h2>Información Personal:</h2>
-    <p>Este proyecto fue desarrollado por Adrian Bohorquez. Soy un entusiasta de la programación y del fútbol, y este proyecto es una muestra de mis habilidades en el desarrollo web full-stack.</p>
+    <h2>Información Personal</h2>
+    <p>Este proyecto fue desarrollado por <strong>Adrian Bohorquez</strong>, un apasionado del fútbol y la programación. Este trabajo es una demostración de mis habilidades en el desarrollo web *full-stack*, combinando mi amor por el deporte con la creación de soluciones tecnológicas.</p>
     <ul class="styled-list">
-        <li><strong>Nombre:</strong> Adrian Bohorquez </li>
+        <li><strong>Nombre:</strong> Adrian Bohorquez</li>
         <li><strong>Rol:</strong> Estudiante de Desarrollo de Software</li>
-        <li><strong>Contacto:</strong> https://github.com/Andrxs01 </li>
+        <li><strong>Contacto (GitHub):</strong> <a href="https://github.com/Andrxs01" target="_blank" rel="noopener noreferrer" class="text-link">Andrxs01 🔗</a></li>
     </ul>
 </section>
 
 <section class="info-section">
-    <h2>Filosofía de Desarrollo:</h2>
-    <p>Mi enfoque en este proyecto ha sido crear una aplicación que no solo sea funcional y robusta, sino también intuitiva y visualmente atractiva. He priorizado la claridad del código, la modularidad y la escalabilidad, utilizando las mejores prácticas en cada etapa del desarrollo.</p>
+    <h2>Filosofía de Desarrollo</h2>
+    <p>Mi enfoque ha sido construir una aplicación que no solo sea <strong>funcional y robusta</strong>, sino también <strong>intuitiva y visualmente atractiva</strong>, inspirada en la dinámica y emoción del fútbol. He priorizado la claridad del código, la modularidad y la escalabilidad, aplicando las mejores prácticas en cada etapa del desarrollo.</p>
     <ul class="styled-list">
-        <li><strong>Clean Code:</strong> Escribir código legible y fácil de mantener.</li>
+        <li><strong>Código Limpio:</strong> Escribir código legible y fácil de mantener.</li>
         <li><strong>Modularidad:</strong> Dividir el proyecto en componentes lógicos para una mejor organización.</li>
-        <li><strong>Experiencia de Usuario:</strong> Diseñar una interfaz que sea agradable y fácil de usar para el usuario final.</li>
-        <li><strong>Rendimiento:</strong> Optimizar la aplicación para una carga rápida y una respuesta eficiente.</li>
+        <li><strong>Experiencia de Usuario (UX):</strong> Diseñar una interfaz que sea agradable y fácil de usar, ofreciendo una navegación fluida como un buen pase en el campo.</li>
+        <li><strong>Rendimiento:</strong> Optimizar la aplicación para una carga rápida y una respuesta eficiente, ¡como un contraataque imparable!</li>
     </ul>
 </section>
 
 <section class="info-section">
-    <h2>Tecnologías Utilizadas:</h2>
-    <p>Las principales tecnologías y herramientas empleadas en este proyecto incluyen:</p>
+    <h2>Tecnologías Utilizadas</h2>
+    <p>Las herramientas y tecnologías clave que formaron la alineación de este proyecto incluyen:</p>
     <ul class="styled-list">
-        <li><strong>Backend:</strong> Python, FastAPI, SQLAlchemy</li>
-        <li><strong>Base de Datos:</strong> PostgreSQL (SQLite para desarrollo local)</li>
-        <li><strong>Frontend:</strong> HTML5, CSS3, Jinja2</li>
-        <li><strong>Despliegue:</strong> Render.com</li>
-        <li><strong>Control de Versiones:</strong> Git, GitHub</li>
+        <li><strong>Backend:</strong> Python 🐍, FastAPI, SQLAlchemy</li>
+        <li><strong>Base de Datos:</strong> PostgreSQL (SQLite para desarrollo local) 📊</li>
+        <li><strong>Frontend:</strong> HTML5, CSS3, Jinja2 ✨</li>
+        <li><strong>Despliegue:</strong> Render.com 🚀</li>
+        <li><strong>Control de Versiones:</strong> Git, GitHub 🐙</li>
         <li><strong>Herramientas Adicionales:</strong> Uvicorn, python-dotenv, Pydantic</li>
     </ul>
 </section>
+{% endblock %}
+
+{% block scripts_extra %}
+<style>
+    /* Estilos específicos para la sección "Acerca del Desarrollador" */
+    .developer-photo-container {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .developer-photo {
+        border-radius: 50%;
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border: 5px solid var(--accent-color);
+        box-shadow: var(--shadow-lg);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .developer-photo:hover {
+        transform: scale(1.05);
+    }
+
+    /* Asegura que los títulos de sección usen el estilo consistente */
+    .info-section h2 {
+        color: var(--primary-color);
+        border-bottom: 2px solid var(--accent-color);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        text-align: left; /* Alineación por defecto para títulos de sección */
+        font-size: 1.8em; /* Consistente con otros títulos de sección */
+    }
+
+    .styled-list li {
+        margin-bottom: 8px;
+        line-height: 1.5; /* Mejor legibilidad */
+        color: var(--text-color);
+    }
+
+    .styled-list li strong {
+        color: var(--text-color-dark); /* Negrita más oscura para mayor énfasis */
+    }
+
+    .text-link {
+        color: var(--accent-color); /* Color de acento para los enlaces */
+        text-decoration: none; /* Sin subrayado por defecto */
+        transition: color 0.2s ease-in-out;
+    }
+
+    .text-link:hover {
+        color: var(--primary-color); /* Cambia a color primario al pasar el ratón */
+        text-decoration: underline; /* Subrayado al pasar el ratón */
+    }
+</style>
 {% endblock %}

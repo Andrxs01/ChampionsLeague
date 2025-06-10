@@ -1,4 +1,3 @@
-<!-- templates/planning_phase.html -->
 {% extends "base.html" %}
 
 {% block title %}Fase de Planeación{% endblock %}
@@ -6,123 +5,123 @@
 {% block content %}
 <h1 class="main-title">🗺️ Fase de Planeación del Proyecto 🗺️</h1>
 
+<p class="section-description">
+    En esta etapa inicial, se definieron los requisitos funcionales, se diseñó el modelo de datos fundamental y se establecieron los objetivos clave para el desarrollo de la aplicación.
+</p>
+
 <section class="info-section">
-    <h2>📝 Casos de Uso:</h2>
+    <h2 class="section-title-with-border">📝 Casos de Uso (Funcionalidades Clave):</h2>
+    <p>La aplicación está diseñada para satisfacer las siguientes necesidades, tanto para usuarios generales como para administradores:</p>
     <ul class="styled-list">
-        <li>Como usuario, quiero ver una lista interactiva de todos los equipos registrados, con información clave y una imagen distintiva.</li>
-        <li>Como usuario, quiero ver una lista interactiva de todos los jugadores registrados, con su equipo, posición, nacionalidad y edad.</li>
-        <li>Como usuario, quiero ver un calendario y resultados de partidos, mostrando los equipos y el marcador.</li>
-        <li>Como usuario, quiero poder acceder a una página de detalles completa para cualquier equipo o jugador, mostrando toda su información relevante.</li>
-        <li>Como administrador, quiero tener formularios intuitivos para añadir nuevos equipos, jugadores y partidos a la base de datos.</li>
-        <li>Como administrador, quiero poder modificar fácilmente la información existente de equipos, jugadores y partidos a través de formularios de edición.</li>
-        <li>Como administrador, quiero la capacidad de "eliminar lógicamente" equipos o jugadores, manteniéndolos en la base de datos para historial pero ocultándolos de las vistas principales.</li>
-        <li>Como usuario, quiero una funcionalidad de búsqueda para encontrar rápidamente equipos, jugadores o partidos por nombre o características clave.</li>
-        <li>Como usuario, quiero acceder a secciones de documentación que detallen la planeación, el diseño, los objetivos y la información del desarrollador del proyecto.</li>
-        <li>Como usuario, quiero ver estadísticas clave de jugadores y equipos (goleadores, asistentes, equipos con más goles).</li>
-        <li>Como usuario, quiero poder ver un historial de los elementos (jugadores y equipos) que han sido eliminados lógicamente.</li>
+        <li>Como <strong>usuario</strong>, quiero ver una lista interactiva de todos los <strong>equipos registrados</strong>, incluyendo su información clave y logo distintivo.</li>
+        <li>Como <strong>usuario</strong>, quiero ver una lista interactiva de todos los <strong>jugadores registrados</strong>, detallando su equipo, posición, nacionalidad y edad.</li>
+        <li>Como <strong>usuario</strong>, quiero ver un <strong>calendario y resultados de partidos</strong>, mostrando claramente los equipos contendientes y el marcador final.</li>
+        <li>Como <strong>usuario</strong>, quiero poder acceder a una <strong>página de detalles completa</strong> para cualquier equipo o jugador, mostrando toda su información relevante y estadísticas individuales.</li>
+        <li>Como <strong>administrador</strong>, quiero tener <strong>formularios intuitivos</strong> para añadir nuevos equipos, jugadores y partidos a la base de datos de forma eficiente.</li>
+        <li>Como <strong>administrador</strong>, quiero poder <strong>modificar fácilmente la información existente</strong> de equipos, jugadores y partidos a través de formularios de edición pre-rellenados.</li>
+        <li>Como <strong>administrador</strong>, quiero la capacidad de "<strong>eliminar lógicamente</strong>" equipos, jugadores o partidos, manteniéndolos en la base de datos para fines históricos pero ocultándolos de las vistas principales.</li>
+        <li>Como <strong>usuario</strong>, quiero una funcionalidad de <strong>búsqueda robusta</strong> para encontrar rápidamente equipos, jugadores o partidos por nombre o características clave.</li>
+        <li>Como <strong>usuario</strong>, quiero acceder a <strong>secciones de documentación</strong> claras y completas que detallen la planeación, el diseño, los objetivos y la información del desarrollador del proyecto.</li>
+        <li>Como <strong>usuario</strong>, quiero ver <strong>estadísticas clave</strong> de jugadores (máximos goleadores, asistentes) y equipos (equipos con más goles) para un análisis rápido del torneo.</li>
+        <li>Como <strong>usuario</strong>, quiero poder ver un <strong>historial</strong> de los elementos (jugadores, equipos y partidos) que han sido eliminados lógicamente, con la posibilidad de revertir la eliminación (si se implementa la funcionalidad de recuperación).</li>
     </ul>
 </section>
 
 <section class="info-section">
-    <h2>📊 Modelo de Datos (Diagrama de Clases):</h2>
-    <p>El corazón de la aplicación se basa en un modelo de datos relacional simple pero efectivo, diseñado para capturar la esencia de la Champions League 2017/18. Las tres entidades centrales son `Equipo`, `Jugador` y `Partido`, interconectadas para reflejar la estructura del fútbol.</p>
-    <div class="diagram-container" style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
-        <!-- Diagrama de Clases Conceptual (SVG inline para simplicidad) -->
-        <svg width="100%" height="450" viewBox="0 0 900 450" xmlns="http://www.w3.org/2000/svg" style="max-width: 900px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-            <defs>
-                <style>
-                    .cls-1 { fill: #e0e5ec; stroke: #a3b1c6; stroke-width: 2px; }
-                    .cls-2 { font-family: 'Inter', sans-serif; font-size: 18px; fill: var(--primary-color); font-weight: bold; }
-                    .cls-3 { font-family: 'Inter', sans-serif; font-size: 14px; fill: #555; }
-                    .cls-4 { stroke: #333; stroke-width: 1.5px; fill: none; marker-end: url(#arrow); }
-                    .cls-5 { font-family: 'Inter', sans-serif; font-size: 12px; fill: #777; }
-                </style>
-                <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
-                    <path d="M0,0 L10,5 L0,10 Z" fill="#333" />
-                </marker>
-            </defs>
-            <!-- Equipo Class -->
-            <rect x="50" y="50" width="250" height="200" class="cls-1" rx="10" ry="10"/>
-            <text x="175" y="75" text-anchor="middle" class="cls-2">Equipo</text>
-            <line x1="50" y1="90" x2="300" y2="90" stroke="#a3b1c6" stroke-width="1"/>
-            <text x="60" y="115" class="cls-3">- id: int (PK)</text>
-            <text x="60" y="135" class="cls-3">- nombre: str</text>
-            <text x="60" y="155" class="cls-3">- pais: str</text>
-            <text x="60" y="175" class="cls-3">- grupo: str</text>
-            <text x="60" y="195" class="cls-3">- imagen_url: str</text>
-            <text x="60" y="215" class="cls-3">- eliminado_logico: bool</text>
-            <text x="60" y="235" class="cls-3">+ jugadores: List&lt;Jugador&gt;</text>
-            <text x="60" y="255" class="cls-3">+ partidos_local: List&lt;Partido&gt;</text>
-            <text x="60" y="275" class="cls-3">+ partidos_visitante: List&lt;Partido&gt;</text>
-
-
-            <!-- Jugador Class -->
-            <rect x="350" y="50" width="250" height="180" class="cls-1" rx="10" ry="10"/>
-            <text x="475" y="75" text-anchor="middle" class="cls-2">Jugador</text>
-            <line x1="350" y1="90" x2="600" y2="90" stroke="#a3b1c6" stroke-width="1"/>
-            <text x="360" y="115" class="cls-3">- id: int (PK)</text>
-            <text x="360" y="135" class="cls-3">- nombre: str</text>
-            <text x="360" y="155" class="cls-3">- equipo_id: int (FK)</text>
-            <text x="360" y="175" class="cls-3">- posicion: str</text>
-            <text x="360" y="195" class="cls-3">- edad: int</text>
-            <text x="360" y="215" class="cls-3">- nacionalidad: str</text>
-            <text x="360" y="235" class="cls-3">- goles: int</text>
-            <text x="360" y="255" class="cls-3">- asistencias: int</text>
-            <text x="360" y="275" class="cls-3">- eliminado_logico: bool</text>
-            <text x="360" y="295" class="cls-3">+ equipo_obj: Equipo</text>
-
-
-            <!-- Partido Class -->
-            <rect x="650" y="50" width="250" height="200" class="cls-1" rx="10" ry="10"/>
-            <text x="775" y="75" text-anchor="middle" class="cls-2">Partido</text>
-            <line x1="650" y1="90" x2="900" y2="90" stroke="#a3b1c6" stroke-width="1"/>
-            <text x="660" y="115" class="cls-3">- id: int (PK)</text>
-            <text x="660" y="135" class="cls-3">- equipo_local_id: int (FK)</text>
-            <text x="660" y="155" class="cls-3">- equipo_visitante_id: int (FK)</text>
-            <text x="660" y="175" class="cls-3">- goles_local: int</text>
-            <text x="660" y="195" class="cls-3">- goles_visitante: int</text>
-            <text x="660" y="215" class="cls-3">- fecha: Date</text>
-            <text x="660" y="235" class="cls-3">- fase: str</text>
-            <text x="660" y="255" class="cls-3">- eliminado_logico: bool</text>
-            <text x="660" y="275" class="cls-3">+ equipo_local_obj: Equipo</text>
-            <text x="660" y="295" class="cls-3">+ equipo_visitante_obj: Equipo</text>
-
-            <!-- Relationships -->
-            <!-- Equipo to Jugador (One-to-Many) -->
-            <line x1="300" y1="175" x2="350" y2="175" class="cls-4"/>
-            <text x="310" y="165" class="cls-5">1</text>
-            <text x="340" y="165" class="cls-5">*</text>
-
-            <!-- Equipo to Partido (Local) -->
-            <line x1="300" y1="200" x2="650" y2="145" class="cls-4"/>
-            <text x="370" y="190" class="cls-5">1</text>
-            <text x="620" y="140" class="cls-5">*</text>
-            <text x="490" y="160" class="cls-5">local</text>
-
-            <!-- Equipo to Partido (Visitante) -->
-            <line x1="300" y1="220" x2="650" y2="165" class="cls-4"/>
-            <text x="370" y="210" class="cls-5">1</text>
-            <text x="620" y="160" class="cls-5">*</text>
-            <text x="490" y="180" class="cls-5">visitante</text>
-
-        </svg>
-        <p class="image-caption">[Image of Class Diagram]</p>
+    <h2 class="section-title-with-border">📊 Modelo de Datos (Diagrama Conceptual de Entidad-Relación):</h2>
+    <p>El corazón de la aplicación se basa en un modelo de datos relacional simple pero efectivo, diseñado para capturar la esencia de la Champions League 2017/18. Las tres entidades centrales son `Equipo`, `Jugador` y `Partido`, interconectadas para reflejar la estructura y la dinámica de un torneo de fútbol.</p>
+    <div class="image-gallery">
+        <div class="mockup-item">
+            <img src="https://i.postimg.cc/GtW5BnFg/diagrama-relacion.jpg" alt="Diagrama de Entidad-Relación" class="responsive-image">
+        </div>
     </div>
-    <p>Esta estructura permite consultas eficientes y una clara representación de los datos.</p>
+    <p>Esta estructura garantiza la <strong>integridad de los datos</strong> y facilita la gestión de las relaciones complejas inherentes a un sistema de información de fútbol, permitiendo <strong>consultas eficientes</strong> y una clara representación.</p>
 </section>
 
 <section class="info-section">
-    <h2>🎯 Objetivos Propuestos y Fuente de Datos:</h2>
+    <h2 class="section-title-with-border">🎯 Objetivos Propuestos y Fuente de Datos:</h2>
+    <p>El desarrollo de esta aplicación se enfoca en proporcionar una experiencia de usuario fluida y un backend robusto para la gestión de datos.</p>
     <ul class="styled-list">
-        <li><strong>Objetivo Principal:</strong> Desarrollar una aplicación web robusta y visualmente atractiva que sirva como un centro de información y gestión para los datos de la Champions League 2017/18.</li>
-        <li><strong>Tecnologías Clave:</strong>
+        <li><strong>Objetivo Principal:</strong> Desarrollar una aplicación web <strong>full-stack robusta y visualmente atractiva</strong> que funcione como un centro integral de información y gestión para los datos de la Champions League 2017/18. Se busca ofrecer una interfaz intuitiva para la exploración y administración de equipos, jugadores y partidos.</li>
+        <li><strong>Tecnologías Clave Seleccionadas:</strong>
             <ul>
-                <li>Backend: FastAPI (Python) para la creación de APIs RESTful.</li>
-                <li>Base de Datos: PostgreSQL con SQLAlchemy como ORM para la persistencia de datos.</li>
-                <li>Frontend: HTML5 y CSS3 para la interfaz de usuario, con Jinja2 para la renderización de plantillas dinámicas.</li>
+                <li><strong>Backend:</strong> Python 🐍 con <strong>FastAPI</strong> para la creación de APIs RESTful de alto rendimiento y fácil mantenimiento.</li>
+                <li><strong>Base de Datos:</strong> <strong>PostgreSQL</strong> (con SQLite para el desarrollo local) gestionada mediante <strong>SQLAlchemy</strong> como ORM, garantizando una persistencia de datos fiable y escalable.</li>
+                <li><strong>Frontend:</strong> <strong>HTML5 y CSS3</strong> para una interfaz de usuario moderna y adaptable, complementada con <strong>Jinja2</strong> para la renderización dinámica de plantillas.</li>
             </ul>
         </li>
-        <li><strong>Fuente de Datos:</strong> Para la fase inicial de prueba y desarrollo, los datos de equipos, jugadores y partidos se han poblado manualmente en el script `populate_db.py` utilizando información real de la temporada 2017/18 de la Champions League. Las URLs de las imágenes de los equipos son marcadores de posición de `placehold.co` para simplificar la gestión y asegurar la carga. Se prevé la posibilidad de integrar fuentes de datos externas (CSV, JSON) en futuras iteraciones para una populación masiva.</li>
+        <li><strong>Fuente de Datos Inicial:</strong> Para la fase inicial de desarrollo y prueba, los datos de equipos, jugadores y partidos han sido <strong>poblados manualmente</strong> a través del script `populate_db.py`, utilizando información real de la temporada 2017/18 de la Champions League. Las URLs de las imágenes de los equipos son marcadores de posición (`/static/images/placeholder_team.png`) para simplificar la gestión de activos y asegurar la carga visual. Se contempla la posibilidad de <strong>integrar fuentes de datos externas</strong> (CSV, JSON) en futuras iteraciones para una populación masiva y una mayor dinamización del contenido.</li>
     </ul>
 </section>
+
+<style>
+    /* Estilos específicos para esta página de planeación */
+    .section-description {
+        text-align: center;
+        font-size: 1.1em;
+        color: var(--text-color-light);
+        margin-bottom: 40px;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.6;
+    }
+
+    .info-section h2 { /* Ya estilizado por .section-title-with-border */
+        /* font-size: 1.8em;
+        text-align: left;
+        border-bottom: 2px solid var(--accent-color);
+        padding-bottom: 10px;
+        margin-bottom: 25px;
+        color: var(--primary-color); */
+    }
+
+    .styled-list li {
+        margin-bottom: 10px;
+        line-height: 1.5;
+        color: var(--text-color);
+    }
+    .styled-list li strong {
+        color: var(--text-color-dark);
+    }
+    .styled-list ul { /* Para listas anidadas */
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-left: 20px; /* Indentación para sub-listas */
+    }
+    .styled-list ul li {
+        margin-bottom: 5px;
+    }
+
+    /* Estilos para el contenedor del diagrama SVG */
+    .diagram-container {
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        padding: 20px;
+        background-color: var(--background-light); /* Fondo para el diagrama */
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-md);
+        overflow-x: auto; /* Permite scroll horizontal si el SVG es muy ancho */
+    }
+
+    /* Estilos para el SVG del diagrama de clases */
+    .class-diagram-svg {
+        background-color: var(--background-color); /* Fondo del SVG */
+        border-radius: var(--border-radius-sm);
+        box-shadow: var(--shadow-sm);
+        max-width: 100%; /* Asegura que el SVG sea responsivo */
+        height: auto; /* Mantiene la proporción */
+        display: block; /* Elimina espacio extra debajo del SVG */
+        margin: 0 auto; /* Centra el SVG */
+    }
+
+    /* Estilos para la leyenda del diagrama */
+    .image-caption {
+        font-style: italic;
+        color: var(--text-color-light);
+        margin-top: 15px;
+        font-size: 0.95em;
+    }
+</style>
 {% endblock %}
